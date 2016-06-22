@@ -1,0 +1,12 @@
+@(membre:Membre)(formPublication: Form[Publication])(formCommentaire: Form[Commentaire])(publications:List[Publication])
+@layout(membre){
+
+}{
+    <div id="pub-recharge">
+        @publication.liste(membre)(formPublication)(formCommentaire)(publications)
+    </div>
+}{
+
+}{
+
+}

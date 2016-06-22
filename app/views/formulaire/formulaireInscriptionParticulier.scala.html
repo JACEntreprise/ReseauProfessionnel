@@ -1,0 +1,69 @@
+@(formRegisterParticulier: Form[FormulaireInscriptionParticulier])
+<div id="inscriptionParticulierModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <div class="icon-connexion-form">
+                    <span class="glyphicon glyphicon-user icon-content"></span>
+                    <h4 class="modal-title">Inscription</h4>
+                </div>
+            </div>
+            <div class="modal-body" ng-app="sample">
+                @helper.form(routes.AuthController.inscriptionParticulier(), 'class -> "form-horizontal form-conn-ins",'role->"form",'name->"registerFormParticulier") {
+                    <div class="form-group">
+                        <div class="col-sm-11">
+                            <input type="text" class="form-control" name="nom" placeholder="Entrer votre nom" value='@formRegisterParticulier("particulier.nom").value' required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-11">
+                            <input type="text" class="form-control" name="prenom" placeholder="Entrer votre prenom" value='@formRegisterParticulier("particulier.prenom").value' required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-11">
+                            <input type="email" class="form-control" name="email" placeholder="Entrer votre email" value='@formRegisterParticulier("email").value' required>
+                        </div>
+                        @if(formRegisterParticulier.hasErrors()) {
+                            @for(error <- formRegisterParticulier("email").errors) {
+                                <a href="#" data-toggle="tooltip" data-placement="right" title="@Messages(error.messages, error.arguments.toArray: _*)"><span class="error-form badge">e</span></a>
+                            }
+                        }
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-11">
+                            <input type="password" class="form-control" name="motDePasse" placeholder="Entrer votre mot de passe" value='@formRegisterParticulier("motDePasse").value' required>
+                        </div>
+                        @if(formRegisterParticulier.hasErrors()) {
+                            @for(error <- formRegisterParticulier("motDePasse").errors) {
+                                <a href="#" data-toggle="tooltip" data-placement="right" title="@Messages(error.messages, error.arguments.toArray: _*)"><span class="error-form badge">e</span></a>
+                            }
+                        }
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-11">
+                            <input type="password" class="form-control" name="confirmation" placeholder="Confirmer" value='@formRegisterParticulier("confirmation").value' required>
+                        </div>
+                        @if(formRegisterParticulier.hasErrors()) {
+                            @for(error <- formRegisterParticulier("confirmation").errors) {
+                                <a href="#" data-toggle="tooltip" data-placement="right" title="@Messages(error.messages, error.arguments.toArray: _*)"><span class="error-form badge">e</span></a>
+                            }
+                        }
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-11">
+                            <input type="submit" class="btn btn-primary form-control" value="S'inscrire">
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+    </div>
+</div>
+<script>
+    $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>

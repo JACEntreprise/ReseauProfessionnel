@@ -1,0 +1,59 @@
+@(formRegisterEntreprise: Form[FormulaireInscriptionEntreprise])
+<div id="inscriptionEntrepriseModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <div class="icon-connexion-form">
+                    <span class="glyphicon glyphicon-user icon-content"></span>
+                    <h4 class="modal-title">Inscription</h4>
+                </div>
+            </div>
+            <div class="modal-body">
+                @helper.form(routes.AuthController.inscriptionEntreprise(), 'class -> "form-horizontal form-conn-ins",'role->"form") {
+                <div class="form-group">
+                    <div class="col-sm-11">
+                        <input type="text" class="form-control" name="raisonSocial" placeholder="Entrer votre nom" value='@formRegisterEntreprise("entreprise.raisonSocial").value' required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-11">
+                        <input type="text" class="form-control" name="email" placeholder="Entrer votre email" value='@formRegisterEntreprise("email").value' required>
+                    </div>
+                    @if(formRegisterEntreprise.hasErrors()) {
+                        @for(error <- formRegisterEntreprise("email").errors) {
+                            <a href="#" data-toggle="tooltip" data-placement="right" title="@Messages(error.messages, error.arguments.toArray: _*)"><span class="error-form badge">e</span></a>
+                        }
+                    }
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-11">
+                        <input type="password" class="form-control" name="motDePasse" placeholder="Entrer votre mot de passe" value='@formRegisterEntreprise("motDePasse").value' required>
+                    </div>
+                    @if(formRegisterEntreprise.hasErrors()) {
+                        @for(error <- formRegisterEntreprise("motDePasse").errors) {
+                            <a href="#" data-toggle="tooltip" data-placement="right" title="@Messages(error.messages, error.arguments.toArray: _*)"><span class="error-form badge">e</span></a>
+                        }
+                    }
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-11">
+                        <input type="password" class="form-control" name="confirmation" placeholder="Confirmer" value='@formRegisterEntreprise("confirmation").value' required>
+                    </div>
+                    @if(formRegisterEntreprise.hasErrors()) {
+                        @for(error <- formRegisterEntreprise("confirmation").errors) {
+                        <a href="#" data-toggle="tooltip" data-placement="right" title="@Messages(error.messages, error.arguments.toArray: _*)"><span class="error-form badge">e</span></a>
+                        }
+                    }
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-11">
+                        <input type="submit" class="btn btn-primary form-control" value="S'inscrire">
+                    </div>
+                </div>
+                }
+            </div>
+        </div>
+
+    </div>
+</div>

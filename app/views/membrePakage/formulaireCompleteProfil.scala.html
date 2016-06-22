@@ -1,0 +1,77 @@
+@(membre:Membre)
+@if(membre.getEntreprise()==null){
+    <div class="form-complete-profil">
+        <form action="" method="post" class="form-horizontal form-complet" role="form">
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <input type="text" id="dateDeNaissance" class="form-control" name="dateDeNaissance" placeholder="Entrer votre date de naissance" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <input type="text" id="lieuDeNaissance" class="form-control" name="lieuDeNaissance" placeholder="Veuillez renseigner votre lieu de naissance" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <input type="text" id="telephone" class="form-control" name="telephone" placeholder="Entrer votre numero de telephone" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <input type="text" id="adresse" class="form-control" name="adresse" placeholder="Veuillez saisir votre adresse">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <input type="url" id="siteweb" class="form-control" name="siteweb" placeholder="Entrer l'url de votre site web">
+                </div>
+            </div>
+        </form>
+
+    </div>
+    <div class="boutton-action">
+        <button class="btn btn-primary right">Ignorer</button>
+        <button class="btn btn-primary right">Continuer</button>
+    </div>
+}else{
+    <div class="form-complete-profil">
+        <form action="" method="post" class="form-horizontal form-complet" role="form">
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <input type="text" id="domaine" class="form-control" name="domaine" placeholder="Entrer votre nom de domaine" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <input type="text" id="dateCreation" class="form-control" name="dateCreation" placeholder="date de creation de votre entreprise">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <input type="text" id="telephone" class="form-control" name="telephone" placeholder="Entrer votre numero de telephone">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <input type="text" id="adresse" class="form-control" name="adresse" placeholder="Veuillez saisir votre adresse">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <input type="url" id="siteweb" class="form-control" name="siteweb" placeholder="Entrer l'url de votre site web">
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="boutton-action">
+        <button class="btn btn-primary right">Ignorer</button>
+        <button class="btn btn-primary right">Continuer</button>
+    </div>
+}

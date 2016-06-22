@@ -1,0 +1,28 @@
+@(membre: Membre)
+@layout(membre){
+
+}{
+    <div id="pub-recharge">
+        <div class="content-complete-profil petit-bloc">
+
+            <div class="bonjour-membre">
+                <span class="glyphicon glyphicon-hand-right profil-photo"></span>
+                <span>Bienvenu
+                    @if(membre.getEntreprise()==null){
+                        @membre.getParticulier().getPrenom() @membre.getParticulier().getNom()
+                    }else{
+                        @membre.getEntreprise().getRaisonSocial()
+                    }
+                    , veuillez completer votre profil
+                </span>
+            </div>
+
+            @membrePakage.formulaireCompleteProfil(membre)
+        </div>
+
+    </div>
+}{
+
+}{
+
+}

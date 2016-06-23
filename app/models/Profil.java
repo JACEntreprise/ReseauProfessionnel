@@ -70,6 +70,71 @@ public class Profil extends Model {
     public Profil() {
     }
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public Membre getMembre() {
+        return membre;
+    }
+
+    public void setMembre(Membre membre) {
+        this.membre = membre;
+    }
+
+    public Image getImage() {
+        return image;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
+    }
+
+    public List<Competence> getCompetences() {
+        return competences;
+    }
+
+    public void setCompetences(List<Competence> competences) {
+        this.competences = competences;
+    }
+
+    public List<Experience> getExperiences() {
+        return experiences;
+    }
+
+    public void setExperiences(List<Experience> experiences) {
+        this.experiences = experiences;
+    }
+
+    public List<Formation> getFormations() {
+        return formations;
+    }
+
+    public void setFormations(List<Formation> formations) {
+        this.formations = formations;
+    }
+
+    public List<Langue> getLangues() {
+        return langues;
+    }
+
+    public void setLangues(List<Langue> langues) {
+        this.langues = langues;
+    }
+
+    public List<Loisir> getLoisir() {
+        return loisir;
+    }
+
+    public void setLoisir(List<Loisir> loisir) {
+        this.loisir = loisir;
+    }
+
+
     /**
      * finder permettant d'accedant aux donnees de l'entite
      */

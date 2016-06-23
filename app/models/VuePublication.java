@@ -38,7 +38,39 @@ public class VuePublication extends Model {
         this.vue=false;
     }
 
-    public static void CreerNewVuePulication(Membre m,Publication publication){
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public Membre getMembre() {
+        return membre;
+    }
+
+    public void setMembre(Membre membre) {
+        this.membre = membre;
+    }
+
+    public Publication getPublication() {
+        return publication;
+    }
+
+    public void setPublication(Publication publication) {
+        this.publication = publication;
+    }
+
+    public boolean isVue() {
+        return vue;
+    }
+
+    public void setVue(boolean vue) {
+        this.vue = vue;
+    }
+
+    public static void CreerNewVuePulication(Membre m, Publication publication){
         VuePublication vp= new VuePublication();
         vp.membre=m;
         vp.publication=publication;

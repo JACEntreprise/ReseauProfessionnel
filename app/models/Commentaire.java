@@ -46,5 +46,46 @@ public class Commentaire extends Model {
 
     public Commentaire() {
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getContenu() {
+        return contenu;
+    }
+
+    public void setContenu(String contenu) {
+        this.contenu = contenu;
+    }
+
+    public Publication getPublication() {
+        return publication;
+    }
+
+    public void setPublication(Publication publication) {
+        this.publication = publication;
+    }
+
+    public Membre getMembre() {
+        return membre;
+    }
+
+    public void setMembre(Membre membre) {
+        this.membre = membre;
+    }
+
+    public List<VueCommentaire> getVueCommentaires() {
+        return vueCommentaires;
+    }
+
+    public void setVueCommentaires(List<VueCommentaire> vueCommentaires) {
+        this.vueCommentaires = vueCommentaires;
+    }
+
     public static Model.Finder<Long, Commentaire> find = new Model.Finder<Long,Commentaire>(Commentaire.class);
 }

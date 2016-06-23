@@ -47,6 +47,46 @@ public class Entreprise extends Model{
     public Entreprise() {
     }
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getRaisonSocial() {
+        return raisonSocial;
+    }
+
+    public void setRaisonSocial(String raisonSocial) {
+        this.raisonSocial = raisonSocial;
+    }
+
+    public Date getDateCreation() {
+        return dateCreation;
+    }
+
+    public void setDateCreation(Date dateCreation) {
+        this.dateCreation = dateCreation;
+    }
+
+    public String getDomaine() {
+        return domaine;
+    }
+
+    public void setDomaine(String domaine) {
+        this.domaine = domaine;
+    }
+
+    public Membre getMembre() {
+        return membre;
+    }
+
+    public void setMembre(Membre membre) {
+        this.membre = membre;
+    }
+
     /**
      * finder permettant d'accedant aux donnees de l'entite
      */

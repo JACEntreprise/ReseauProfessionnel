@@ -52,6 +52,46 @@ public class Groupe extends Model {
     public Groupe() {
     }
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getNomGroupe() {
+        return nomGroupe;
+    }
+
+    public void setNomGroupe(String nomGroupe) {
+        this.nomGroupe = nomGroupe;
+    }
+
+    public Date getDateCreation() {
+        return dateCreation;
+    }
+
+    public void setDateCreation(Date dateCreation) {
+        this.dateCreation = dateCreation;
+    }
+
+    public List<Membre> getMembres() {
+        return membres;
+    }
+
+    public void setMembres(List<Membre> membres) {
+        this.membres = membres;
+    }
+
+    public Membre getCreateur() {
+        return createur;
+    }
+
+    public void setCreateur(Membre createur) {
+        this.createur = createur;
+    }
+
     /**
      * finder permettant d'accedant aux donnees de l'entite
      */

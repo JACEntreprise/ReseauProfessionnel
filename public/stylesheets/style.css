@@ -468,8 +468,21 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
 /* line 349, ../scss/layout/_accueil.scss */
 .content-complete-profil .form-complete-profil .form-group {
   margin-bottom: 40px !important;
+  overflow: hidden;
 }
-/* line 353, ../scss/layout/_accueil.scss */
+/* line 352, ../scss/layout/_accueil.scss */
+.content-complete-profil .form-complete-profil .form-group select {
+  margin-top: 15px;
+}
+/* line 355, ../scss/layout/_accueil.scss */
+.content-complete-profil .form-complete-profil .form-group .col-sm-4 {
+  padding-right: 0;
+}
+/* line 357, ../scss/layout/_accueil.scss */
+.content-complete-profil .form-complete-profil .form-group .col-sm-4:last-child {
+  padding-right: 15px !important;
+}
+/* line 363, ../scss/layout/_accueil.scss */
 .content-complete-profil .boutton-action {
   border-top: 1px solid #d4d4d4;
   padding-right: 5%;
@@ -477,14 +490,14 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   padding-bottom: 15px;
   text-align: right;
 }
-/* line 359, ../scss/layout/_accueil.scss */
+/* line 369, ../scss/layout/_accueil.scss */
 .content-complete-profil .boutton-action .btn.btn-primary.right {
   margin-right: 25px;
   padding-left: 25px;
   padding-right: 25px;
 }
 
-/* line 366, ../scss/layout/_accueil.scss */
+/* line 376, ../scss/layout/_accueil.scss */
 .profil-photo {
   background: #fff none repeat scroll 0 0;
   border-radius: 50%;
@@ -493,7 +506,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   padding: 20px;
 }
 
-/* line 373, ../scss/layout/_accueil.scss */
+/* line 383, ../scss/layout/_accueil.scss */
 .petit-bloc {
   background: #fff none repeat scroll 0 0;
   margin: 10px 0;

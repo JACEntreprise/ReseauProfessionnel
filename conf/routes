@@ -5,16 +5,31 @@
 # Page d'accueil de l'appication
 GET     /                                           controllers.HomeController.index
 
+#routes pour inscription particulier et entreprise
 POST    /inscriptionParticulier                     controllers.AuthController.inscriptionParticulier()
 POST    /inscriptionEntreprise                      controllers.AuthController.inscriptionEntreprise()
 
+#routes connexion et deconnexion
 POST    /connexion                                  controllers.AuthController.authenticate()
 GET     /deconnexion                                controllers.AuthController.deconnexion()
+
+#route page personnelle
 GET     /accueil                                    controllers.ApplicationController.accueil()
+
+#route pour recharger automatiquement les publications non lues
 GET     /rechargePub                                controllers.ApplicationController.rechargePub()
+
+#route pour completer le profil
 GET     /profilComplet                              controllers.ApplicationController.completeProfil()
+
+
+#route por parcourir l'image de profil
 POST    /upload                                     controllers.ApplicationController.upload()
+
+#route pour partager une nouvelle
 POST    /nouvelle                                   controllers.PublicationController.nouvelle()
+
+#route pour valider un commentaire sur une publication
 POST    /commentaire/publication/:id                controllers.PublicationController.commentaire(id:Long)
 
 # Map static resources from the /public folder to the /assets URL path

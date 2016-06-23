@@ -1,10 +1,32 @@
 @(membre:Membre)
 @if(membre.getEntreprise()==null){
     <div class="form-complete-profil">
-        <form action="" method="post" class="form-horizontal form-complet" role="form">
+        <form action="" method="post" class="form-complet" role="form">
             <div class="form-group">
-                <div class="col-sm-12">
-                    <input type="text" id="dateDeNaissance" class="form-control" name="dateDeNaissance" placeholder="Entrer votre date de naissance" required>
+                <label for="jour" class="col-sm-12 control-label">Date de naissance :</label>
+                <div class="col-sm-4">
+                    <select name="jour" id="jour" class="form-control">
+                        <option value="jour">jour</option>
+                        @for(i<-1 to 31){
+                            <option value="@i">@i</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-sm-4">
+                    <select name="moi" id="moi" class="form-control">
+                        <option value="moi">moi</option>
+                        @for(i<-1 to 12){
+                            <option value="@i">@i</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-sm-4">
+                    <select name="annee" id="annee" class="form-control">
+                        <option value="annee">annee</option>
+                        @for(i<-1960 to 2015){
+                            <option value="@i">@i</option>
+                        }
+                    </select>
                 </div>
             </div>
             <div class="form-group">

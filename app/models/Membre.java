@@ -4,9 +4,9 @@ import java.util.*;
 import javax.persistence.*;
 
 import com.avaje.ebean.Model;
-import play.data.format.*;
 import play.data.validation.*;
 import org.mindrot.jbcrypt.BCrypt;
+import repository.MembreRepository;
 
 
 /**
@@ -71,6 +71,11 @@ public class Membre extends Model {
     @OneToOne(mappedBy = "membre")
     public Entreprise entreprise;
 
+    /**
+     * Relation d'héritage entre Membe et Administrateur
+     */
+    @OneToOne(mappedBy = "membre", cascade = CascadeType.ALL)
+    public Administrateur administrateur;
 
     /**
      * Relation entre Membre et Profil
@@ -243,4 +248,17 @@ public class Membre extends Model {
      * finder permettant d'accedant aux donnees de l'entite
      */
     public static Finder<String, Membre> find = new Finder<String,Membre>(Membre.class);
+
+    /**
+     * ajouter un membre dans la base de données
+     */
+    public void ajouter(){
+        MembreRepository repository = MembreRepository.instance;
+        motDePasse = repository.hash(motDePasse);
+        salt = repository.getSalt();
+        /**
+         * On enregistre ce membre dans la base
+         */
+        this.save();
+    }
 }

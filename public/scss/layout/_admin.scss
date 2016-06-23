@@ -1,0 +1,27 @@
+#contenu-principal{
+    position:relative;
+}
+
+#connexionAdmin {
+    border: 1px solid #eee;
+    left: 36%;
+    padding-bottom: 1em;
+    padding-top: 1em;
+    position: fixed;
+    top: 95px;
+    width: 350px;
+    background:#eee;
+}
+#fond_transparent {
+    background: black none repeat scroll 0 0;
+    bottom: 0;
+    left: 0;
+    opacity: 0.5;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.error{
+    color:#ff0000;
+}

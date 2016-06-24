@@ -38,5 +38,4 @@ public class Administrateur extends Model{
         dateCreation = new Date();//la date systme
     }
 
-
 }

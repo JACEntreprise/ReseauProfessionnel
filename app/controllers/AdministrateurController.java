@@ -76,7 +76,7 @@ public class AdministrateurController extends Controller {
      * fonction qui vérifie s'il existe un admin dans l'application
      * crée un admin par défaut s'il n'existe pas
      */
-    public void defaultAdmin(){
+    public static void defaultAdmin(){
         if(!adminExist()){//il n'existe pas d'administrateur, on ajoute l'admin par défaut
             Administrateur admin = new Administrateur();
             admin.prenom = "Admin";
@@ -94,7 +94,8 @@ public class AdministrateurController extends Controller {
      * vérifie s'il existe un administrateur dans la base de données
      * @return
      */
-    public boolean adminExist(){
+    public static boolean adminExist(){
+
         List<Administrateur> listAdmins = Administrateur.find.all();
         if(listAdmins==null){
             return false;

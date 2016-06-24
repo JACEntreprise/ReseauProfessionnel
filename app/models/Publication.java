@@ -72,6 +72,70 @@ public class Publication extends Model{
     public Publication() {
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getTitre() {
+        return titre;
+    }
+
+    public void setTitre(String titre) {
+        this.titre = titre;
+    }
+
+    public String getContenu() {
+        return contenu;
+    }
+
+    public void setContenu(String contenu) {
+        this.contenu = contenu;
+    }
+
+    public Date getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(Date dueDate) {
+        this.dueDate = dueDate;
+    }
+
+    public String getUrlImage() {
+        return urlImage;
+    }
+
+    public void setUrlImage(String urlImage) {
+        this.urlImage = urlImage;
+    }
+
+    public List<Commentaire> getCommentaires() {
+        return commentaires;
+    }
+
+    public void setCommentaires(List<Commentaire> commentaires) {
+        this.commentaires = commentaires;
+    }
+
+    public Membre getMembre() {
+        return membre;
+    }
+
+    public void setMembre(Membre membre) {
+        this.membre = membre;
+    }
+
+    public List<VuePublication> getVuePublications() {
+        return vuePublications;
+    }
+
+    public void setVuePublications(List<VuePublication> vuePublications) {
+        this.vuePublications = vuePublications;
+    }
+
     /**
      * Publications non lues par un membre
      * @param m
@@ -158,6 +222,8 @@ public class Publication extends Model{
         vp.vue=true;
         vp.update();
     }
+
+
     /**
      * finder permettant d'accedant aux donnees de l'entite
      */

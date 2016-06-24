@@ -244,6 +244,174 @@ public class Membre extends Model {
     public Membre() {
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getMotDePasse() {
+        return motDePasse;
+    }
+
+    public void setMotDePasse(String motDePasse) {
+        this.motDePasse = motDePasse;
+    }
+
+    public String getAdresse() {
+        return adresse;
+    }
+
+    public void setAdresse(String adresse) {
+        this.adresse = adresse;
+    }
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
+
+    public String getSiteweb() {
+        return siteweb;
+    }
+
+    public void setSiteweb(String siteweb) {
+        this.siteweb = siteweb;
+    }
+
+    public int getEtat() {
+        return etat;
+    }
+
+    public void setEtat(int etat) {
+        this.etat = etat;
+    }
+
+    public Particulier getParticulier() {
+        return particulier;
+    }
+
+    public void setParticulier(Particulier particulier) {
+        this.particulier = particulier;
+    }
+
+    public Entreprise getEntreprise() {
+        return entreprise;
+    }
+
+    public void setEntreprise(Entreprise entreprise) {
+        this.entreprise = entreprise;
+    }
+
+    public Profil getProfil() {
+        return profil;
+    }
+
+    public void setProfil(Profil profil) {
+        this.profil = profil;
+    }
+
+    public List<Message> getMessagesEpediteurs() {
+        return messagesEpediteurs;
+    }
+
+    public void setMessagesEpediteurs(List<Message> messagesEpediteurs) {
+        this.messagesEpediteurs = messagesEpediteurs;
+    }
+
+    public List<Message> getMessagesDestinataires() {
+        return messagesDestinataires;
+    }
+
+    public void setMessagesDestinataires(List<Message> messagesDestinataires) {
+        this.messagesDestinataires = messagesDestinataires;
+    }
+
+    public List<Image> getImages() {
+        return images;
+    }
+
+    public void setImages(List<Image> images) {
+        this.images = images;
+    }
+
+    public List<Groupe> getGroupeAppartenances() {
+        return groupeAppartenances;
+    }
+
+    public void setGroupeAppartenances(List<Groupe> groupeAppartenances) {
+        this.groupeAppartenances = groupeAppartenances;
+    }
+
+    public List<Groupe> getGroupes() {
+        return groupes;
+    }
+
+    public void setGroupes(List<Groupe> groupes) {
+        this.groupes = groupes;
+    }
+
+    public List<Amitie> getAmities() {
+        return amities;
+    }
+
+    public void setAmities(List<Amitie> amities) {
+        this.amities = amities;
+    }
+
+    public List<Amitie> getDemandeAmities() {
+        return demandeAmities;
+    }
+
+    public void setDemandeAmities(List<Amitie> demandeAmities) {
+        this.demandeAmities = demandeAmities;
+    }
+
+    public List<Publication> getPublications() {
+        return publications;
+    }
+
+    public void setPublications(List<Publication> publications) {
+        this.publications = publications;
+    }
+
+    public List<Commentaire> getCommentaires() {
+        return commentaires;
+    }
+
+    public void setCommentaires(List<Commentaire> commentaires) {
+        this.commentaires = commentaires;
+    }
+
+    public List<VuePublication> getVuePublications() {
+        return vuePublications;
+    }
+
+    public void setVuePublications(List<VuePublication> vuePublications) {
+        this.vuePublications = vuePublications;
+    }
+
+    public List<VueCommentaire> getVueCommentaires() {
+        return vueCommentaires;
+    }
+
+    public void setVueCommentaires(List<VueCommentaire> vueCommentaires) {
+        this.vueCommentaires = vueCommentaires;
+    }
+
     /**
      * finder permettant d'accedant aux donnees de l'entite
      */

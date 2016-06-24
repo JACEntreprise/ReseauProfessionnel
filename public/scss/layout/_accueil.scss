@@ -348,6 +348,16 @@
         width: 55%;
         .form-group {
             margin-bottom: 40px !important;
+            overflow:hidden;
+            select{
+                margin-top:15px;
+            }
+            .col-sm-4{
+                padding-right:0;
+                &:last-child{
+                    padding-right:15px !important;
+                }
+            }
         }
     }
     .boutton-action{

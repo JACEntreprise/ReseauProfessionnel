@@ -38,6 +38,37 @@ public class VueCommentaire extends Model {
         this.vue=false;
     }
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public Membre getMembre() {
+        return membre;
+    }
+
+    public void setMembre(Membre membre) {
+        this.membre = membre;
+    }
+
+    public Commentaire getCommentaire() {
+        return commentaire;
+    }
+
+    public void setCommentaire(Commentaire commentaire) {
+        this.commentaire = commentaire;
+    }
+
+    public boolean isVue() {
+        return vue;
+    }
+
+    public void setVue(boolean vue) {
+        this.vue = vue;
+    }
 
     public static Finder<Long, VueCommentaire> find = new Finder<Long, VueCommentaire>(VueCommentaire.class);
 }

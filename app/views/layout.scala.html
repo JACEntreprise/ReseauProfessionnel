@@ -66,12 +66,12 @@
                 <h4> <span class="glyphicon glyphicon-user icon-sidebar"></span>Amis</h4>
                 <ul>
                     @for(ami <- membre.getAmities()) {
-                        @if(ami.getAccepte()){
+                        @if(ami.isAccepte()){
                             <li>@ami.getMembreCible().getParticulier().getPrenom() @ami.getMembreCible().getParticulier().getNom()</li>
                         }
                     }
                     @for(ami <- membre.getDemandeAmities()) {
-                        @if(ami.getAccepte()){
+                        @if(ami.isAccepte()){
                             <li> @ami.getMembreSource().getParticulier().getPrenom() @ami.getMembreSource().getParticulier().getNom()</li>
                         }
                     }

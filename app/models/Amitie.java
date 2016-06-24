@@ -35,5 +35,38 @@ public class Amitie extends Model {
     public Amitie() {
         this.accepte=false;
     }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public Membre getMembreSource() {
+        return membreSource;
+    }
+
+    public void setMembreSource(Membre membreSource) {
+        this.membreSource = membreSource;
+    }
+
+    public Membre getMembreCible() {
+        return membreCible;
+    }
+
+    public void setMembreCible(Membre membreCible) {
+        this.membreCible = membreCible;
+    }
+
+    public boolean isAccepte() {
+        return accepte;
+    }
+
+    public void setAccepte(boolean accepte) {
+        this.accepte = accepte;
+    }
+
     public static Finder<Long, Amitie> find = new Finder<Long,Amitie>(Amitie.class);
 }

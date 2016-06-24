@@ -43,6 +43,38 @@ public class Message extends Model {
     public Message() {
     }
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getContenu() {
+        return contenu;
+    }
+
+    public void setContenu(String contenu) {
+        this.contenu = contenu;
+    }
+
+    public Membre getExpediteur() {
+        return expediteur;
+    }
+
+    public void setExpediteur(Membre expediteur) {
+        this.expediteur = expediteur;
+    }
+
+    public Membre getDestinataire() {
+        return destinataire;
+    }
+
+    public void setDestinataire(Membre destinataire) {
+        this.destinataire = destinataire;
+    }
+
     /**
      * finder permettant d'accedant aux donnees de l'entite
      */

@@ -316,6 +316,14 @@ public class Membre extends Model {
         this.entreprise = entreprise;
     }
 
+    public Administrateur getAdministrateur() {
+        return administrateur;
+    }
+
+    public void setAdministrateur(Administrateur administrateur) {
+        this.administrateur = administrateur;
+    }
+
     public Profil getProfil() {
         return profil;
     }
@@ -415,7 +423,7 @@ public class Membre extends Model {
     /**
      * finder permettant d'accedant aux donnees de l'entite
      */
-    public static Finder<String, Membre> find = new Finder<String,Membre>(Membre.class);
+    public static Finder<String, Membre> find = new Finder<>(Membre.class);
 
     /**
      * ajouter un membre dans la base de données
@@ -428,5 +436,9 @@ public class Membre extends Model {
          * On enregistre ce membre dans la base
          */
         this.save();
+    }
+
+    public static List<Membre> listMembres(){
+        return Membre.find.all();
     }
 }

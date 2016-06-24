@@ -1,5 +1,6 @@
 package controllers;
 
+import com.avaje.ebean.Model;
 import controllers.action.SecuredAdmin;
 import models.Administrateur;
 import models.Membre;
@@ -77,30 +78,19 @@ public class AdministrateurController extends Controller {
      * crée un admin par défaut s'il n'existe pas
      */
     public static void defaultAdmin(){
-        if(!adminExist()){//il n'existe pas d'administrateur, on ajoute l'admin par défaut
+        List<Administrateur> listAdmins;
+        listAdmins = Administrateur.listAdministrateurs();
+        if(listAdmins.size() == 0){//il n'existe pas d'administrateur, on ajoute l'admin par défaut
             Administrateur admin = new Administrateur();
-            admin.prenom = "Admin";
-            admin.nom = "Admin";
+            admin.setPrenom("Admin");
+            admin.setNom("Admin");
             Membre membre = new Membre();
-            membre.email = "admin@gmail.com";
-            membre.motDePasse = "admin111";
-            membre.administrateur = admin;
+            membre.setEmail("admin@gmail.com");
+            membre.setMotDePasse("admin111");
+            membre.setAdministrateur(admin);
 
             membre.ajouter();
         }
-    }
-
-    /**
-     * vérifie s'il existe un administrateur dans la base de données
-     * @return
-     */
-    public static boolean adminExist(){
-
-        List<Administrateur> listAdmins = Administrateur.find.all();
-        if(listAdmins==null){
-            return false;
-        }
-        return true;
     }
 
     /**

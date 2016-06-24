@@ -3,6 +3,9 @@ package controllers;
 
 import models.Administrateur;
 import org.junit.Test;
+
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -12,9 +15,9 @@ public class AdministrateurControllerTest{
 
     @Test
     public void adminExist() {
-        AdministrateurController cont = new AdministrateurController();
-        boolean exite = cont.adminExist();
+        List<Administrateur> listAdmins;
+        listAdmins = Administrateur.listAdministrateurs();
 
-        assertEquals(false,exite);
+        assertEquals(listAdmins,null);
     }
 }

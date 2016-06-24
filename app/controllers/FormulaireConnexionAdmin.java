@@ -14,7 +14,7 @@ public class FormulaireConnexionAdmin extends FormulaireConnexion {
     public String validate(){
         Membre membre = Membre.byEmail(this.email);
         if(membre != null){
-            if(membre.administrateur != null){
+            if(membre.getAdministrateur() != null){
                 if(Membre.authenticate(email,motDePasse)==null){
                     return "Email ou mot de passe incorrect";
                 }

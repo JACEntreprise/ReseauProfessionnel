@@ -39,3 +39,9 @@ GET     /assets/*file                               controllers.Assets.versioned
 GET     /admin                                      controllers.AdministrateurController.admin()
 GET     /login                                      controllers.AdministrateurController.login()
 POST    /authentification                           controllers.AdministrateurController.authenticate()
+
+GET     /article/liste                                      controllers.ArticleController.lister()
+POST    /article/ajouter                                    controllers.ArticleController.ajouter()
+GET     /article/supprimer                                  controllers.ArticleController.supprimer()
+POST    /article/modifier                                   controllers.ArticleController.modifier()
+GET     /article/voir                                       controllers.ArticleController.voir()

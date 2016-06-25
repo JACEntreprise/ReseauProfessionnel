@@ -3,16 +3,6 @@
 
 # --- !Ups
 
-create table administrateur (
-  id                            bigint auto_increment not null,
-  prenom                        varchar(255),
-  nom                           varchar(255),
-  date_creation                 datetime(6),
-  membre_id                     bigint,
-  constraint uq_administrateur_membre_id unique (membre_id),
-  constraint pk_administrateur primary key (id)
-);
-
 create table amitie (
   id                            bigint auto_increment not null,
   membre_source_id              bigint,
@@ -34,6 +24,19 @@ create table competence (
   description                   varchar(255),
   profil_id                     bigint,
   constraint pk_competence primary key (id)
+);
+
+create table domaine (
+  id                            bigint auto_increment not null,
+  libelle                       varchar(255),
+  etat                          tinyint(1) default 0,
+  constraint pk_domaine primary key (id)
+);
+
+create table domaine_publication (
+  domaine_id                    bigint not null,
+  publication_id                bigint not null,
+  constraint pk_domaine_publication primary key (domaine_id,publication_id)
 );
 
 create table entreprise (
@@ -96,6 +99,7 @@ create table loisir (
 );
 
 create table membre (
+  type                          varchar(31) not null,
   id                            bigint auto_increment not null,
   email                         varchar(255),
   mot_de_passe                  varchar(255),
@@ -104,7 +108,10 @@ create table membre (
   siteweb                       varchar(255),
   etat                          integer,
   salt                          varchar(255),
+  date_creation                 datetime(6),
   profil_id                     bigint,
+  prenom                        varchar(255),
+  nom                           varchar(255),
   constraint uq_membre_profil_id unique (profil_id),
   constraint pk_membre primary key (id)
 );
@@ -140,12 +147,15 @@ create table profil (
 );
 
 create table publication (
+  type                          varchar(31) not null,
   id                            bigint auto_increment not null,
   titre                         varchar(255),
   contenu                       varchar(255),
-  due_date                      datetime(6),
+  date_publication              datetime(6),
   url_image                     varchar(255),
   membre_id                     bigint,
+  publie                        tinyint(1) default 0,
+  etat                          tinyint(1) default 0,
   constraint pk_publication primary key (id)
 );
 
@@ -165,8 +175,6 @@ create table vue_publication (
   constraint pk_vue_publication primary key (id)
 );
 
-alter table administrateur add constraint fk_administrateur_membre_id foreign key (membre_id) references membre (id) on delete restrict on update restrict;
-
 alter table amitie add constraint fk_amitie_membre_source_id foreign key (membre_source_id) references membre (id) on delete restrict on update restrict;
 create index ix_amitie_membre_source_id on amitie (membre_source_id);
 
@@ -181,6 +189,12 @@ create index ix_commentaire_membre_id on commentaire (membre_id);
 
 alter table competence add constraint fk_competence_profil_id foreign key (profil_id) references profil (id) on delete restrict on update restrict;
 create index ix_competence_profil_id on competence (profil_id);
+
+alter table domaine_publication add constraint fk_domaine_publication_domaine foreign key (domaine_id) references domaine (id) on delete restrict on update restrict;
+create index ix_domaine_publication_domaine on domaine_publication (domaine_id);
+
+alter table domaine_publication add constraint fk_domaine_publication_publication foreign key (publication_id) references publication (id) on delete restrict on update restrict;
+create index ix_domaine_publication_publication on domaine_publication (publication_id);
 
 alter table entreprise add constraint fk_entreprise_membre_id foreign key (membre_id) references membre (id) on delete restrict on update restrict;
 
@@ -238,8 +252,6 @@ create index ix_vue_publication_publication_id on vue_publication (publication_i
 
 # --- !Downs
 
-alter table administrateur drop foreign key fk_administrateur_membre_id;
-
 alter table amitie drop foreign key fk_amitie_membre_source_id;
 drop index ix_amitie_membre_source_id on amitie;
 
@@ -254,6 +266,12 @@ drop index ix_commentaire_membre_id on commentaire;
 
 alter table competence drop foreign key fk_competence_profil_id;
 drop index ix_competence_profil_id on competence;
+
+alter table domaine_publication drop foreign key fk_domaine_publication_domaine;
+drop index ix_domaine_publication_domaine on domaine_publication;
+
+alter table domaine_publication drop foreign key fk_domaine_publication_publication;
+drop index ix_domaine_publication_publication on domaine_publication;
 
 alter table entreprise drop foreign key fk_entreprise_membre_id;
 
@@ -308,13 +326,15 @@ drop index ix_vue_publication_membre_id on vue_publication;
 alter table vue_publication drop foreign key fk_vue_publication_publication_id;
 drop index ix_vue_publication_publication_id on vue_publication;
 
-drop table if exists administrateur;
-
 drop table if exists amitie;
 
 drop table if exists commentaire;
 
 drop table if exists competence;
+
+drop table if exists domaine;
+
+drop table if exists domaine_publication;
 
 drop table if exists entreprise;
 

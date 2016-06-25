@@ -1,5 +1,6 @@
 package controllers.action;
 
+import controllers.routes;
 import org.apache.commons.lang3.StringUtils;
 import play.mvc.Http;
 import play.mvc.Result;
@@ -24,6 +25,6 @@ public class SecuredAdmin extends Security.Authenticator {
 
     @Override
     public Result onUnauthorized(Http.Context context) {
-        return redirect("/");
+        return redirect(routes.AdministrateurController.login());
     }
 }

@@ -1,5 +1,6 @@
 package controllers;
 
+import models.Administrateur;
 import models.Membre;
 
 /**
@@ -12,17 +13,14 @@ public class FormulaireConnexionAdmin extends FormulaireConnexion {
     }
 
     public String validate(){
-        Membre membre = Membre.byEmail(this.email);
+        Membre membre = Administrateur.byEmail(this.email);
         if(membre != null){
-            if(membre.getAdministrateur() != null){
-                if(Membre.authenticate(email,motDePasse)==null){
-                    return "Email ou mot de passe incorrect";
-                }
-                return null;
+            if(Membre.authenticate(email,motDePasse)==null){
+                return "Email ou mot de passe incorrect";
             }
-            return "Vous devez être administrateur pour vous connecter!";
+            return null;
         }
-        return "Email ou mot de passe incorrect";
+        return "Vous devez être administrateur pour vous connecter!";
     }
 
     public String getEmail() {

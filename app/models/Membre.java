@@ -13,76 +13,79 @@ import repository.MembreRepository;
  * Creation de l'Entité Membre
  */
 @Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@DiscriminatorColumn(name="type")
+@DiscriminatorValue("membre")
 public class Membre extends Model {
 
     /**
      * id de l'entité
      */
     @Id
-    public Long id;
+    protected Long id;
 
     /**
      * Email d'un membre qui est obligatoire
      */
     @Constraints.Required
     @Constraints.Email
-    public String email;
+    protected String email;
 
     /**
      * Mot de passe d'un membre qui est obligatoire
      */
     @Constraints.Required
-    public String motDePasse;
+    protected String motDePasse;
 
     /**
      * adresse du membre qui est obligatoire
      */
-    public String adresse;
+    protected String adresse;
 
     /**
      * Numéro de téléphone
      */
-    public String telephone;
+    protected String telephone;
 
     /**
      * Site web s'il y'en a
      */
-    public String siteweb;
+    protected String siteweb;
 
     /**
         * Etat du membre
     */
-    public int etat;
+    protected int etat;
 
     /**
      * cle pour hachage mot de passe
     */
-    public String salt;
+    protected String salt;
+
+    /**
+     * la date de création du membre
+     */
+    protected Date dateCreation;
 
     /**
      * Relation d'héritage entre Membe et Particulier
      */
     @OneToOne(mappedBy = "membre", cascade = CascadeType.ALL)
-    public Particulier particulier;
+    private Particulier particulier;
 
     /**
      * Relation d'héritage entre Membe et Entreprise
      */
     @OneToOne(mappedBy = "membre")
-    public Entreprise entreprise;
+    private Entreprise entreprise;
 
-    /**
-     * Relation d'héritage entre Membe et Administrateur
-     */
-    @OneToOne(mappedBy = "membre", cascade = CascadeType.ALL)
-    public Administrateur administrateur;
 
     /**
      * Relation entre Membre et Profil
      * Un membre est associé à un seul Profil
      */
     @OneToOne
-    public Profil profil;
+    protected Profil profil;
 
 
     /**
@@ -91,7 +94,7 @@ public class Membre extends Model {
      */
     @Column(nullable = true)
     @OneToMany(mappedBy = "expediteur")
-    public List<Message> messagesEpediteurs;
+    private List<Message> messagesEpediteurs;
 
     /**
      * Relation entre Membe et Message dans l'autre sens(reception)
@@ -99,68 +102,68 @@ public class Membre extends Model {
      */
     @Column(nullable = true)
     @OneToMany(mappedBy = "destinataire")
-    public List<Message> messagesDestinataires;
+    private List<Message> messagesDestinataires;
 
     /**
      * Relation entre Membe et Image
      * Un membre peut avoir plusieurs photo de profil
      */
     @OneToMany(mappedBy = "membre")
-    public List<Image> images;
+    private List<Image> images;
 
     /**
      * Relation entre Membe et Groupe(appartenance)
      * Plusieurs peuvent appartenir à un Groupe
      */
     @ManyToMany
-    public List<Groupe> groupeAppartenances;
+    private List<Groupe> groupeAppartenances;
 
     /**
      * Relation de création entre Membe et Groupe
      * Un membre peut creer plusieurs Groupe
      */
     @OneToMany(mappedBy = "createur")
-    public List<Groupe> groupes;
+    private List<Groupe> groupes;
 
     /**
      * La liste d'amis demandés par ce membre
      */
     @OneToMany(mappedBy = "membreSource")
-    public List<Amitie> amities;
+    private List<Amitie> amities;
 
     /**
      * La liste d'amis qui ont demandé une relation d'amitie à ce membre
      */
     @OneToMany(mappedBy = "membreCible")
-    public List<Amitie> demandeAmities;
+    private List<Amitie> demandeAmities;
 
     /**
      * Relation entre Membre et Publication
      * Un membre peut faire plusieurs publications
      */
     @OneToMany(mappedBy = "membre")
-    public List<Publication> publications;
+    private List<Publication> publications;
 
     /**
      * Relation entre Membre et Commentaire
      * Un membre peut faire plusieurs commentaires
      */
     @OneToMany(mappedBy = "membre")
-    public List<Commentaire> commentaires;
+    private List<Commentaire> commentaires;
 
     /**
      * Relation entre Membre et VuePublication
      * Un membre peut voir plusieurs publications
      */
     @OneToMany(mappedBy = "membre")
-    public List<VuePublication> vuePublications;
+    private List<VuePublication> vuePublications;
 
     /**
      * Relation entre Membre et VueCommentaire
      * Un membre peut voir plusieurs commentaires
      */
     @OneToMany(mappedBy = "membre")
-    public List<VueCommentaire> vueCommentaires;
+    private List<VueCommentaire> vueCommentaires;
 
 
     /**
@@ -242,6 +245,7 @@ public class Membre extends Model {
      * Constructeur par defaut
      */
     public Membre() {
+        dateCreation = new Date(); //date systeme
     }
 
     public Long getId() {
@@ -300,6 +304,22 @@ public class Membre extends Model {
         this.etat = etat;
     }
 
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+
+    public Date getDateCreation() {
+        return dateCreation;
+    }
+
+    public void setDateCreation(Date dateCreation) {
+        this.dateCreation = dateCreation;
+    }
+
     public Particulier getParticulier() {
         return particulier;
     }
@@ -314,14 +334,6 @@ public class Membre extends Model {
 
     public void setEntreprise(Entreprise entreprise) {
         this.entreprise = entreprise;
-    }
-
-    public Administrateur getAdministrateur() {
-        return administrateur;
-    }
-
-    public void setAdministrateur(Administrateur administrateur) {
-        this.administrateur = administrateur;
     }
 
     public Profil getProfil() {

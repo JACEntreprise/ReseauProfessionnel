@@ -546,3 +546,42 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
 .error {
   color: #ff0000;
 }
+
+/* line 30, ../scss/layout/_admin.scss */
+.contenu-admin #admin_menu {
+  border: 3px solid rgba(200, 200, 200, 0.3);
+  margin: 1.5em 0;
+  padding: 0;
+}
+/* line 34, ../scss/layout/_admin.scss */
+.contenu-admin #admin_menu .admin_item {
+  border-bottom: 3px solid rgba(200, 200, 200, 0.3);
+  padding: 0.5em;
+}
+/* line 38, ../scss/layout/_admin.scss */
+.contenu-admin #admin_menu .admin_item a:hover {
+  text-decoration: none;
+}
+/* line 42, ../scss/layout/_admin.scss */
+.contenu-admin #admin_menu .admin_item .titre {
+  background: #082246;
+  margin-top: 0;
+  padding: 0.05em 0.3em;
+}
+/* line 46, ../scss/layout/_admin.scss */
+.contenu-admin #admin_menu .admin_item .titre a {
+  color: white;
+  text-shadow: 2px 2px 2px black;
+}
+/* line 51, ../scss/layout/_admin.scss */
+.contenu-admin #admin_menu .admin_item .liste {
+  padding: 0 0.5em;
+}
+/* line 53, ../scss/layout/_admin.scss */
+.contenu-admin #admin_menu .admin_item .liste a {
+  color: #082246;
+}
+/* line 57, ../scss/layout/_admin.scss */
+.contenu-admin #admin_menu .admin_item .liste .liste_item span {
+  margin-right: 0.2em;
+}

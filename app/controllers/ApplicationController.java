@@ -139,7 +139,7 @@ public class ApplicationController extends Controller {
                 Image image=new Image();
                 Membre membre=Membre.byEmail(session("membre"));
                 image.membre=membre;
-                image.profil=membre.profil;
+                image.setProfil(membre.getProfil());
                 image.chemin=path+"/public/images/profil/"+nom;
                 image.nom=nom;
                 image.save();

@@ -1,5 +1,5 @@
-@(membre:Membre)(sidebarGauche: Html)(contenu: Html)(sidebarDroite: Html)
-@administrateur.main("Accueil Admin") {
+@(membre:Membre)(sidebarGauche: Html)(contenu: Html)(sidebarDroite : Html)
+@administrateur.main("Administration") {
 
 @*
 * Get an `Html` object by calling the built-in Play welcome
@@ -54,10 +54,9 @@
 }{
 <div class="contenu-page-personnelle">
     <div class="sidebar-gauche col-sm-2">
-
         @sidebarGauche
     </div>
-    <div class="contenu-personnelle col-sm-7">
+    <div class="contenu-admin col-sm-7">
         @contenu
     </div>
     <div class="sidebar-droite col-sm-3">

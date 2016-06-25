@@ -3,6 +3,7 @@ package models;
 import com.avaje.ebean.Ebean;
 import com.avaje.ebean.Model;
 import play.data.validation.Constraints;
+import repository.MembreRepository;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -12,7 +13,8 @@ import java.util.List;
  * Created by julio on 19/06/2016.
  */
 @Entity
-public class Administrateur extends Model{
+@DiscriminatorValue("admin")
+public class Administrateur extends Membre{
     @Id
     private Long id;
 
@@ -22,15 +24,6 @@ public class Administrateur extends Model{
     @Constraints.Required
     private String nom;
 
-    private Date dateCreation;
-
-    /**
-     * Relation d'heritage entre Administrateur et Membre
-     * Un administrateur est un membre
-     */
-    @Column(nullable = false)
-    @OneToOne
-    private Membre membre;
 
     //le finder de la classe
     public static Model.Finder<Long,Administrateur> find = new Model.Finder<>(Administrateur.class);
@@ -72,22 +65,36 @@ public class Administrateur extends Model{
         this.dateCreation = dateCreation;
     }
 
-    public Membre getMembre() {
-        return membre;
-    }
-
-    public void setMembre(Membre membre) {
-        this.membre = membre;
-    }
-
 
     /**
-     * vérifie s'il existe un administrateur dans la base de données
+     * liste de tous les administrateurs
      * @return
      */
     public static List<Administrateur> listAdministrateurs(){
 
         return Ebean.find(Administrateur.class).findList();
+    }
+
+    /**
+     * ajouter un nouvel administrateur
+     */
+    public void ajouter(){
+        MembreRepository repository = MembreRepository.instance;
+        motDePasse = repository.hash(motDePasse);
+        salt = repository.getSalt();
+
+        this.save();
+
+    }
+
+    /**
+     * trouver un administrateur par son email
+     */
+    public static Administrateur byEmail(String email){
+        Administrateur admin;
+        admin = Ebean.find(Administrateur.class).where().eq("email",email).findUnique();
+
+        return admin;
     }
 
 }

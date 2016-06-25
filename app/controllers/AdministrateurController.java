@@ -84,12 +84,10 @@ public class AdministrateurController extends Controller {
             Administrateur admin = new Administrateur();
             admin.setPrenom("Admin");
             admin.setNom("Admin");
-            Membre membre = new Membre();
-            membre.setEmail("admin@gmail.com");
-            membre.setMotDePasse("admin111");
-            membre.setAdministrateur(admin);
+            admin.setEmail("admin@gmail.com");
+            admin.setMotDePasse("admin111");
 
-            membre.ajouter();
+            admin.ajouter();
         }
     }
 

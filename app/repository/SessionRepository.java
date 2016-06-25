@@ -41,9 +41,9 @@ public class SessionRepository {
     }
 
     public void login(Membre membre) {
-        Preconditions.checkArgument(!isLoggedIn(membre.email), "user is already logged in");
+        Preconditions.checkArgument(!isLoggedIn(membre.getEmail()), "user is already logged in");
         final Date now = new Date();
-        repo.put(membre.email, new Session(membre, now, now));
+        repo.put(membre.getEmail(), new Session(membre, now, now));
     }
 
     public void logout(String email) {

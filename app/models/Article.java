@@ -113,4 +113,11 @@ public class Article extends Publication {
         listArticles = Ebean.find(Article.class).where().eq("publie",false).findList();
         return listArticles;
     }
+
+    /**
+     * valider un article
+     */
+    public String validate(){
+        return null;
+    }
 }

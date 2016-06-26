@@ -1,3 +1,6 @@
+body{
+    background: rgb(244, 244, 244) !important;
+}
 #header{
     .entete-index{
         background: $couleur-entete;
@@ -111,9 +114,8 @@
     }
 }
 
-#contenu{
+#contenu-page{
     .contenu-page-personnelle {
-        background: rgb(244, 244, 244);
         padding-top:127px;
         overflow:hidden;
         .entete-contenu {

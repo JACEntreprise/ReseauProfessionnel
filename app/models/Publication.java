@@ -35,6 +35,7 @@ public class Publication extends Model{
      * le contenu de la publication
      */
     @Constraints.Required
+    @Lob
     private String contenu;
 
     /**

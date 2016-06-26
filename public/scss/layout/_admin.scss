@@ -27,7 +27,9 @@
 }
 
 .contenu-admin{
+    padding-top:2em;
     #admin_menu{
+        background:white;
         border: 3px solid rgba(200, 200, 200, 0.3);;
         margin: 1.5em 0;
         padding: 0;
@@ -56,6 +58,79 @@
                 .liste_item{
                     span{
                         margin-right:0.2em;
+                    }
+                }
+            }
+        }
+    }
+
+
+    #admin_article {
+        float:left;
+        width:100%;
+        padding: 1em;
+        .listArticle{
+            float:left;
+            width:100%;
+        }
+        #listeArticle{
+            float:left !important;
+            width:100% !important;
+            #list-article{
+                th{
+                    font-weight:bold !important;
+                }
+            }
+        }
+        .filtre_form {
+            float:left;
+            width: 100%;
+            margin-bottom:1.5em;
+            form{
+                border: 1px solid #eee;
+                float: left;
+                padding: 0.5em;
+                width: 350px;
+                ul{
+                    float:left;
+                    width:100%;
+                    li{
+                        float:left;
+                        width:100%;
+                        margin-bottom:0.5em;
+                        select{
+                            height:25px;
+                        }
+                        .dateLabel{
+                            float:left;
+                            width:46%;
+                            height: 47px;
+                            padding-top: 1.6em;
+                        }
+                        .dateField{
+                            float:left;
+                            width:54%;
+                            span{
+                                float:left;
+                                width:60px;
+                                label{
+                                    font-size : 11px;
+                                }
+                            }
+                        }
+                        .domaineLabel{
+                            float:left;
+                            width:43%;
+                            margin-right:11px;
+                            text-align:right;
+                        }
+                        .domaineField{
+                            float:left;
+                            width:53%;
+                        }
+                    }
+                    .bouton{
+                        text-align:right;
                     }
                 }
             }

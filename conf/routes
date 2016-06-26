@@ -40,7 +40,8 @@ GET     /admin                                      controllers.AdministrateurCo
 GET     /login                                      controllers.AdministrateurController.login()
 POST    /authentification                           controllers.AdministrateurController.authenticate()
 
-GET     /article/liste                                      controllers.ArticleController.lister()
+GET     /article                                            controllers.ArticleController.lister()
+GET     /article/ajouterform                                controllers.ArticleController.ajouterform()
 POST    /article/ajouter                                    controllers.ArticleController.ajouter()
 GET     /article/supprimer                                  controllers.ArticleController.supprimer()
 POST    /article/modifier                                   controllers.ArticleController.modifier()

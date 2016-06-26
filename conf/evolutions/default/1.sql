@@ -150,7 +150,7 @@ create table publication (
   type                          varchar(31) not null,
   id                            bigint auto_increment not null,
   titre                         varchar(255),
-  contenu                       varchar(255),
+  contenu                       longtext,
   date_publication              datetime(6),
   url_image                     varchar(255),
   membre_id                     bigint,

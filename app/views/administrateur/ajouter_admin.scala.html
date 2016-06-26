@@ -1,0 +1,53 @@
+@(form : Form[Article])(membre : Membre)
+@administrateur.layout_admin(membre){
+    <div id="article_menu" class="admin_item">
+        <h3 class="titre"><a href="#">Gestion des articles</a></h3>
+        <ul class="liste">
+            <li class="liste_item first"><span class="glyphicon glyphicon-hand-right"></span><a href="@routes.ArticleController.lister()">Liste des articles</a></li>
+            <li class="liste_item"><span class="glyphicon glyphicon-hand-right"></span><a href="@routes.ArticleController.ajouterform()">Ajouter un article</a></li>
+            <li class="liste_item"><span class="glyphicon glyphicon-hand-right"></span><a href="#">Liste des articles publiés</a></li>
+            <li class="liste_item"><span class="glyphicon glyphicon-hand-right"></span><a href="#">Liste des articles non publiés</a></li>
+            <li class="liste_item last"><span class="glyphicon glyphicon-hand-right"></span><a href="#">Liste des articles supprimés</a></li>
+        </ul>
+    </div>
+}{
+    @*
+     *formulaire d'ajout d'un article
+     *@
+    @helper.form(routes.ArticleController.ajouter(), 'class -> "form-horizontal form-conn-ins",'role->"form",'name->"formulaireAjoutArticle",'enctype -> "multipart/form-data"){
+        @* champ titre *@
+        <div class="form-group">
+            <div class="col-sm-7">
+                <input type="text" id="titre-article" class="form-control" name="titre" placeholder="Titre de l'article" required>
+            </div>
+        </div>
+
+        @* champ contenu *@
+        <div class="form-group">
+            <label for="contenu" class="col-sm-12">Contenu de l'article</label>
+            <div class="col-sm-12">
+                <textarea name="contenu" id="contenu" placeholder="Contenu de l'article"></textarea>
+            </div>
+        </div>
+
+        @* les domaines associés à l'article *@
+
+        @* image associé à l'article *@
+        <div class="form-group">
+            <div class="col-sm-7">
+                <input type="file" id="image-article" name="image-article" placeholder="Image">
+            </div>
+        </div>
+
+        @* bouton de validation et d'annulation *@
+        <div class="boutton-action">
+            <button class="btn btn-primary right">Ignorer</button>
+            <button type="submit" class="btn btn-primary right">Enregistrer</button>
+        </div>
+    }
+}{
+}{
+    <script type="text/javascript">
+        CKEDITOR.replace( 'contenu',{height: 200});
+    </script>
+}

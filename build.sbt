@@ -9,6 +9,7 @@ scalaVersion := "2.11.7"
 libraryDependencies ++= Seq(
   "mysql" % "mysql-connector-java" % "5.1.38",
   "org.mindrot" % "jbcrypt" % "0.3m",
+  "org.apache.directory.studio" % "org.apache.commons.io" % "2.4",
   filters,
   cache,
   javaWs

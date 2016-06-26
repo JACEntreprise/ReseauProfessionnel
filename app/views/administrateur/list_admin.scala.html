@@ -4,8 +4,9 @@
     <h3 class="titre"><a href="#">Gestion des articles</a></h3>
     <ul class="liste">
         <li class="liste_item first"><span class="glyphicon glyphicon-hand-right"></span><a href="@routes.ArticleController.lister()">Liste des articles</a></li>
-        <li class="liste_item first"><span class="glyphicon glyphicon-hand-right"></span><a href="#">Liste des articles publiés</a></li>
-        <li class="liste_item first"><span class="glyphicon glyphicon-hand-right"></span><a href="#">Liste des articles non publiés</a></li>
+        <li class="liste_item"><span class="glyphicon glyphicon-hand-right"></span><a href="@routes.ArticleController.ajouterform()">Ajouter un article</a></li>
+        <li class="liste_item"><span class="glyphicon glyphicon-hand-right"></span><a href="#">Liste des articles publiés</a></li>
+        <li class="liste_item"><span class="glyphicon glyphicon-hand-right"></span><a href="#">Liste des articles non publiés</a></li>
         <li class="liste_item last"><span class="glyphicon glyphicon-hand-right"></span><a href="#">Liste des articles supprimés</a></li>
     </ul>
 </div>
@@ -18,85 +19,94 @@
     @*Gestion du filtre des articles*@
 
     <div class="filtre_form">
-        <form>
-            <div class="champ">
-                <label class="domaineLabel">Domaine</label>
-                <select name="type">
-                    <option value="tous" selected>Tous</option>
-                    @for(domaine <- listDomaines){
-                    <option>@domaine.getLibelle()</option>
-                    }
-                </select>
-            </div>
-            <div class="champ datePublication">
-                <label class="dateLabel">Date de publication</label>
-                <span>
-                    <span id="jour">
-                        <label>Jour</label>
-                        <div class="jour">
-                            <select name="jour">
-                                var i;
-                                @for(i <- 1 to 31){
-                                    @if(i < 10){
-                                        <option value=@i>0@i</option>
-                                    }else{
-                                        <option value="@i">@i</option>
+        <form class="form-horizontal form-complet">
+            <ul>
+                <li class="champ">
+                    <label class="domaineLabel">Domaine:</label>
+                    <select name="type" class="domaineField">
+                        <option value="tous" selected>Tous</option>
+                        @for(domaine <- listDomaines){
+                        <option>@domaine.getLibelle()</option>
+                        }
+                    </select>
+                </li>
+                <li class="champ datePublication">
+                    <label class="dateLabel">Date de publication:</label>
+                    <div class="dateField">
+                        <span id="jour">
+                            <label>Jour</label>
+                            <div class="jour">
+                                <select name="jour">
+                                    <option value="tous">Tous</option>
+                                    var i;
+                                    @for(i <- 1 to 31){
+                                        @if(i < 10){
+                                            <option value=@i>0@i</option>
+                                        }else{
+                                            <option value="@i">@i</option>
+                                        }
                                     }
-                                }
-                            </select>
-                        </div>
-                    </span>
+                                </select>
+                            </div>
+                        </span>
 
-                    <span id="mois">
-                        <label>Mois</label>
-                        <div class="mois">
-                            <select name="mois">
-                                var i;
-                                @for(i <- 1 to 12){
-                                    @if(i < 10){
-                                        <option value=@i>0@i</option>
-                                    }else{
-                                        <option value="@i">@i</option>
+                        <span id="mois">
+                            <label>Mois</label>
+                            <div class="mois">
+                                <select name="mois">
+                                    <option value="tous">Tous</option>
+                                    var i;
+                                    @for(i <- 1 to 12){
+                                        @if(i < 10){
+                                            <option value=@i>0@i</option>
+                                        }else{
+                                            <option value="@i">@i</option>
+                                        }
                                     }
-                                }
-                            </select>
-                        </div>
-                    </span>
+                                </select>
+                            </div>
+                        </span>
 
-                    <span id="annee">
-                        <label>Année</label>
-                        <div class="annee">
-                            <select name="annee">
-                                var i;
-                                @for(i <- 1960 to 2030){
-                                    <option value=@i>@i</option>
-                                }
-                            </select>
-                        </div>
-                    </span>
+                        <span id="annee">
+                            <label>Année</label>
+                            <div class="annee">
+                                <select name="annee">
+                                    <option value="tous">Tous</option>
+                                    var i;
+                                    @for(i <- 1960 to 2030){
+                                        <option value=@i>@i</option>
+                                    }
+                                </select>
+                            </div>
+                        </span>
 
-                </span>
-            </div>
-            <div class="bouton">
-                <button type="submit">Filtrer</button>
-            </div>
+                    </div>
+                </li>
+                <li class="bouton">
+                    <button type="submit" class="btn btn-primary">Filtrer</button>
+                </li>
+            </ul>
         </form>
     </div>
 
     @*liste des articles*@
 
     <div id="listeArticle" class="liste">
-        <table>
+        <table class="table .table-striped" id="list-article">
             <thead>
                 <tr>
-                    <th>Titre</th><th>Date de publication</th><th>Etat</th>
+                    <th>Titre</th><th>Date de publication</th><th>Etat</th><th>supprimer</th><th>modifier</th>
                 </tr>
 
             </thead>
             <tbody>
                 @for(article <- listArticles){
                     <tr>
-                        <td>@article.getTitre()</td><td>@article.getDatePublication()</td><td>@article.isPublie()</td>
+                        <td>@article.getTitre()</td>
+                        <td>@article.getDatePublication()</td>
+                        <td>@article.isPublie()</td>
+                        <td><span class="glyphicon glyphicon-pencil"></span></td>
+                        <td><span class="glyphicon glyphicon-pencil"></span></td>
                     </tr>
                 }
             </tbody>
@@ -108,4 +118,14 @@
 
 }{
 
+}{
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#list-article').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json"
+                }
+            });
+        } );
+    </script>
 }

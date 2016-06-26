@@ -101,4 +101,13 @@ public class AdministrateurController extends Controller {
         }
         return true;
     }
+
+    /**
+     * recupérer l'admin connecté
+     */
+    public static Membre adminConnecte(){
+        String email = session("administrateur");
+        Membre membre= Membre.byEmail(email);
+        return membre;
+    }
 }

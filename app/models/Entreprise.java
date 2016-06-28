@@ -87,6 +87,17 @@ public class Entreprise extends Model{
         this.membre = membre;
     }
 
+    public static void completeProfil(Membre m,String adresse, String telephone, String siteweb, String domaine,String dateCreation) throws ParseException {
+        m.setAdresse(adresse);
+        m.setEtat(-1);
+        m.setTelephone(telephone);
+        m.setSiteweb(siteweb);
+        SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy");
+        m.getEntreprise().setDomaine(domaine);
+        m.getEntreprise().setDateCreation(f.parse(dateCreation));
+        m.update();
+    }
+
     /**
      * finder permettant d'accedant aux donnees de l'entite
      */

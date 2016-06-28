@@ -10,55 +10,37 @@ import java.util.List;
 /**
  * Created by brick on 06/06/2016.
  */
-public class FormulaireParticulier extends FormulaireInscription {
-    private String nom;
-    private String prenom;
-    private String dateDeNaissance;
+public class FormulaireParticulier extends Formulaire{
+    private String jour;
+    private String moi;
+    private String annee;
     private String lieuDeNaissance;
 
     public FormulaireParticulier() {
     }
 
-    /**
-     * Validation formulaire
-     * @return
-     */
-    public List<ValidationError> validate() {
-        List<ValidationError> errors = new ArrayList<ValidationError>();
-        if(Membre.byEmail(super.getEmail())!=null){
-            errors.add(new ValidationError("email", "cet email est dejà utilisé."));
-        }
-        if(super.getMotDePasse().length()<8){
-            errors.add(new ValidationError("motDePasse", "le mot de passe doit contenir au moins 8 caracteres."));
-        }
-        if(!super.getMotDePasse().equals(super.getConfirmation())){
-            errors.add(new ValidationError("confirmation", "mot de passe invalide."));
-        }
-        return errors.isEmpty() ? null : errors;
+    public String getJour() {
+        return jour;
     }
 
-    public String getNom() {
-        return nom;
+    public void setJour(String jour) {
+        this.jour = jour;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
+    public String getMoi() {
+        return moi;
     }
 
-    public String getPrenom() {
-        return prenom;
+    public void setMoi(String moi) {
+        this.moi = moi;
     }
 
-    public void setPrenom(String prenom) {
-        this.prenom = prenom;
+    public String getAnnee() {
+        return annee;
     }
 
-    public String getDateDeNaissance() {
-        return dateDeNaissance;
-    }
-
-    public void setDateDeNaissance(String dateDeNaissance) {
-        this.dateDeNaissance = dateDeNaissance;
+    public void setAnnee(String annee) {
+        this.annee = annee;
     }
 
     public String getLieuDeNaissance() {

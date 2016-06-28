@@ -11,7 +11,6 @@ import javax.inject.Inject;
 import java.util.Objects;
 import java.util.Optional;
 
-import static play.data.Form.form;
 
 
 public class AuthController extends Controller {

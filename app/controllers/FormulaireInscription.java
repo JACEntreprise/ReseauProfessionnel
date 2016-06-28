@@ -38,4 +38,5 @@ public class FormulaireInscription {
     public void setConfirmation(String confirmation) {
         this.confirmation = confirmation;
     }
+
 }

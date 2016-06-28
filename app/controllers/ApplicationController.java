@@ -1,7 +1,9 @@
 package controllers;
 
 import controllers.action.Secured;
+import controllers.membre.*;
 import models.*;
+import play.data.Form;
 import play.data.FormFactory;
 import play.libs.Json;
 import play.mvc.Controller;
@@ -14,6 +16,7 @@ import views.html.*;
 import javax.inject.Inject;
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
@@ -173,8 +176,19 @@ public class ApplicationController extends Controller {
      * et le redirigé vers la page pour changer sa photo de profil
      * @return
      */
-    public Result validerDonneeProfil(){
+    public Result validerDonneeProfil() throws ParseException {
+        final Form<FormulaireParticulier> form =formFactory.form(FormulaireParticulier.class).bindFromRequest();
         Membre m= Membre.byEmail(session("membre"));
-        return ok("ok");
+        String dateDeNaissance=form.get().getJour()+"/"+form.get().getMoi()+"/"+form.get().getAnnee();
+        Particulier.completeProfil(m,form.get().getAdresse(),form.get().getTelephone(),form.get().getSiteweb(),form.get().getLieuDeNaissance(),dateDeNaissance);
+        return redirect(controllers.routes.ApplicationController.accueil());
+    }
+
+    public Result validerDonneeProfilEntreprise() throws ParseException {
+        final Form<FormulaireEntreprise> form =formFactory.form(FormulaireEntreprise.class).bindFromRequest();
+        Membre m= Membre.byEmail(session("membre"));
+        String dateCreation=form.get().getJour()+"/"+form.get().getMoi()+"/"+form.get().getAnnee();
+        Entreprise.completeProfil(m,form.get().getAdresse(),form.get().getTelephone(),form.get().getSiteweb(),form.get().getDomaine(),dateCreation);
+        return redirect(controllers.routes.ApplicationController.accueil());
     }
 }

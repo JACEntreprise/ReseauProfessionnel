@@ -439,15 +439,22 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
 /* line 326, ../scss/layout/_accueil.scss */
 .content-complete-profil {
   padding: 5px;
+  position: relative;
 }
-/* line 328, ../scss/layout/_accueil.scss */
+/* line 329, ../scss/layout/_accueil.scss */
+.content-complete-profil .btn.btn-primary.right {
+  border: 0 none;
+  bottom: 12px;
+  position: absolute;
+}
+/* line 334, ../scss/layout/_accueil.scss */
 .content-complete-profil .bonjour-membre {
   text-align: center;
   padding: 10px;
   margin-bottom: 15px;
   border-bottom: 1px solid #d4d4d4;
 }
-/* line 331, ../scss/layout/_accueil.scss */
+/* line 337, ../scss/layout/_accueil.scss */
 .content-complete-profil .bonjour-membre .profil-photo {
   padding: 0 !important;
   background: none !important;
@@ -455,49 +462,61 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   font-size: 2em !important;
   margin-right: 15px;
 }
-/* line 339, ../scss/layout/_accueil.scss */
+/* line 345, ../scss/layout/_accueil.scss */
 .content-complete-profil .bonjour-membre > span {
   display: inline-block;
   vertical-align: middle;
 }
-/* line 346, ../scss/layout/_accueil.scss */
+/* line 352, ../scss/layout/_accueil.scss */
 .content-complete-profil .form-complete-profil {
   margin: 50px auto;
   width: 55%;
 }
-/* line 349, ../scss/layout/_accueil.scss */
+/* line 355, ../scss/layout/_accueil.scss */
 .content-complete-profil .form-complete-profil .form-group {
   margin-bottom: 40px !important;
-  overflow: hidden;
+  float: left;
+  width: 100%;
+  position: relative;
 }
-/* line 352, ../scss/layout/_accueil.scss */
+/* line 360, ../scss/layout/_accueil.scss */
+.content-complete-profil .form-complete-profil .form-group .error {
+  position: absolute;
+  right: -13px;
+  top: 5px;
+}
+/* line 365, ../scss/layout/_accueil.scss */
+.content-complete-profil .form-complete-profil .form-group .error-date {
+  top: 45px;
+}
+/* line 368, ../scss/layout/_accueil.scss */
 .content-complete-profil .form-complete-profil .form-group select {
   margin-top: 15px;
 }
-/* line 355, ../scss/layout/_accueil.scss */
+/* line 371, ../scss/layout/_accueil.scss */
 .content-complete-profil .form-complete-profil .form-group .col-sm-4 {
   padding-right: 0;
 }
-/* line 357, ../scss/layout/_accueil.scss */
+/* line 373, ../scss/layout/_accueil.scss */
 .content-complete-profil .form-complete-profil .form-group .col-sm-4:last-child {
   padding-right: 15px !important;
 }
-/* line 363, ../scss/layout/_accueil.scss */
+/* line 377, ../scss/layout/_accueil.scss */
+.content-complete-profil .form-complete-profil .form-group .col-date {
+  padding-right: 15px !important;
+}
+/* line 382, ../scss/layout/_accueil.scss */
 .content-complete-profil .boutton-action {
   border-top: 1px solid #d4d4d4;
-  padding-right: 5%;
-  padding-top: 15px;
-  padding-bottom: 15px;
+  float: left;
+  padding-bottom: 25px;
+  padding-right: 33%;
+  padding-top: 25px;
   text-align: right;
-}
-/* line 369, ../scss/layout/_accueil.scss */
-.content-complete-profil .boutton-action .btn.btn-primary.right {
-  margin-right: 25px;
-  padding-left: 25px;
-  padding-right: 25px;
+  width: 100%;
 }
 
-/* line 376, ../scss/layout/_accueil.scss */
+/* line 392, ../scss/layout/_accueil.scss */
 .profil-photo {
   background: #fff none repeat scroll 0 0;
   border-radius: 50%;
@@ -506,7 +525,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   padding: 20px;
 }
 
-/* line 383, ../scss/layout/_accueil.scss */
+/* line 399, ../scss/layout/_accueil.scss */
 .petit-bloc {
   background: #fff none repeat scroll 0 0;
   margin: 10px 0;

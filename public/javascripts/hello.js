@@ -10,5 +10,6 @@ $("document").ready(function(){
             }
         });
     }
-    //ssetInterval(rechargerDiv, 20000);
+    setInterval(rechargerDiv, 20000);
+
 })

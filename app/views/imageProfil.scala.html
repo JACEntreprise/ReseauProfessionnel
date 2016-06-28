@@ -1,0 +1,23 @@
+
+    <div class="photo-webcam col-sm-6 photo-change click">
+        <label class="element-label">
+            <span class="glyphicon glyphicon-camera change"></span>Prendre une photo
+        </label>
+    </div>
+    <div class="photo-telecharger col-sm-6 click photo-change">
+        @helper.form(action = routes.ApplicationController.upload(), 'enctype -> "multipart/form-data",'id -> "myForm") {
+        <label class="cote-gauche element-label click" for="fichier" id="label-file">
+            <span class="glyphicon glyphicon-picture change"></span>Télécharger une photo
+        </label>
+        <input name="picture" id="fichier" class="ajax_file_odj hidden" type="file">
+        <button type="submit" class="btn btn-primary bouton-upload-file hidden">Modifier</button>
+        }
+    </div>
+
+
+    <div class="affiche-image">
+        <div class="image-chager">
+            <span class="glyphicon glyphicon-user image-user icon-image-profile"></span>
+            <img src="" alt="image profile" class="image-user hidden profile-image-show"/>
+        </div>
+    </div>

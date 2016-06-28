@@ -21,6 +21,7 @@ GET     /rechargePub                                controllers.ApplicationContr
 
 #route pour completer le profil
 GET     /profilComplet                              controllers.ApplicationController.completeProfil()
+POST    /imageProfil                                controllers.ApplicationController.validerDonneeProfil()
 
 
 #route por parcourir l'image de profil

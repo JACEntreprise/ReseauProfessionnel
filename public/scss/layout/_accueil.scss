@@ -325,6 +325,12 @@
 
 .content-complete-profil{
     padding:5px;
+    position:relative;
+    .btn.btn-primary.right {
+        border: 0 none;
+        bottom: 12px;
+        position: absolute;
+    }
     .bonjour-membre{
         text-align:center;
         padding:10px;
@@ -348,7 +354,17 @@
         width: 55%;
         .form-group {
             margin-bottom: 40px !important;
-            overflow:hidden;
+            float:left;
+            width:100%;
+            position:relative;
+            .error {
+                position: absolute;
+                right: -13px;
+                top: 5px;
+            }
+            .error-date{
+                top:45px;
+            }
             select{
                 margin-top:15px;
             }
@@ -358,19 +374,19 @@
                     padding-right:15px !important;
                 }
             }
+            .col-date{
+                padding-right:15px !important;
+            }
         }
     }
     .boutton-action{
-        border-top:1px solid #d4d4d4;
-        padding-right: 5%;
-        padding-top: 15px;
-        padding-bottom: 15px;
+        border-top: 1px solid #d4d4d4;
+        float: left;
+        padding-bottom: 25px;
+        padding-right: 33%;
+        padding-top: 25px;
         text-align: right;
-        .btn.btn-primary.right {
-            margin-right: 25px;
-            padding-left: 25px;
-            padding-right: 25px;
-        }
+        width: 100%;
     }
 }
 .profil-photo {

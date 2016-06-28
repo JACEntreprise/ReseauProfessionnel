@@ -7,6 +7,8 @@ import play.data.format.Formats;
 import play.data.validation.Constraints;
 
 import javax.persistence.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -41,8 +43,8 @@ public class Publication extends Model{
     /**
      * La date de la publication
      */
-    @Formats.DateTime(pattern="dd/MM/yyyy")
-    private Date datePublication = new Date();
+    @Formats.DateTime(pattern="dd.MM.yyyy HH:mm:ss")
+    private Date datePublication;
 
     /**
      * L'image associée à la publication
@@ -74,6 +76,14 @@ public class Publication extends Model{
      * Constructeur par defaut
      */
     public Publication() {
+        datePublication = new Date();
+        SimpleDateFormat dt = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+        String nvd = dt.format(datePublication);
+        try {
+            datePublication = dt.parse(nvd);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     public Long getId() {

@@ -551,131 +551,121 @@ body {
   color: #ff0000;
 }
 
-/* line 29, ../scss/layout/_admin.scss */
+/* line 28, ../scss/layout/_admin.scss */
+.glyphicon {
+  margin-right: 0.2em !important;
+}
+
+/* line 31, ../scss/layout/_admin.scss */
 .contenu-admin {
   padding-top: 2em;
+  background: #fcfcfc;
+  border: 3px solid #eee;
 }
-/* line 31, ../scss/layout/_admin.scss */
+/* line 35, ../scss/layout/_admin.scss */
+.contenu-admin .ajout-article-boutons {
+  text-align: right;
+  margin-bottom: 2em;
+}
+/* line 39, ../scss/layout/_admin.scss */
+.contenu-admin form {
+  margin-top: 0 !important;
+}
+/* line 42, ../scss/layout/_admin.scss */
+.contenu-admin .image_article {
+  width: 200px;
+}
+/* line 45, ../scss/layout/_admin.scss */
+.contenu-admin .imageEtDomaine {
+  float: left;
+  width: 100%;
+}
+/* line 48, ../scss/layout/_admin.scss */
+.contenu-admin .imageEtDomaine .imageDomaine {
+  float: left;
+  width: 50%;
+}
+/* line 51, ../scss/layout/_admin.scss */
+.contenu-admin .imageEtDomaine .imageDomaine #domaine {
+  height: 216px;
+}
+/* line 54, ../scss/layout/_admin.scss */
+.contenu-admin .imageEtDomaine .imageDomaine .label-image {
+  margin-left: 1em;
+}
+/* line 59, ../scss/layout/_admin.scss */
 .contenu-admin #admin_menu {
   background: white;
   border: 3px solid rgba(200, 200, 200, 0.3);
   margin: 1.5em 0;
   padding: 0;
 }
-/* line 36, ../scss/layout/_admin.scss */
+/* line 64, ../scss/layout/_admin.scss */
 .contenu-admin #admin_menu .admin_item {
   border-bottom: 3px solid rgba(200, 200, 200, 0.3);
   padding: 0.5em;
 }
-/* line 40, ../scss/layout/_admin.scss */
+/* line 68, ../scss/layout/_admin.scss */
 .contenu-admin #admin_menu .admin_item a:hover {
   text-decoration: none;
 }
-/* line 44, ../scss/layout/_admin.scss */
+/* line 72, ../scss/layout/_admin.scss */
 .contenu-admin #admin_menu .admin_item .titre {
   background: #082246;
   margin-top: 0;
   padding: 0.05em 0.3em;
 }
-/* line 48, ../scss/layout/_admin.scss */
+/* line 76, ../scss/layout/_admin.scss */
 .contenu-admin #admin_menu .admin_item .titre a {
   color: white;
   text-shadow: 2px 2px 2px black;
 }
-/* line 53, ../scss/layout/_admin.scss */
+/* line 81, ../scss/layout/_admin.scss */
 .contenu-admin #admin_menu .admin_item .liste {
   padding: 0 0.5em;
 }
-/* line 55, ../scss/layout/_admin.scss */
+/* line 83, ../scss/layout/_admin.scss */
 .contenu-admin #admin_menu .admin_item .liste a {
   color: #082246;
 }
-/* line 59, ../scss/layout/_admin.scss */
+/* line 87, ../scss/layout/_admin.scss */
 .contenu-admin #admin_menu .admin_item .liste .liste_item span {
   margin-right: 0.2em;
 }
-/* line 68, ../scss/layout/_admin.scss */
+/* line 96, ../scss/layout/_admin.scss */
 .contenu-admin #admin_article {
   float: left;
   width: 100%;
   padding: 1em;
 }
-/* line 72, ../scss/layout/_admin.scss */
+/* line 100, ../scss/layout/_admin.scss */
 .contenu-admin #admin_article .listArticle {
   float: left;
   width: 100%;
 }
-/* line 76, ../scss/layout/_admin.scss */
+/* line 104, ../scss/layout/_admin.scss */
 .contenu-admin #admin_article #listeArticle {
   float: left !important;
   width: 100% !important;
 }
-/* line 80, ../scss/layout/_admin.scss */
+/* line 108, ../scss/layout/_admin.scss */
 .contenu-admin #admin_article #listeArticle #list-article th {
   font-weight: bold !important;
 }
-/* line 85, ../scss/layout/_admin.scss */
-.contenu-admin #admin_article .filtre_form {
-  float: left;
-  width: 100%;
-  margin-bottom: 1.5em;
-}
-/* line 89, ../scss/layout/_admin.scss */
-.contenu-admin #admin_article .filtre_form form {
-  border: 1px solid #eee;
-  float: left;
-  padding: 0.5em;
-  width: 350px;
-}
-/* line 94, ../scss/layout/_admin.scss */
-.contenu-admin #admin_article .filtre_form form ul {
-  float: left;
-  width: 100%;
-}
-/* line 97, ../scss/layout/_admin.scss */
-.contenu-admin #admin_article .filtre_form form ul li {
-  float: left;
-  width: 100%;
-  margin-bottom: 0.5em;
-}
-/* line 101, ../scss/layout/_admin.scss */
-.contenu-admin #admin_article .filtre_form form ul li select {
-  height: 25px;
-}
-/* line 104, ../scss/layout/_admin.scss */
-.contenu-admin #admin_article .filtre_form form ul li .dateLabel {
-  float: left;
-  width: 46%;
-  height: 47px;
-  padding-top: 1.6em;
-}
-/* line 110, ../scss/layout/_admin.scss */
-.contenu-admin #admin_article .filtre_form form ul li .dateField {
-  float: left;
-  width: 54%;
-}
-/* line 113, ../scss/layout/_admin.scss */
-.contenu-admin #admin_article .filtre_form form ul li .dateField span {
-  float: left;
-  width: 60px;
-}
 /* line 116, ../scss/layout/_admin.scss */
-.contenu-admin #admin_article .filtre_form form ul li .dateField span label {
+.contenu-admin #admin_article .filtre_form form champ .dateLabel {
+  float: left;
+}
+/* line 119, ../scss/layout/_admin.scss */
+.contenu-admin #admin_article .filtre_form form champ .dateField {
+  float: left;
+  width: 30%;
+}
+/* line 122, ../scss/layout/_admin.scss */
+.contenu-admin #admin_article .filtre_form form champ .dateField span {
+  float: left;
+}
+/* line 124, ../scss/layout/_admin.scss */
+.contenu-admin #admin_article .filtre_form form champ .dateField span label {
   font-size: 11px;
-}
-/* line 121, ../scss/layout/_admin.scss */
-.contenu-admin #admin_article .filtre_form form ul li .domaineLabel {
-  float: left;
-  width: 43%;
-  margin-right: 11px;
-  text-align: right;
-}
-/* line 127, ../scss/layout/_admin.scss */
-.contenu-admin #admin_article .filtre_form form ul li .domaineField {
-  float: left;
-  width: 53%;
-}
-/* line 132, ../scss/layout/_admin.scss */
-.contenu-admin #admin_article .filtre_form form ul .bouton {
-  text-align: right;
 }

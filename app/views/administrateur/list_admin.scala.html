@@ -20,72 +20,67 @@
 
     <div class="filtre_form">
         <form class="form-horizontal form-complet">
-            <ul>
-                <li class="champ">
-                    <label class="domaineLabel">Domaine:</label>
-                    <select name="type" class="domaineField">
-                        <option value="tous" selected>Tous</option>
-                        @for(domaine <- listDomaines){
-                        <option>@domaine.getLibelle()</option>
-                        }
-                    </select>
-                </li>
-                <li class="champ datePublication">
-                    <label class="dateLabel">Date de publication:</label>
-                    <div class="dateField">
-                        <span id="jour">
-                            <label>Jour</label>
-                            <div class="jour">
-                                <select name="jour">
-                                    <option value="tous">Tous</option>
-                                    var i;
-                                    @for(i <- 1 to 31){
-                                        @if(i < 10){
-                                            <option value=@i>0@i</option>
-                                        }else{
-                                            <option value="@i">@i</option>
-                                        }
+            <div class="form-group champ">
+                <label class="domaineLabel">Domaine:</label>
+                <select name="type" class="domaineField form-control">
+                    <option value="tous" selected>Tous</option>
+                    @for(domaine <- listDomaines){
+                    <option>@domaine.getLibelle()</option>
+                    }
+                </select>
+            </div>
+            <div class=" form-group champ datePublication">
+                <label class="dateLabel">Date de publication:</label>
+                <div class="dateField">
+                    <span id="jour">
+                        <label for="jourr">Jour</label>
+                        <div class="jour">
+                            <select name="jourr" id="jourr" class="form-control">
+                                <option value="tous">Tous</option>
+                                var i;
+                                @for(i <- 1 to 31){
+                                    @if(i < 10){
+                                        <option value=@i>0@i</option>
+                                    }else{
+                                        <option value="@i">@i</option>
                                     }
-                                </select>
-                            </div>
-                        </span>
+                                }
+                            </select>
+                        </div>
+                    </span>
 
-                        <span id="mois">
-                            <label>Mois</label>
-                            <div class="mois">
-                                <select name="mois">
-                                    <option value="tous">Tous</option>
-                                    var i;
-                                    @for(i <- 1 to 12){
-                                        @if(i < 10){
-                                            <option value=@i>0@i</option>
-                                        }else{
-                                            <option value="@i">@i</option>
-                                        }
+                    <span id="mois">
+                        <label for="moi">Mois</label>
+                        <div class="mois">
+                            <select name="moi" id="moi" class="form-control">
+                                <option value="tous">Tous</option>
+                                var i;
+                                @for(i <- 1 to 12){
+                                    @if(i < 10){
+                                        <option value=@i>0@i</option>
+                                    }else{
+                                        <option value="@i">@i</option>
                                     }
-                                </select>
-                            </div>
-                        </span>
+                                }
+                            </select>
+                        </div>
+                    </span>
 
-                        <span id="annee">
-                            <label>Année</label>
-                            <div class="annee">
-                                <select name="annee">
-                                    <option value="tous">Tous</option>
-                                    var i;
-                                    @for(i <- 1960 to 2030){
-                                        <option value=@i>@i</option>
-                                    }
-                                </select>
-                            </div>
-                        </span>
+                    <span id="annee">
+                        <label for="annee">Année</label>
+                        <div class="anne">
+                            <select name="anne" id="anne" class="form-control">
+                                <option value="tous">Tous</option>
+                                var i;
+                                @for(i <- 1960 to 2030){
+                                    <option value=@i>@i</option>
+                                }
+                            </select>
+                        </div>
+                    </span>
 
-                    </div>
-                </li>
-                <li class="bouton">
-                    <button type="submit" class="btn btn-primary">Filtrer</button>
-                </li>
-            </ul>
+                </div>
+            </div>
         </form>
     </div>
 

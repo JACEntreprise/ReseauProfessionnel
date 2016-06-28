@@ -15,6 +15,8 @@ import play.mvc.Security;
 import views.html.administrateur.*;
 
 import java.io.File;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -49,7 +51,9 @@ public class ArticleController extends Controller {
     public Result ajouterform(){
         //on recupère le membre connecté
         Membre membre = AdministrateurController.adminConnecte();
-        return ok(ajouter_admin.render(formFactory.form(Article.class),membre));
+        //la liste de tous les domaines
+        List<Domaine> listDomaines = Domaine.listeDomaine();
+        return ok(ajouter_admin.render(formFactory.form(Article.class),membre,listDomaines));
     }
 
     /**
@@ -76,6 +80,10 @@ public class ArticleController extends Controller {
             String nom = image.getFilename();
             //extension du fichier
             String ext = getFileExtension(nom);
+            //on génère un nom unique pour l'image
+            nom = genererNom(article.getDatePublication());
+
+            nom = String.format("%s.%s",nom,ext);
 
             article.setUrlImage(nom);
 
@@ -123,5 +131,12 @@ public class ArticleController extends Controller {
             return tmpFichier.getName().substring(posPoint + 1);
         }
         return "";
+    }
+
+    public static String  genererNom(Date date) {
+        SimpleDateFormat dt1 = new SimpleDateFormat("dd-MM-yyyy_HHmmss");
+        String format1 = dt1.format(date);
+
+        return format1;
     }
 }

@@ -1,5 +1,5 @@
 $("document").ready(function(){
-    $('#fichier').on('change', function (e) {
+    $('#contenu-principal').on('change','#fichier', function (e) {
         var files = $(this)[0].files;
 
         if (files.length > 0) {

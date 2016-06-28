@@ -25,9 +25,37 @@
 .error{
     color:#ff0000;
 }
-
+.glyphicon{
+    margin-right:0.2em !important;
+}
 .contenu-admin{
     padding-top:2em;
+    background:#fcfcfc;
+    border: 3px solid #eee;
+    .ajout-article-boutons{
+        text-align:right;
+        margin-bottom:2em;
+    }
+    form{
+        margin-top:0 !important;
+    }
+    .image_article{
+        width:200px;
+    }
+    .imageEtDomaine{
+        float:left;
+        width:100%;
+        .imageDomaine{
+            float:left;
+            width:50%;
+            #domaine{
+                height:216px;
+            }
+            .label-image{
+                margin-left:1em;
+            }
+        }
+    }
     #admin_menu{
         background:white;
         border: 3px solid rgba(200, 200, 200, 0.3);;
@@ -83,54 +111,24 @@
             }
         }
         .filtre_form {
-            float:left;
-            width: 100%;
-            margin-bottom:1.5em;
             form{
-                border: 1px solid #eee;
-                float: left;
-                padding: 0.5em;
-                width: 350px;
-                ul{
-                    float:left;
-                    width:100%;
-                    li{
-                        float:left;
-                        width:100%;
-                        margin-bottom:0.5em;
-                        select{
-                            height:25px;
-                        }
-                        .dateLabel{
+                champ{
+                    .dateLabel{
+                        float: left;
+                    }
+                    .dateField{
+                        float: left;
+                        width: 30%;
+                        span{
                             float:left;
-                            width:46%;
-                            height: 47px;
-                            padding-top: 1.6em;
-                        }
-                        .dateField{
-                            float:left;
-                            width:54%;
-                            span{
-                                float:left;
-                                width:60px;
-                                label{
-                                    font-size : 11px;
-                                }
+                            label{
+                                font-size : 11px;
                             }
                         }
-                        .domaineLabel{
-                            float:left;
-                            width:43%;
-                            margin-right:11px;
-                            text-align:right;
-                        }
-                        .domaineField{
-                            float:left;
-                            width:53%;
-                        }
                     }
-                    .bouton{
-                        text-align:right;
+                    .domaineLabel{
+                    }
+                    .domaineField{
                     }
                 }
             }

@@ -1,5 +1,5 @@
 @(membre:Membre)(sidebarGauche: Html)(contenu: Html)(sidebarDroite : Html)(script : Html)
-@administrateur.main("Administration") {
+@main("Administration") {
 
     @*
     * Get an `Html` object by calling the built-in Play welcome
@@ -63,5 +63,6 @@
         </div>
     </div>
 }{
+    <script src='@routes.Assets.versioned("javascripts/photo.js")' type="text/javascript"></script>
     @script
 }

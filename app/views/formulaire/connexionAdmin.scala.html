@@ -1,0 +1,34 @@
+@(formLogin: Form[FormulaireConnexionAdmin])
+<div id="connexionAdmin">
+    <div class="icon-connexion-form">
+        <span class="glyphicon glyphicon-lock icon-content"></span>
+        <h4 class="modal-title">Connexion administrateur</h4>
+    </div>
+    <div class="formulaireAdmin">
+        @helper.form(routes.AdministrateurController.authenticate(), 'class -> "form-horizontal form-conn-ins",'role->"form") {
+
+        @if(formLogin.hasGlobalErrors){
+        <p class="error">
+            @for(error <- formLogin.globalErrors) {
+        <p style="color:red;text-align:center">@Messages(error.messages, error.arguments.toArray: _*)</p>
+        }
+        </p>
+        }
+        <div class="form-group">
+            <div class="col-sm-12">
+                <input type="email" class="form-control" name="email" placeholder="Entrer votre email" value='@formLogin("email").value' required>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-12">
+                <input type="password" class="form-control" name="motDePasse" placeholder="Entrer votre mot de passe" value='@formLogin("motDePasse").value' required>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-12">
+                <input type="submit" class="btn btn-primary form-control" value="Se connecter">
+            </div>
+        </div>
+        }
+    </div>
+</div>

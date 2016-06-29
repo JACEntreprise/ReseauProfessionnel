@@ -1,9 +1,11 @@
 package models;
 
 import com.avaje.ebean.Model;
+import play.data.format.Formats;
 import play.data.validation.Constraints;
 
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * Entité Experience
@@ -14,28 +16,52 @@ public class Experience extends Model {
      * Identifiant de l'experience
      */
     @Id
-    public long id;
+    private long id;
 
     /**
-     * le libelle de l'experience
+     * nom de l'entreprise
      */
     @Constraints.Required
-    public String libele;
+    private String entreprise;
 
     /**
-     * l'annee d'acquisition de l'experience
+     * le titre de l'experience
      */
     @Constraints.Required
-    public String annee;
+    private String titre;
+
+    /**
+     * lieu
+     */
+    @Constraints.Required
+    private String lieu;
+
+    /**
+     * la date de debut
+     */
+    @Formats.DateTime(pattern="dd/MM/yyyy")
+    private Date dateDebut = new Date();
+
+    /**
+     * la date de fin
+     */
+    @Formats.DateTime(pattern="dd/MM/yyyy")
+    private Date dateFin = new Date();
+
+    /**
+     * etat
+     */
+    private Boolean etat;
 
     /**
      * Relation entre Experience et Profil
      * Plusieurs experiences sont associees à un profil
      */
     @ManyToOne
-    public Profil profil;
+    private Profil profil;
 
     public Experience() {
+        etat=false;
     }
 
     public long getId() {
@@ -46,28 +72,60 @@ public class Experience extends Model {
         this.id = id;
     }
 
-    public String getLibele() {
-        return libele;
-    }
-
-    public void setLibele(String libele) {
-        this.libele = libele;
-    }
-
-    public String getAnnee() {
-        return annee;
-    }
-
-    public void setAnnee(String annee) {
-        this.annee = annee;
-    }
-
     public Profil getProfil() {
         return profil;
     }
 
     public void setProfil(Profil profil) {
         this.profil = profil;
+    }
+
+    public String getEntreprise() {
+        return entreprise;
+    }
+
+    public void setEntreprise(String entreprise) {
+        this.entreprise = entreprise;
+    }
+
+    public String getTitre() {
+        return titre;
+    }
+
+    public void setTitre(String titre) {
+        this.titre = titre;
+    }
+
+    public String getLieu() {
+        return lieu;
+    }
+
+    public void setLieu(String lieu) {
+        this.lieu = lieu;
+    }
+
+    public Date getDateDebut() {
+        return dateDebut;
+    }
+
+    public void setDateDebut(Date dateDebut) {
+        this.dateDebut = dateDebut;
+    }
+
+    public Date getDateFin() {
+        return dateFin;
+    }
+
+    public void setDateFin(Date dateFin) {
+        this.dateFin = dateFin;
+    }
+
+    public Boolean getEtat() {
+        return etat;
+    }
+
+    public void setEtat(Boolean etat) {
+        this.etat = etat;
     }
 
     /**

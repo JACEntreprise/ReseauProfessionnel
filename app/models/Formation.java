@@ -17,32 +17,57 @@ public class Formation extends Model {
      * Indentifiant de formation
      */
     @Id
-    public long id;
+    private long id;
 
     /**
      * le type de formation
      */
     @Constraints.Required
-    public String type;
+    private String type;
+
+    /**
+     * diplome obtenu
+     */
+    @Constraints.Required
+    private String diplome;
+
+    /**
+     * l'etablissement qu'il a passé la formation
+     */
+    @Constraints.Required
+    private String etablissement;
+
+    /**
+     * resultat de la formation
+     */
+    @Constraints.Required
+    private String resultat;
+
+    /**
+     * description de la formation
+     */
+    @Constraints.Required
+    @Lob
+    private String description;
 
     /**
      * la date de debut
      */
     @Formats.DateTime(pattern="dd/MM/yyyy")
-    public Date dateDebut = new Date();
+    private Date dateDebut = new Date();
 
     /**
      * la date de fin
      */
     @Formats.DateTime(pattern="dd/MM/yyyy")
-    public Date dateFin = new Date();
+    private Date dateFin = new Date();
 
     /**
      * Relation entre Formation et Profil
      * plusieurs formations sont associees à un profil
      */
     @ManyToOne
-    public Profil profil;
+    private Profil profil;
 
     public Formation() {
     }
@@ -85,6 +110,38 @@ public class Formation extends Model {
 
     public void setProfil(Profil profil) {
         this.profil = profil;
+    }
+
+    public String getDiplome() {
+        return diplome;
+    }
+
+    public void setDiplome(String diplome) {
+        this.diplome = diplome;
+    }
+
+    public String getEtablissement() {
+        return etablissement;
+    }
+
+    public void setEtablissement(String etablissement) {
+        this.etablissement = etablissement;
+    }
+
+    public String getResultat() {
+        return resultat;
+    }
+
+    public void setResultat(String resultat) {
+        this.resultat = resultat;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     /**

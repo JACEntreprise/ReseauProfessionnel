@@ -22,6 +22,7 @@ GET     /rechargePub                                controllers.ApplicationContr
 #route pour completer le profil
 GET     /profilComplet                              controllers.ApplicationController.completeProfil()
 POST    /imageProfil                                controllers.ApplicationController.validerDonneeProfil()
+GET    /formation                                   controllers.ApplicationController.formation()
 
 
 #route por parcourir l'image de profil
@@ -35,3 +36,15 @@ POST    /commentaire/publication/:id                controllers.PublicationContr
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file                               controllers.Assets.versioned(path="/public", file: Asset)
+
+# Administration de l'application
+GET     /admin                                      controllers.AdministrateurController.admin()
+GET     /login                                      controllers.AdministrateurController.login()
+POST    /authentification                           controllers.AdministrateurController.authenticate()
+
+GET     /article                                            controllers.ArticleController.lister()
+GET     /article/ajouterform                                controllers.ArticleController.ajouterform()
+POST    /article/ajouter                                    controllers.ArticleController.ajouter()
+GET     /article/supprimer                                  controllers.ArticleController.supprimer()
+POST    /article/modifier                                   controllers.ArticleController.modifier()
+GET     /article/voir                                       controllers.ArticleController.voir()

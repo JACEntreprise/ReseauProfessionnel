@@ -1,0 +1,76 @@
+@(form : Form[Article])(membre : Membre)(listDomaines : List[Domaine])
+@administrateur.layout_admin(membre){
+    <div id="article_menu" class="admin_item">
+        <h3 class="titre"><a href="#">Gestion des articles</a></h3>
+        <ul class="liste">
+            <li class="liste_item first"><span class="glyphicon glyphicon-hand-right"></span><a href="@routes.ArticleController.lister()">Liste des articles</a></li>
+            <li class="liste_item"><span class="glyphicon glyphicon-hand-right"></span><a href="@routes.ArticleController.ajouterform()">Ajouter un article</a></li>
+            <li class="liste_item"><span class="glyphicon glyphicon-hand-right"></span><a href="#">Liste des articles publiés</a></li>
+            <li class="liste_item"><span class="glyphicon glyphicon-hand-right"></span><a href="#">Liste des articles non publiés</a></li>
+            <li class="liste_item last"><span class="glyphicon glyphicon-hand-right"></span><a href="#">Liste des articles supprimés</a></li>
+        </ul>
+    </div>
+}{
+    @*
+     *formulaire d'ajout d'un article
+     *@
+    @helper.form(routes.ArticleController.ajouter(), 'class -> "form-horizontal form-conn-ins",'role->"form",'name->"formulaireAjoutArticle",'enctype -> "multipart/form-data"){
+        @* champ titre *@
+        <div class="form-group">
+            <label for="titre" class="col-sm-12"><span class="glyphicon glyphicon glyphicon-certificate"></span>Titre<span style="font-size:12px;font-weight:normal;margin-left:5px">(Obligatoire)</span></label>
+            <div class="col-sm-12">
+                <input type="text" id="titre" class="form-control" name="titre" placeholder="Titre de l'article" required>
+            </div>
+        </div>
+
+        @* champ contenu *@
+        <div class="form-group">
+            <label for="contenu" class="col-sm-12"><span class="glyphicon glyphicon glyphicon-certificate"></span>Contenu de l'article</label>
+            <div class="col-sm-12">
+                <textarea name="contenu" id="contenu" placeholder="Contenu de l'article"></textarea>
+            </div>
+        </div>
+
+        <div class="imageEtDomaine">
+            @* image associé à l'article *@
+            <div class="imageDomaine">
+                <div class="form-group articleImage">
+                    <label class="col-sm-12"><span class="glyphicon glyphicon glyphicon-certificate"></span>Image<span style="font-size:12px;font-weight:normal;margin-left:5px">(clicker pour charger une image)</span></label>
+                    <label for="fichier" class="label-image">
+                        <span class="btn btn-default">
+                            <img src='@routes.Assets.versioned("images/default.png")' alt="image profile" class="image_article image-user profile-image-show img-rounded img-responsive"/>
+                        </span>
+                    </label>
+                    <div class="col-sm-12 hidden">
+                        <input type="file" id="fichier" name="image-article" placeholder="Image">
+                    </div>
+                </div>
+            </div>
+
+            @* les domaines associés à l'article *@
+            <div class="imageDomaine">
+                <div class="form-group">
+                    <label for="domaine" class="col-sm-12"><span class="glyphicon glyphicon glyphicon-certificate"></span>Domaines associés à l'article</label>
+                    <div class="col-sm-12">
+                        <select multiple class="form-control" id="domaine">
+                            @for(domaine <- listDomaines){
+                            <option>domaine.getLibelle()</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @* bouton de validation et d'annulation *@
+        <div class="ajout-article-boutons col-sm-12">
+            <button type="reset" class="btn btn-primary">Annuler</button>
+            <button type="submit" class="btn btn-primary right">Enregistrer</button>
+        </div>
+    }
+}{
+}{
+    <script type="text/javascript">
+        CKEDITOR.replace( 'contenu',{height: 200});
+    </script>
+}

@@ -80,9 +80,9 @@
     </div>
 }else{
     <div class="form-complete-profil">
-        <form action="" method="post" class="form-horizontal form-complet" role="form" id="form-complete-profil-entreprise">
+        <form action="@routes.ApplicationController.validerDonneeProfil()" method="post" class="form-horizontal form-complet" role="form" id="form-complete-profil-entreprise">
+            <label for="jour" class="col-sm-12 control-label">Date de creation :</label>
             <div class="form-group">
-                <label for="jour" class="col-sm-12 control-label">Date de creation :</label>
                 <div class="col-sm-4">
                     <select name="jour" id="jour" class="form-control">
                         <option value="jour">jour</option>

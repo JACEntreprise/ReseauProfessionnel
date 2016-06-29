@@ -8,9 +8,9 @@ import repository.MembreRepository;
  * Created by brick on 02/06/2016.
  */
 public class FormulaireConnexion {
-    private String email;
-    private String motDePasse;
-    private final MembreRepository repository;
+    protected String email;
+    protected String motDePasse;
+    protected final MembreRepository repository;
 
     public FormulaireConnexion() {
             repository = MembreRepository.instance;

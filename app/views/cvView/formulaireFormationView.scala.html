@@ -1,0 +1,43 @@
+@helper.form(routes.AuthController.inscriptionParticulier(), 'class -> "form-horizontal",'role->"form",'name->"formulaireFormation") {
+    <div class="form-group">
+        <div class="col-sm-12">
+            <input type="text" class="form-control" name="type" placeholder="type de formation" id=""type>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-12">
+            <input type="text" class="form-control" name="diplome" placeholder="diplome obtenu" id="diplome">
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-12">
+            <input type="text" class="form-control" name="etablissement" placeholder="etablissement" id="etablissement">
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-12">
+            <input type="text" class="form-control" name="resultat" placeholder="resultat" id="resultat">
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-6">
+            <label for="anneeDebut" class="col-sm-6">Debut</label>
+            <select name="anneeDebut" id="anneeDebut" class="form-control col-sm-6">
+                <option value="annee">annee</option>
+                @for(i<-1960 to 2080){
+                    <option value="@i">@i</option>
+                }
+            </select>
+        </div>
+        <div class="col-sm-6">
+            <label for="anneeFin" class="col-sm-6">Fin</label>
+            <select name="anneeFin" id="anneeFin" class="form-control col-sm-6">
+                <option value="annee">annee</option>
+                @for(i<-1960 to 2080){
+                    <option value="@i">@i</option>
+                }
+            </select>
+        </div>
+    </div>
+    <input type="submit" class="btn btn-primary form-control" value="Enregistrer">
+}

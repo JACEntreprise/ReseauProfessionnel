@@ -1,0 +1,137 @@
+#contenu-principal{
+    position:relative;
+}
+
+#connexionAdmin {
+    border: 1px solid #eee;
+    left: 36%;
+    padding-bottom: 1em;
+    padding-top: 1em;
+    position: fixed;
+    top: 95px;
+    width: 350px;
+    background:#eee;
+}
+#fond_transparent {
+    background: black none repeat scroll 0 0;
+    bottom: 0;
+    left: 0;
+    opacity: 0.5;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.error{
+    color:#ff0000;
+}
+.glyphicon{
+    margin-right:0.2em !important;
+}
+.contenu-admin{
+    padding-top:2em;
+    background:#fcfcfc;
+    border: 3px solid #eee;
+    .ajout-article-boutons{
+        text-align:right;
+        margin-bottom:2em;
+    }
+    form{
+        margin-top:0 !important;
+    }
+    .image_article{
+        width:200px;
+    }
+    .imageEtDomaine{
+        float:left;
+        width:100%;
+        .imageDomaine{
+            float:left;
+            width:50%;
+            #domaine{
+                height:216px;
+            }
+            .label-image{
+                margin-left:1em;
+            }
+        }
+    }
+    #admin_menu{
+        background:white;
+        border: 3px solid rgba(200, 200, 200, 0.3);;
+        margin: 1.5em 0;
+        padding: 0;
+        .admin_item {
+            border-bottom: 3px solid rgba(200, 200, 200, 0.3);;
+            padding: 0.5em;
+            a{
+                &:hover{
+                    text-decoration:none;
+                }
+            }
+            .titre {
+                background: $couleur-entete-haut;
+                margin-top: 0;
+                padding: 0.05em 0.3em;
+                a {
+                    color: white;
+                    text-shadow: 2px 2px 2px black;
+                }
+            }
+            .liste{
+                padding: 0 0.5em;
+                a{
+                    color:$couleur-entete-haut;
+                }
+                .liste_item{
+                    span{
+                        margin-right:0.2em;
+                    }
+                }
+            }
+        }
+    }
+
+
+    #admin_article {
+        float:left;
+        width:100%;
+        padding: 1em;
+        .listArticle{
+            float:left;
+            width:100%;
+        }
+        #listeArticle{
+            float:left !important;
+            width:100% !important;
+            #list-article{
+                th{
+                    font-weight:bold !important;
+                }
+            }
+        }
+        .filtre_form {
+            form{
+                champ{
+                    .dateLabel{
+                        float: left;
+                    }
+                    .dateField{
+                        float: left;
+                        width: 30%;
+                        span{
+                            float:left;
+                            label{
+                                font-size : 11px;
+                            }
+                        }
+                    }
+                    .domaineLabel{
+                    }
+                    .domaineField{
+                    }
+                }
+            }
+        }
+    }
+}

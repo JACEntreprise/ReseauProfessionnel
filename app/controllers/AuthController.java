@@ -19,7 +19,6 @@ public class AuthController extends Controller {
     @Inject
     FormFactory formFactory;
 
-    //i am testing!!
     public AuthController() {
         repository = MembreRepository.instance;
     }
@@ -82,12 +81,12 @@ public class AuthController extends Controller {
          * On crée un membre avec ces données (mot de passe et email)
          */
         Membre membre=new Membre();
-        membre.motDePasse=repository.hash(registerFormParticulier.get().getMotDePasse());
-        membre.email=registerFormParticulier.get().getEmail();
-        membre.salt=repository.getSalt();
+        membre.setMotDePasse(repository.hash(registerFormParticulier.get().getMotDePasse()));
+        membre.setEmail(registerFormParticulier.get().getEmail());
+        membre.setSalt(repository.getSalt());
         Profil profil=new Profil();
         profil.save();
-        membre.profil=profil;
+        membre.setProfil(profil);
         /**
          * On enregistre ce membre dans la base
          */
@@ -138,12 +137,12 @@ public class AuthController extends Controller {
          * On crée un membre avec ces données (mot de passe et email)
          */
         Membre membre=new Membre();
-        membre.motDePasse=repository.hash(registerFormEntreprise.get().getMotDePasse());
-        membre.email=registerFormEntreprise.get().getEmail();
-        membre.salt=repository.getSalt();
+        membre.setMotDePasse(repository.hash(registerFormEntreprise.get().getMotDePasse()));
+        membre.setEmail(registerFormEntreprise.get().getEmail());
+        membre.setSalt(repository.getSalt());
         Profil profil=new Profil();
         profil.save();
-        membre.profil=profil;
+        membre.setProfil(profil);
         /**
          * On enregistre ce membre dans la base
          */

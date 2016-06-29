@@ -142,7 +142,7 @@ public class ApplicationController extends Controller {
                 Image image=new Image();
                 Membre membre=Membre.byEmail(session("membre"));
                 image.membre=membre;
-                image.profil=membre.profil;
+                image.setProfil(membre.getProfil());
                 image.chemin=path+"/public/images/profil/"+nom;
                 image.nom=nom;
                 image.save();
@@ -171,24 +171,27 @@ public class ApplicationController extends Controller {
         return ok(completeProfil.render(m));
     }
 
+    public Result formation(){
+        Membre m= Membre.byEmail(session("membre"));
+        return ok(formationView.render(m));
+    }
+
     /**
      * valider les donnees saisies par le membre
      * et le redirigé vers la page pour changer sa photo de profil
      * @return
      */
     public Result validerDonneeProfil() throws ParseException {
-        final Form<FormulaireParticulier> form =formFactory.form(FormulaireParticulier.class).bindFromRequest();
         Membre m= Membre.byEmail(session("membre"));
-        String dateDeNaissance=form.get().getJour()+"/"+form.get().getMoi()+"/"+form.get().getAnnee();
-        Particulier.completeProfil(m,form.get().getAdresse(),form.get().getTelephone(),form.get().getSiteweb(),form.get().getLieuDeNaissance(),dateDeNaissance);
-        return redirect(controllers.routes.ApplicationController.accueil());
-    }
-
-    public Result validerDonneeProfilEntreprise() throws ParseException {
-        final Form<FormulaireEntreprise> form =formFactory.form(FormulaireEntreprise.class).bindFromRequest();
-        Membre m= Membre.byEmail(session("membre"));
-        String dateCreation=form.get().getJour()+"/"+form.get().getMoi()+"/"+form.get().getAnnee();
-        Entreprise.completeProfil(m,form.get().getAdresse(),form.get().getTelephone(),form.get().getSiteweb(),form.get().getDomaine(),dateCreation);
+        if(m.getEntreprise()==null){
+            final Form<FormulaireParticulier> form =formFactory.form(FormulaireParticulier.class).bindFromRequest();
+            String dateDeNaissance=form.get().getJour()+"/"+form.get().getMoi()+"/"+form.get().getAnnee();
+            Particulier.completeProfil(m,form.get().getAdresse(),form.get().getTelephone(),form.get().getSiteweb(),form.get().getLieuDeNaissance(),dateDeNaissance);
+        }else{
+            final Form<FormulaireEntreprise> form =formFactory.form(FormulaireEntreprise.class).bindFromRequest();
+            String dateCreation=form.get().getJour()+"/"+form.get().getMoi()+"/"+form.get().getAnnee();
+            Entreprise.completeProfil(m,form.get().getAdresse(),form.get().getTelephone(),form.get().getSiteweb(),form.get().getDomaine(),dateCreation);
+        }
         return redirect(controllers.routes.ApplicationController.accueil());
     }
 }

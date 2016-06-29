@@ -7,6 +7,8 @@ import play.data.format.Formats;
 import play.data.validation.Constraints;
 
 import javax.persistence.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -15,61 +17,73 @@ import java.util.List;
  * L'entité Publication
  */
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name="type")
+@DiscriminatorValue("publication")
 public class Publication extends Model{
     /**
      * Identifiant de publication
      */
     @Id
-    public Long id;
+    private Long id;
 
     /**
      * Le titre de la publication
      */
 
-    public String titre;
+    private String titre;
 
     /**
      * le contenu de la publication
      */
     @Constraints.Required
-    public String contenu;
+    @Lob
+    private String contenu;
 
     /**
      * La date de la publication
      */
-    @Formats.DateTime(pattern="dd/MM/yyyy")
-    public Date dueDate = new Date();
+    @Formats.DateTime(pattern="dd.MM.yyyy HH:mm:ss")
+    private Date datePublication;
 
     /**
      * L'image associée à la publication
      */
-    public String urlImage;
+    private String urlImage;
 
     /**
-     * Relation entre Publication et Commentaire
-     * Une publication est associée à plusieurs commentaires
+     * Relation entre publication et Commentaire
+     * Une privateation est associée à plusieurs commentaires
      */
     @OneToMany(mappedBy = "publication")
-    public List<Commentaire> commentaires;
+    private List<Commentaire> commentaires;
 
     /**
-     * Relation entre Publication et Membre
+     * Relation entre publication et Membre
      * plusieurs publications sont associées à un seul membre
      */
     @ManyToOne
-    public Membre membre;
+    private Membre membre;
 
     /**
-     * Relation entre Publication et VuePublication
+     * Relation entre publication et VuePublication
      * Une publication peut etre vue par plusieurs membres
      */
     @OneToMany(mappedBy = "publication")
-    public List<VuePublication> vuePublications;
+    private List<VuePublication> vuePublications;
 
     /**
      * Constructeur par defaut
      */
     public Publication() {
+        datePublication = new Date();
+        SimpleDateFormat dt = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+        String nvd = dt.format(datePublication);
+        try {
+            datePublication = dt.parse(nvd);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     public Long getId() {
@@ -96,12 +110,12 @@ public class Publication extends Model{
         this.contenu = contenu;
     }
 
-    public Date getDueDate() {
-        return dueDate;
+    public Date getDatePublication() {
+        return datePublication;
     }
 
-    public void setDueDate(Date dueDate) {
-        this.dueDate = dueDate;
+    public void setDatePublication(Date datePublication) {
+        this.datePublication = datePublication;
     }
 
     public String getUrlImage() {
@@ -145,13 +159,13 @@ public class Publication extends Model{
         List<Publication> publications= new ArrayList<Publication>();
         List<Long> idAmis= new ArrayList<Long>();
 
-        for(Amitie macible:m.amities){
+        for(Amitie macible:m.getAmities()){
             if(macible.accepte==true){
                 idAmis.add(macible.membreCible.id);
             }
         }
 
-        for(Amitie masource:m.demandeAmities){
+        for(Amitie masource:m.getDemandeAmities()){
             if(masource.accepte==true){
                 idAmis.add(masource.membreSource.id);
             }
@@ -184,13 +198,13 @@ public class Publication extends Model{
         List<Publication> publications= new ArrayList<Publication>();
         List<Long> idAmis= new ArrayList<Long>();
 
-        for(Amitie macible:m.amities){
+        for(Amitie macible:m.getAmities()){
             if(macible.accepte==true){
                 idAmis.add(macible.membreCible.id);
             }
         }
 
-        for(Amitie masource:m.demandeAmities){
+        for(Amitie masource:m.getDemandeAmities()){
             if(masource.accepte==true){
                 idAmis.add(masource.membreSource.id);
             }
@@ -223,6 +237,15 @@ public class Publication extends Model{
         vp.update();
     }
 
+    /**
+     * modifier une publication
+     * @param publication
+     */
+    public void modifier(Publication publication){
+        this.contenu = publication.getContenu();
+        this.titre = publication.getTitre();
+        this.urlImage = publication.getUrlImage();
+    }
 
     /**
      * finder permettant d'accedant aux donnees de l'entite

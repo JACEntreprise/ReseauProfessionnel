@@ -14,20 +14,20 @@ public class Competence extends Model {
      * Identifiant de competence
      */
     @Id
-    public long id;
+    private long id;
 
     /**
      * La description de la competence
      */
     @Constraints.Required
-    public String description;
+    private String libele;
 
     /**
      * Relation entre Competence et Profil
      * Plusieurs competences sont associées à un profil
      */
     @ManyToOne
-    public Profil profil;
+    private Profil profil;
 
     public Competence() {
     }
@@ -40,12 +40,12 @@ public class Competence extends Model {
         this.id = id;
     }
 
-    public String getDescription() {
-        return description;
+    public String getLibele() {
+        return libele;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setLibele(String libele) {
+        this.libele = libele;
     }
 
     public Profil getProfil() {

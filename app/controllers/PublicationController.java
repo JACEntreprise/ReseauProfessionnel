@@ -28,8 +28,8 @@ public class PublicationController extends Controller {
          */
         final Form<Publication> formParticulier =formFactory.form(Publication.class).bindFromRequest();
         Publication pub=new Publication();
-        pub.contenu=formParticulier.get().contenu;
-        pub.membre=Membre.byEmail(session("membre"));
+        pub.setContenu(formParticulier.get().getContenu());
+        pub.setMembre(Membre.byEmail(session("membre")));
         Publication.creerNewPublication(pub);
         return redirect(controllers.routes.ApplicationController.accueil());
     }

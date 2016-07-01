@@ -12,6 +12,7 @@ import play.mvc.Result;
 import play.mvc.Security;
 import repository.MembreRepository;
 import views.html.*;
+import views.html.cvView.formation.ajouterFormulaireFormulaire;
 
 import javax.inject.Inject;
 import java.io.File;
@@ -171,11 +172,6 @@ public class ApplicationController extends Controller {
         return ok(completeProfil.render(m));
     }
 
-    public Result formation(){
-        Membre m= Membre.byEmail(session("membre"));
-        return ok(formationView.render(m));
-    }
-
     /**
      * valider les donnees saisies par le membre
      * et le redirigé vers la page pour changer sa photo de profil
@@ -194,4 +190,5 @@ public class ApplicationController extends Controller {
         }
         return redirect(controllers.routes.ApplicationController.accueil());
     }
+
 }

@@ -1,0 +1,56 @@
+@helper.form(routes.AuthController.inscriptionParticulier(), 'class -> "form-horizontal",'role->"form",'name->"formulaireFormation") {
+    <div class="form-group">
+        <div class="col-sm-12">
+            <input type="text" class="form-control" name="entreprise" placeholder="Entreprise" id="entreprise">
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-12">
+            <input type="text" class="form-control" name="lieu" placeholder="Lieu" id="lieu">
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-12">
+            <input type="text" class="form-control" name="titre" placeholder="titre de l'experience" id="titre">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="moiDebut" class="col-sm-2">Debut</label>
+        <div class="col-sm-5">
+            <select name="moiDebut" id="moiDebut" class="form-control">
+                <option value="moi">moi</option>
+                @for(i<-1960 to 2080){
+                    <option value="@i">@i</option>
+                }
+            </select>
+        </div>
+        <div class="col-sm-5">
+            <select name="anneeDebut" id="anneeDebut" class="form-control">
+                <option value="annee">annee</option>
+                @for(i<-1960 to 2080){
+                    <option value="@i">@i</option>
+                }
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="moiFin" class="col-sm-2">Fin</label>
+        <div class="col-sm-5">
+            <select name="moiDebut" id="moiFin" class="form-control">
+                <option value="moi">moi</option>
+                @for(i<-1960 to 2080){
+                    <option value="@i">@i</option>
+                }
+            </select>
+        </div>
+        <div class="col-sm-5">
+            <select name="anneeFin" id="anneeFin" class="form-control">
+                <option value="annee">annee</option>
+                @for(i<-1960 to 2080){
+                    <option value="@i">@i</option>
+                }
+            </select>
+        </div>
+    </div>
+    <input type="submit" class="btn btn-primary" value="Enregistrer">
+}

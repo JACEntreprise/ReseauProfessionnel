@@ -183,7 +183,7 @@ public class Publication extends Model{
                     .where().eq("publication.id",pub.id)
                     .eq("membre.id",m.id)
                     .findUnique();
-            vp.vue=true;
+            vp.setVue(true);
             vp.update();
         }
         return publications;
@@ -199,13 +199,13 @@ public class Publication extends Model{
         List<Long> idAmis= new ArrayList<Long>();
 
         for(Amitie macible:m.getAmities()){
-            if(macible.accepte==true){
+            if(macible.isAccepte()){
                 idAmis.add(macible.membreCible.id);
             }
         }
 
         for(Amitie masource:m.getDemandeAmities()){
-            if(masource.accepte==true){
+            if(masource.isAccepte()){
                 idAmis.add(masource.membreSource.id);
             }
 
@@ -233,7 +233,7 @@ public class Publication extends Model{
                 .where().eq("publication.id",publication.id)
                 .eq("membre.id",publication.membre.id)
                 .findUnique();
-        vp.vue=true;
+        vp.setVue(true);
         vp.update();
     }
 

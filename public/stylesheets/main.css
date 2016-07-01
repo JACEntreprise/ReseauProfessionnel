@@ -26,3 +26,8 @@ body{
 .click{
     cursor:pointer;
 }
+
+.rien{
+    color:#d4d4d4;
+    text-align:center;
+}

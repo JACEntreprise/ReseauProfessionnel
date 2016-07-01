@@ -537,6 +537,154 @@ body {
   border: 1px solid rgba(0, 0, 0, 0.15);
 }
 
+/* line 2, ../scss/layout/_profil.scss */
+#profil-user .entete-info {
+  padding: 5px;
+}
+/* line 4, ../scss/layout/_profil.scss */
+#profil-user .entete-info .entete-content {
+  border-bottom: 1px solid #d4d4d4;
+  margin-bottom: 10px;
+  overflow: hidden;
+  padding-bottom: 10px;
+  padding-top: 5px;
+}
+/* line 10, ../scss/layout/_profil.scss */
+#profil-user .entete-info .entete-content .titre-content {
+  display: inline-block;
+  padding-left: 10px;
+  vertical-align: middle;
+  width: 60%;
+}
+/* line 15, ../scss/layout/_profil.scss */
+#profil-user .entete-info .entete-content .titre-content > span {
+  color: #082246;
+  font-size: 1.3em;
+}
+/* line 19, ../scss/layout/_profil.scss */
+#profil-user .entete-info .entete-content .titre-content .icon-label {
+  color: #fff !important;
+  padding: 5px;
+}
+/* line 24, ../scss/layout/_profil.scss */
+#profil-user .entete-info .entete-content .bouton-plus {
+  text-align: right;
+  display: inline-block;
+  vertical-align: middle;
+  width: 37%;
+}
+/* line 29, ../scss/layout/_profil.scss */
+#profil-user .entete-info .entete-content .bouton-plus .bouton-entete {
+  border: medium none;
+}
+/* line 35, ../scss/layout/_profil.scss */
+#profil-user .content-form-content {
+  padding: 30px;
+}
+/* line 37, ../scss/layout/_profil.scss */
+#profil-user .content-form-content > form {
+  width: 90%;
+  margin: auto;
+}
+/* line 40, ../scss/layout/_profil.scss */
+#profil-user .content-form-content > form .form-group {
+  margin-bottom: 35px !important;
+}
+/* line 43, ../scss/layout/_profil.scss */
+#profil-user .content-form-content > form .form-group > .col-sm-6:first-child {
+  padding-left: 0 !important;
+}
+/* line 46, ../scss/layout/_profil.scss */
+#profil-user .content-form-content > form .form-group > .col-sm-6:last-child {
+  padding-right: 0 !important;
+}
+
+/* line 55, ../scss/layout/_profil.scss */
+.libele-sidebar {
+  position: relative;
+  curcor: pointer;
+  margin-bottom: 30px;
+}
+/* line 59, ../scss/layout/_profil.scss */
+.libele-sidebar .contenu-libele-sidebar {
+  padding: 15px 10px;
+}
+/* line 61, ../scss/layout/_profil.scss */
+.libele-sidebar .contenu-libele-sidebar .icon-libele-sidebar {
+  color: #fff;
+  font-size: 2em;
+  padding: 15px;
+  float: left;
+  margin-right: 5px;
+}
+/* line 68, ../scss/layout/_profil.scss */
+.libele-sidebar .contenu-libele-sidebar .rien {
+  font-size: 0.8em;
+}
+/* line 73, ../scss/layout/_profil.scss */
+.libele-sidebar .lien-libele-sidebar .ajouter-libele-sidebar {
+  width: 100%;
+  color: #082246;
+  border: 1px solid #d4d4d4;
+  background: #d4d4d4;
+  border-radius: 0 !important;
+}
+/* line 79, ../scss/layout/_profil.scss */
+.libele-sidebar .lien-libele-sidebar .ajouter-libele-sidebar:before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+/* line 91, ../scss/layout/_profil.scss */
+.icon-formation {
+  background: #ff8200 !important;
+}
+/* line 93, ../scss/layout/_profil.scss */
+.icon-formation:hover {
+  background: #ff8200 !important;
+}
+
+/* line 97, ../scss/layout/_profil.scss */
+.icon-experience {
+  background: #21E5D3 !important;
+}
+/* line 99, ../scss/layout/_profil.scss */
+.icon-experience:hover {
+  background: #21E5D3 !important;
+}
+
+/* line 103, ../scss/layout/_profil.scss */
+.icon-competence {
+  background: #38C8FF !important;
+}
+/* line 105, ../scss/layout/_profil.scss */
+.icon-competence:hover {
+  background: #21E5D3 !important;
+}
+
+/* line 109, ../scss/layout/_profil.scss */
+.icon-langue {
+  background: #C847CF !important;
+}
+/* line 111, ../scss/layout/_profil.scss */
+.icon-langue:hover {
+  background: #C847CF !important;
+}
+
+/* line 115, ../scss/layout/_profil.scss */
+.icon-loisir {
+  background: #F63B9E !important;
+}
+/* line 117, ../scss/layout/_profil.scss */
+.icon-loisir:hover {
+  background: #F63B9E !important;
+}
+
 /* line 1, ../scss/layout/_admin.scss */
 #contenu-principal {
   position: relative;

@@ -21,23 +21,27 @@
     </div>
     <div class="form-group">
         <div class="col-sm-6">
-            <label for="anneeDebut" class="col-sm-6">Debut</label>
-            <select name="anneeDebut" id="anneeDebut" class="form-control col-sm-6">
-                <option value="annee">annee</option>
-                @for(i<-1960 to 2080){
-                    <option value="@i">@i</option>
-                }
-            </select>
+            <label for="anneeDebut" class="col-sm-4">Debut</label>
+            <div class="col-sm-8">
+                <select name="anneeDebut" id="anneeDebut" class="form-control">
+                    <option value="annee">annee</option>
+                    @for(i<-1960 to 2080){
+                        <option value="@i">@i</option>
+                    }
+                </select>
+            </div>
         </div>
         <div class="col-sm-6">
-            <label for="anneeFin" class="col-sm-6">Fin</label>
-            <select name="anneeFin" id="anneeFin" class="form-control col-sm-6">
-                <option value="annee">annee</option>
-                @for(i<-1960 to 2080){
-                    <option value="@i">@i</option>
-                }
-            </select>
+            <label for="anneeFin" class="col-sm-3">Fin</label>
+            <div class="col-sm-9">
+                <select name="anneeFin" id="anneeFin" class="form-control">
+                    <option value="annee">annee</option>
+                    @for(i<-1960 to 2080){
+                        <option value="@i">@i</option>
+                    }
+                </select>
+            </div>
         </div>
     </div>
-    <input type="submit" class="btn btn-primary form-control" value="Enregistrer">
+    <input type="submit" class="btn btn-primary" value="Enregistrer">
 }

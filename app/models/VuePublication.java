@@ -31,11 +31,17 @@ public class VuePublication extends Model {
     /**
      * Attribut qui permet de connaitre les amis acceptés
      */
-    public boolean vue;
+    public int vue;
+
+    /**
+     * Attribut qui permet de connaitre les amis acceptés
+     */
+    public int jaime;
 
 
     public VuePublication() {
-        this.vue=false;
+        this.vue=0;
+        this.jaime=0;
     }
 
     public long getId() {
@@ -62,18 +68,31 @@ public class VuePublication extends Model {
         this.publication = publication;
     }
 
-    public boolean isVue() {
+    public int getVue() {
         return vue;
     }
 
-    public void setVue(boolean vue) {
+    public void setVue(int vue) {
         this.vue = vue;
     }
 
+    public int getJaime() {
+        return jaime;
+    }
+
+    public void setJaime(int jaime) {
+        this.jaime = jaime;
+    }
+
+    public VuePublication(Membre membre, Publication publication) {
+        this.membre = membre;
+        this.publication = publication;
+        this.vue = 0;
+        this.jaime = 0;
+    }
+
     public static void CreerNewVuePulication(Membre m, Publication publication){
-        VuePublication vp= new VuePublication();
-        vp.membre=m;
-        vp.publication=publication;
+        VuePublication vp= new VuePublication(m,publication);
         vp.save();
     }
     public static Finder<Long, VuePublication> find = new Finder<Long, VuePublication>(VuePublication.class);

@@ -1,0 +1,60 @@
+@(formation: Formation)
+<div class="content-form-content petit-bloc">
+    <span class="close supprimer-bloc hidden" aria-label="close">&times;</span>
+    @helper.form(routes.ProfilController.validerModifierFormation(formation.getId()), 'class -> "form-horizontal formulaire-modifier-formation",'role->"form",'name->"formulaireFormation") {
+        <div class="form-group">
+            <div class="col-sm-12">
+                <input type="text" class="form-control" name="type" placeholder="type de formation" id="type" value="@formation.getType()" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-12">
+                <input type="text" class="form-control" name="diplome" placeholder="diplome obtenu" id="diplome" value="@formation.getDiplome()" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-12">
+                <input type="text" class="form-control" name="etablissement" placeholder="etablissement" id="etablissement" value="@formation.getEtablissement()" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-12">
+                <input type="text" class="form-control" name="resultat" placeholder="resultat" id="resultat" value="@formation.getResultat()">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-6">
+                <label for="anneeDebut" class="col-sm-4">Debut</label>
+                <div class="col-sm-8">
+                    <select name="anneeDebut" id="anneeDebut" class="form-control">
+                        <option value="annee">annee</option>
+                        @for(i<-1960 to 2080){
+                            @if(i==formation.getAnneeDebut()){
+                                <option value="@i" selected>@i</option>
+                            }
+                            <option value="@i">@i</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <label for="anneeFin" class="col-sm-3">Fin</label>
+                <div class="col-sm-9">
+                    <select name="anneeFin" id="anneeFin" class="form-control">
+                        <option value="annee">annee</option>
+                        @for(i<-1960 to 2080){
+                            @if(i==formation.getAnneeFin()){
+                                <option value="@i" selected>@i</option>
+                            }
+                            <option value="@i">@i</option>
+                        }
+                    </select>
+                </div>
+            </div>
+                <span class="error error-duree-formation hidden">
+                    <span data-toggle="tooltip" data-placement="right" title="duree formation incorrecte"><span class="error-form badge">e</span></span>
+                </span>
+        </div>
+        <input type="submit" class="btn btn-primary" value="Mettre à jour">
+    }
+</div>

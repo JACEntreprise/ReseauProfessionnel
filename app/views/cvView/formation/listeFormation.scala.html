@@ -8,8 +8,20 @@
     <div class="bouton-plus">
         <button class="btn btn-primary bouton-entete bouton-entete-formation icon-formation" title="Ajouter une autre formation"><span class="glyphicon glyphicon-plus"></span>Ajouter</button>
     </div>
-
 </div>
+
 <div class="contenu-formation">
-    <p class="rien">Aucune formation</p>
+    @if(membre.getParticulier().getFormations().size==0){
+        <p class="rien">Aucune formation</p>
+    }else{
+        @for(formation <- membre.getParticulier().getFormations()){
+            <div class="item-formation item-profil">
+                <span class="element-item">@formation.getAnneeDebut() - @formation.getAnneeFin()</span>
+                <span class="element-item">@formation.getType()  @formation.getEtablissement()</span>
+                <a href="@routes.ProfilController.modifierFormation(formation.getId())" class="pencil-modifier-formation hidden">
+                    <span class="glyphicon glyphicon-pencil" title="Modifier"></span>
+                </a>
+            </div>
+        }
+    }
 </div>

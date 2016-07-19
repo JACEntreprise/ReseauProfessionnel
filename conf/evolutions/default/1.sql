@@ -13,7 +13,7 @@ create table amitie (
 
 create table commentaire (
   id                            bigint auto_increment not null,
-  contenu                       varchar(255),
+  contenu                       longtext,
   publication_id                bigint,
   membre_id                     bigint,
   constraint pk_commentaire primary key (id)
@@ -21,8 +21,7 @@ create table commentaire (
 
 create table competence (
   id                            bigint auto_increment not null,
-  libele                        varchar(255),
-  profil_id                     bigint,
+  description                   varchar(255),
   constraint pk_competence primary key (id)
 );
 
@@ -52,25 +51,26 @@ create table entreprise (
 create table experience (
   id                            bigint auto_increment not null,
   entreprise                    varchar(255),
-  titre                         varchar(255),
   lieu                          varchar(255),
-  date_debut                    datetime(6),
-  date_fin                      datetime(6),
+  titre                         varchar(255),
+  moi_debut                     varchar(255),
+  moi_fin                       varchar(255),
+  annee_debut                   bigint,
+  annee_fin                     bigint,
   etat                          tinyint(1) default 0,
-  profil_id                     bigint,
+  membre_id                     bigint,
   constraint pk_experience primary key (id)
 );
 
 create table formation (
   id                            bigint auto_increment not null,
   type                          varchar(255),
-  diplome                       varchar(255),
   etablissement                 varchar(255),
+  annee_debut                   bigint,
+  annee_fin                     bigint,
+  diplome                       varchar(255),
   resultat                      varchar(255),
-  description                   longtext,
-  date_debut                    datetime(6),
-  date_fin                      datetime(6),
-  profil_id                     bigint,
+  particulier_id                bigint,
   constraint pk_formation primary key (id)
 );
 
@@ -86,28 +86,24 @@ create table image (
   id                            bigint auto_increment not null,
   nom                           varchar(255),
   chemin                        varchar(255),
-  profil_id                     bigint,
+  profil                        tinyint(1) default 0,
   membre_id                     bigint,
-  constraint uq_image_profil_id unique (profil_id),
   constraint pk_image primary key (id)
 );
 
 create table langue (
   id                            bigint auto_increment not null,
   libele                        varchar(255),
-  profil_id                     bigint,
   constraint pk_langue primary key (id)
 );
 
 create table loisir (
   id                            bigint auto_increment not null,
   libele                        varchar(255),
-  profil_id                     bigint,
   constraint pk_loisir primary key (id)
 );
 
 create table membre (
-  type                          varchar(31) not null,
   id                            bigint auto_increment not null,
   email                         varchar(255),
   mot_de_passe                  varchar(255),
@@ -117,10 +113,7 @@ create table membre (
   etat                          integer,
   salt                          varchar(255),
   date_creation                 datetime(6),
-  profil_id                     bigint,
-  prenom                        varchar(255),
-  nom                           varchar(255),
-  constraint uq_membre_profil_id unique (profil_id),
+  type                          varchar(255),
   constraint pk_membre primary key (id)
 );
 
@@ -128,6 +121,12 @@ create table membre_groupe (
   membre_id                     bigint not null,
   groupe_id                     bigint not null,
   constraint pk_membre_groupe primary key (membre_id,groupe_id)
+);
+
+create table membre_competence (
+  membre_id                     bigint not null,
+  competence_id                 bigint not null,
+  constraint pk_membre_competence primary key (membre_id,competence_id)
 );
 
 create table message (
@@ -149,9 +148,16 @@ create table particulier (
   constraint pk_particulier primary key (id)
 );
 
-create table profil (
-  id                            bigint auto_increment not null,
-  constraint pk_profil primary key (id)
+create table particulier_loisir (
+  particulier_id                bigint not null,
+  loisir_id                     bigint not null,
+  constraint pk_particulier_loisir primary key (particulier_id,loisir_id)
+);
+
+create table particulier_langue (
+  particulier_id                bigint not null,
+  langue_id                     bigint not null,
+  constraint pk_particulier_langue primary key (particulier_id,langue_id)
 );
 
 create table publication (
@@ -161,6 +167,7 @@ create table publication (
   contenu                       longtext,
   date_publication              datetime(6),
   url_image                     varchar(255),
+  nom_image                     varchar(255),
   membre_id                     bigint,
   publie                        tinyint(1) default 0,
   etat                          tinyint(1) default 0,
@@ -171,7 +178,8 @@ create table vue_commentaire (
   id                            bigint auto_increment not null,
   membre_id                     bigint,
   commentaire_id                bigint,
-  vue                           tinyint(1) default 0,
+  vue                           integer,
+  jaime                         integer,
   constraint pk_vue_commentaire primary key (id)
 );
 
@@ -179,7 +187,8 @@ create table vue_publication (
   id                            bigint auto_increment not null,
   membre_id                     bigint,
   publication_id                bigint,
-  vue                           tinyint(1) default 0,
+  vue                           integer,
+  jaime                         integer,
   constraint pk_vue_publication primary key (id)
 );
 
@@ -195,9 +204,6 @@ create index ix_commentaire_publication_id on commentaire (publication_id);
 alter table commentaire add constraint fk_commentaire_membre_id foreign key (membre_id) references membre (id) on delete restrict on update restrict;
 create index ix_commentaire_membre_id on commentaire (membre_id);
 
-alter table competence add constraint fk_competence_profil_id foreign key (profil_id) references profil (id) on delete restrict on update restrict;
-create index ix_competence_profil_id on competence (profil_id);
-
 alter table domaine_publication add constraint fk_domaine_publication_domaine foreign key (domaine_id) references domaine (id) on delete restrict on update restrict;
 create index ix_domaine_publication_domaine on domaine_publication (domaine_id);
 
@@ -206,33 +212,29 @@ create index ix_domaine_publication_publication on domaine_publication (publicat
 
 alter table entreprise add constraint fk_entreprise_membre_id foreign key (membre_id) references membre (id) on delete restrict on update restrict;
 
-alter table experience add constraint fk_experience_profil_id foreign key (profil_id) references profil (id) on delete restrict on update restrict;
-create index ix_experience_profil_id on experience (profil_id);
+alter table experience add constraint fk_experience_membre_id foreign key (membre_id) references membre (id) on delete restrict on update restrict;
+create index ix_experience_membre_id on experience (membre_id);
 
-alter table formation add constraint fk_formation_profil_id foreign key (profil_id) references profil (id) on delete restrict on update restrict;
-create index ix_formation_profil_id on formation (profil_id);
+alter table formation add constraint fk_formation_particulier_id foreign key (particulier_id) references particulier (id) on delete restrict on update restrict;
+create index ix_formation_particulier_id on formation (particulier_id);
 
 alter table groupe add constraint fk_groupe_createur_id foreign key (createur_id) references membre (id) on delete restrict on update restrict;
 create index ix_groupe_createur_id on groupe (createur_id);
 
-alter table image add constraint fk_image_profil_id foreign key (profil_id) references profil (id) on delete restrict on update restrict;
-
 alter table image add constraint fk_image_membre_id foreign key (membre_id) references membre (id) on delete restrict on update restrict;
 create index ix_image_membre_id on image (membre_id);
-
-alter table langue add constraint fk_langue_profil_id foreign key (profil_id) references profil (id) on delete restrict on update restrict;
-create index ix_langue_profil_id on langue (profil_id);
-
-alter table loisir add constraint fk_loisir_profil_id foreign key (profil_id) references profil (id) on delete restrict on update restrict;
-create index ix_loisir_profil_id on loisir (profil_id);
-
-alter table membre add constraint fk_membre_profil_id foreign key (profil_id) references profil (id) on delete restrict on update restrict;
 
 alter table membre_groupe add constraint fk_membre_groupe_membre foreign key (membre_id) references membre (id) on delete restrict on update restrict;
 create index ix_membre_groupe_membre on membre_groupe (membre_id);
 
 alter table membre_groupe add constraint fk_membre_groupe_groupe foreign key (groupe_id) references groupe (id) on delete restrict on update restrict;
 create index ix_membre_groupe_groupe on membre_groupe (groupe_id);
+
+alter table membre_competence add constraint fk_membre_competence_membre foreign key (membre_id) references membre (id) on delete restrict on update restrict;
+create index ix_membre_competence_membre on membre_competence (membre_id);
+
+alter table membre_competence add constraint fk_membre_competence_competence foreign key (competence_id) references competence (id) on delete restrict on update restrict;
+create index ix_membre_competence_competence on membre_competence (competence_id);
 
 alter table message add constraint fk_message_expediteur_id foreign key (expediteur_id) references membre (id) on delete restrict on update restrict;
 create index ix_message_expediteur_id on message (expediteur_id);
@@ -241,6 +243,18 @@ alter table message add constraint fk_message_destinataire_id foreign key (desti
 create index ix_message_destinataire_id on message (destinataire_id);
 
 alter table particulier add constraint fk_particulier_membre_id foreign key (membre_id) references membre (id) on delete restrict on update restrict;
+
+alter table particulier_loisir add constraint fk_particulier_loisir_particulier foreign key (particulier_id) references particulier (id) on delete restrict on update restrict;
+create index ix_particulier_loisir_particulier on particulier_loisir (particulier_id);
+
+alter table particulier_loisir add constraint fk_particulier_loisir_loisir foreign key (loisir_id) references loisir (id) on delete restrict on update restrict;
+create index ix_particulier_loisir_loisir on particulier_loisir (loisir_id);
+
+alter table particulier_langue add constraint fk_particulier_langue_particulier foreign key (particulier_id) references particulier (id) on delete restrict on update restrict;
+create index ix_particulier_langue_particulier on particulier_langue (particulier_id);
+
+alter table particulier_langue add constraint fk_particulier_langue_langue foreign key (langue_id) references langue (id) on delete restrict on update restrict;
+create index ix_particulier_langue_langue on particulier_langue (langue_id);
 
 alter table publication add constraint fk_publication_membre_id foreign key (membre_id) references membre (id) on delete restrict on update restrict;
 create index ix_publication_membre_id on publication (membre_id);
@@ -272,9 +286,6 @@ drop index ix_commentaire_publication_id on commentaire;
 alter table commentaire drop foreign key fk_commentaire_membre_id;
 drop index ix_commentaire_membre_id on commentaire;
 
-alter table competence drop foreign key fk_competence_profil_id;
-drop index ix_competence_profil_id on competence;
-
 alter table domaine_publication drop foreign key fk_domaine_publication_domaine;
 drop index ix_domaine_publication_domaine on domaine_publication;
 
@@ -283,33 +294,29 @@ drop index ix_domaine_publication_publication on domaine_publication;
 
 alter table entreprise drop foreign key fk_entreprise_membre_id;
 
-alter table experience drop foreign key fk_experience_profil_id;
-drop index ix_experience_profil_id on experience;
+alter table experience drop foreign key fk_experience_membre_id;
+drop index ix_experience_membre_id on experience;
 
-alter table formation drop foreign key fk_formation_profil_id;
-drop index ix_formation_profil_id on formation;
+alter table formation drop foreign key fk_formation_particulier_id;
+drop index ix_formation_particulier_id on formation;
 
 alter table groupe drop foreign key fk_groupe_createur_id;
 drop index ix_groupe_createur_id on groupe;
 
-alter table image drop foreign key fk_image_profil_id;
-
 alter table image drop foreign key fk_image_membre_id;
 drop index ix_image_membre_id on image;
-
-alter table langue drop foreign key fk_langue_profil_id;
-drop index ix_langue_profil_id on langue;
-
-alter table loisir drop foreign key fk_loisir_profil_id;
-drop index ix_loisir_profil_id on loisir;
-
-alter table membre drop foreign key fk_membre_profil_id;
 
 alter table membre_groupe drop foreign key fk_membre_groupe_membre;
 drop index ix_membre_groupe_membre on membre_groupe;
 
 alter table membre_groupe drop foreign key fk_membre_groupe_groupe;
 drop index ix_membre_groupe_groupe on membre_groupe;
+
+alter table membre_competence drop foreign key fk_membre_competence_membre;
+drop index ix_membre_competence_membre on membre_competence;
+
+alter table membre_competence drop foreign key fk_membre_competence_competence;
+drop index ix_membre_competence_competence on membre_competence;
 
 alter table message drop foreign key fk_message_expediteur_id;
 drop index ix_message_expediteur_id on message;
@@ -318,6 +325,18 @@ alter table message drop foreign key fk_message_destinataire_id;
 drop index ix_message_destinataire_id on message;
 
 alter table particulier drop foreign key fk_particulier_membre_id;
+
+alter table particulier_loisir drop foreign key fk_particulier_loisir_particulier;
+drop index ix_particulier_loisir_particulier on particulier_loisir;
+
+alter table particulier_loisir drop foreign key fk_particulier_loisir_loisir;
+drop index ix_particulier_loisir_loisir on particulier_loisir;
+
+alter table particulier_langue drop foreign key fk_particulier_langue_particulier;
+drop index ix_particulier_langue_particulier on particulier_langue;
+
+alter table particulier_langue drop foreign key fk_particulier_langue_langue;
+drop index ix_particulier_langue_langue on particulier_langue;
 
 alter table publication drop foreign key fk_publication_membre_id;
 drop index ix_publication_membre_id on publication;
@@ -362,11 +381,15 @@ drop table if exists membre;
 
 drop table if exists membre_groupe;
 
+drop table if exists membre_competence;
+
 drop table if exists message;
 
 drop table if exists particulier;
 
-drop table if exists profil;
+drop table if exists particulier_loisir;
+
+drop table if exists particulier_langue;
 
 drop table if exists publication;
 

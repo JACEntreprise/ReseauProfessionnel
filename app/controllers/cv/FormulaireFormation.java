@@ -8,8 +8,8 @@ public class FormulaireFormation {
     private String diplome;
     private String etablissement;
     private String resultat;
-    private String anneeDebut;
-    private String anneeFin;
+    private Long anneeDebut;
+    private Long anneeFin;
 
     public FormulaireFormation() {
     }
@@ -46,19 +46,19 @@ public class FormulaireFormation {
         this.resultat = resultat;
     }
 
-    public String getAnneeDebut() {
+    public Long getAnneeDebut() {
         return anneeDebut;
     }
 
-    public void setAnneeDebut(String anneeDebut) {
+    public void setAnneeDebut(Long anneeDebut) {
         this.anneeDebut = anneeDebut;
     }
 
-    public String getAnneeFin() {
+    public Long getAnneeFin() {
         return anneeFin;
     }
 
-    public void setAnneeFin(String anneeFin) {
+    public void setAnneeFin(Long anneeFin) {
         this.anneeFin = anneeFin;
     }
 }

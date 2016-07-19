@@ -4,6 +4,7 @@ import com.avaje.ebean.Model;
 import play.data.validation.Constraints;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * Entite Langue
@@ -15,25 +16,29 @@ public class Langue extends Model {
      * Identifiant de Langue
      */
     @Id
-    public long id;
+    private long id;
 
     /**
      * le libelle de la langue
      */
     @Constraints.Required
-    public String libele;
+    private String libele;
 
     /**
-     * Relation entre Langue et Profil
-     * plusieurs langues sont associees à un profil
+     * Relation entre Langue et particulier
+     * plusieurs langues peuvent être associées à plusieurs personnes
      */
-    @ManyToOne
-    public Profil profil;
+    @ManyToMany(mappedBy = "langues")
+    private List<Particulier> particuliers;
 
     /**
      * Constructeur par defaut
      */
     public Langue() {
+    }
+
+    public Langue(String libele) {
+        this.libele = libele;
     }
 
     public long getId() {
@@ -52,12 +57,28 @@ public class Langue extends Model {
         this.libele = libele;
     }
 
-    public Profil getProfil() {
-        return profil;
+    public List<Particulier> getParticuliers() {
+        return particuliers;
     }
 
-    public void setProfil(Profil profil) {
-        this.profil = profil;
+    public void setParticuliers(List<Particulier> particuliers) {
+        this.particuliers = particuliers;
+    }
+
+    public static void ajouterNewLangue(String libele, Particulier p){
+        Langue langue= new Langue(libele);
+        langue.getParticuliers().add(p);
+        langue.save();
+    }
+
+    public static void modifierLangue(Long id, String libele){
+        Langue langue= Langue.getLangue(id);
+        langue.setLibele(libele);
+        langue.update();
+    }
+
+    public static Langue getLangue(Long id){
+        return Langue.find.byId(id);
     }
 
     /**

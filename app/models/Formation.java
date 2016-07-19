@@ -1,11 +1,14 @@
 package models;
 
+import com.avaje.ebean.Ebean;
 import com.avaje.ebean.Model;
 import play.data.format.Formats;
 import play.data.validation.Constraints;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Entite Formation
@@ -25,59 +28,47 @@ public class Formation extends Model {
     @Constraints.Required
     private String type;
 
-    /**
-     * diplome obtenu
-     */
-    @Constraints.Required
-    private String diplome;
-
-    /**
-     * l'etablissement qu'il a passé la formation
-     */
     @Constraints.Required
     private String etablissement;
 
     /**
-     * resultat de la formation
-     */
-    @Constraints.Required
-    private String resultat;
-
-    /**
-     * description de la formation
-     */
-    @Constraints.Required
-    @Lob
-    private String description;
-
-    /**
      * la date de debut
      */
-    @Formats.DateTime(pattern="dd/MM/yyyy")
-    private Date dateDebut = new Date();
+    private Long anneeDebut;
 
     /**
      * la date de fin
      */
-    @Formats.DateTime(pattern="dd/MM/yyyy")
-    private Date dateFin = new Date();
+    private Long anneeFin ;
 
     /**
-     * Relation entre Formation et Profil
-     * plusieurs formations sont associees à un profil
+     * diplome
+     */
+    private String diplome ;
+
+    /**
+     * resultat
+     */
+    private String resultat ;
+
+    /**
+     * Relation entre Formation et Particulier
+     * plusieurs formations sont associees à plusieurs personnes
      */
     @ManyToOne
-    private Profil profil;
+    private Particulier particulier;
 
     public Formation() {
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
+    public Formation(String type, String etablissement, Long anneeDebut, Long anneeFin, Particulier particulier, String diplome, String resultat) {
+        this.type = type;
+        this.etablissement = etablissement;
+        this.anneeDebut = anneeDebut;
+        this.anneeFin = anneeFin;
+        this.particulier = particulier;
+        this.diplome = diplome;
+        this.resultat = resultat;
     }
 
     public String getType() {
@@ -88,36 +79,12 @@ public class Formation extends Model {
         this.type = type;
     }
 
-    public Date getDateDebut() {
-        return dateDebut;
+    public long getId() {
+        return id;
     }
 
-    public void setDateDebut(Date dateDebut) {
-        this.dateDebut = dateDebut;
-    }
-
-    public Date getDateFin() {
-        return dateFin;
-    }
-
-    public void setDateFin(Date dateFin) {
-        this.dateFin = dateFin;
-    }
-
-    public Profil getProfil() {
-        return profil;
-    }
-
-    public void setProfil(Profil profil) {
-        this.profil = profil;
-    }
-
-    public String getDiplome() {
-        return diplome;
-    }
-
-    public void setDiplome(String diplome) {
-        this.diplome = diplome;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getEtablissement() {
@@ -128,6 +95,38 @@ public class Formation extends Model {
         this.etablissement = etablissement;
     }
 
+    public Long getAnneeDebut() {
+        return anneeDebut;
+    }
+
+    public void setAnneeDebut(Long anneeDebut) {
+        this.anneeDebut = anneeDebut;
+    }
+
+    public Long getAnneeFin() {
+        return anneeFin;
+    }
+
+    public void setAnneeFin(Long anneeFin) {
+        this.anneeFin = anneeFin;
+    }
+
+    public Particulier getParticulier() {
+        return particulier;
+    }
+
+    public void setParticulier(Particulier particulier) {
+        this.particulier = particulier;
+    }
+
+    public String getDiplome() {
+        return diplome;
+    }
+
+    public void setDiplome(String diplome) {
+        this.diplome = diplome;
+    }
+
     public String getResultat() {
         return resultat;
     }
@@ -136,14 +135,25 @@ public class Formation extends Model {
         this.resultat = resultat;
     }
 
-    public String getDescription() {
-        return description;
+    public static void ajouterNewFormation(Particulier p, String type, Long anneeDebut, Long anneeFin, String etablissement, String diplome, String resultat){
+        Formation formation= new Formation(type,etablissement,anneeDebut,anneeFin,p,diplome,resultat);
+        formation.save();
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public static void modifierFormation(Long id, String type, Long anneeDebut, Long anneeFin, String etablissement, String diplome, String resultat){
+        Formation formation= Formation.getFormation(id);
+        formation.setType(type);
+        formation.setAnneeDebut(anneeDebut);
+        formation.setAnneeFin(anneeFin);
+        formation.setEtablissement(etablissement);
+        formation.setDiplome(diplome);
+        formation.setResultat(resultat);
+        formation.update();
     }
 
+    public static Formation getFormation(Long id){
+        return Formation.find.byId(id);
+    }
     /**
      * finder permettant d'accedant aux donnees de l'entite
      */

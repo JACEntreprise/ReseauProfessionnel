@@ -1,0 +1,58 @@
+@(membre : Membre)
+@layout(membre){
+
+}{
+    <div id="content-formulaire-pub">
+
+        @*
+         *formulaire d'ajout d'une publication
+         *@
+        @helper.form(routes.PublicationController.publier(), 'class -> "form-horizontal form-conn-ins",'role->"form",'name->"formulaireAjoutPublication",'enctype -> "multipart/form-data"){
+            @* champ titre *@
+            <div class="form-group">
+                <label for="titre" class="col-sm-12"><span class="glyphicon glyphicon glyphicon-certificate"></span>Titre<span style="font-size:12px;font-weight:normal;margin-left:5px">(Obligatoire)</span></label>
+                <div class="col-sm-12">
+                    <input type="text" id="titre" class="form-control" name="titre" placeholder="Titre de la publication" required>
+                </div>
+            </div>
+
+            @* image associé à l'article *@
+
+            <div class="form-group">
+                <label class="col-sm-12"><span class="glyphicon glyphicon glyphicon-certificate"></span>Image<span style="font-size:12px;font-weight:normal;margin-left:5px">(clicker pour charger une image)</span></label>
+                <label for="urlImage" class="label-image col-sm-12 click">
+                    <div class="label-image-pub-charger">
+                        <span class="contenu-img-label">Cliquer ici pour charger une image</span>
+                        <img src='' alt="" class="img-pub-charge hidden"/>
+                    </div>
+                </label>
+                <div class="col-sm-12 hidden">
+                    <input type="file" id="urlImage" name="urlImage" placeholder="Image" required>
+                </div>
+            </div>
+
+            @* champ contenu *@
+            <div class="form-group">
+                <label for="contenu" class="col-sm-12"><span class="glyphicon glyphicon glyphicon-certificate"></span>Contenu de la publication</label>
+                <div class="col-sm-12">
+                    <textarea name="contenu" id="contenu" placeholder="Contenu de la publication" required></textarea>
+                </div>
+            </div>
+
+            @* bouton de validation et d'annulation *@
+            <div class="ajout-pub-boutons col-sm-12">
+                <button type="reset" class="btn btn-primary right">Annuler</button>
+                <button type="submit" class="btn btn-primary right">Enregistrer</button>
+            </div>
+        }
+    </div>
+}{
+}{
+    <script src='@routes.Assets.versioned("javascripts/publication/pub.js")' type="text/javascript"></script>
+    <script type="text/javascript">
+        CKEDITOR.replace( 'contenu',
+        {
+            height: 300
+        });
+    </script>
+}

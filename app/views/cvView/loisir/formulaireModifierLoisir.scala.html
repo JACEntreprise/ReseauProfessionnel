@@ -1,0 +1,12 @@
+@(loisir: Loisir)
+<div class="content-form-content petit-bloc">
+    <span class="close supprimer-bloc hidden" aria-label="close">&times;</span>
+    @helper.form(routes.ProfilController.validerModifierLoisir(loisir.getId()), 'class -> "form-horizontal formulaire-modifier-loisir",'role->"form",'name->"formulaireLoisir") {
+        <div class="form-group">
+            <div class="col-sm-12">
+                <input type="text" class="form-control" name="libele" placeholder="loisir" id="libele" value="@loisir.getLibele()" required>
+            </div>
+        </div>
+        <input type="submit" class="btn btn-primary" value="Mettre à jour">
+    }
+</div>

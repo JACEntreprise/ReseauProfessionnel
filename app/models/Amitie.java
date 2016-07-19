@@ -11,29 +11,34 @@ import javax.persistence.*;
 @Entity
 public class Amitie extends Model {
     @Id
-    public long id;
+    private long id;
 
     /**
      * Le membre qui demande l'amitié
      */
     @ManyToOne
-    public Membre membreSource;
+    private Membre membreSource;
 
 
     /**
      * Le membre à qui l'amitié a été demandée
      */
     @ManyToOne
-    public Membre membreCible;
+    private Membre membreCible;
 
     /**
      * Attribut qui permet de connaitre les amis acceptés
      */
-    public boolean accepte;
+    private boolean accepte;
 
 
     public Amitie() {
         this.accepte=false;
+    }
+
+    public Amitie(Membre membreSource, Membre membreCible) {
+        this.membreSource = membreSource;
+        this.membreCible = membreCible;
     }
 
     public long getId() {

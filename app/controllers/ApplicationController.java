@@ -1,5 +1,6 @@
 package controllers;
 
+import com.avaje.ebean.Ebean;
 import controllers.action.Secured;
 import controllers.membre.*;
 import models.*;
@@ -13,6 +14,7 @@ import play.mvc.Security;
 import repository.MembreRepository;
 import views.html.*;
 import views.html.cvView.formation.ajouterFormulaireFormulaire;
+import play.Routes;
 
 import javax.inject.Inject;
 import java.io.File;
@@ -55,12 +57,7 @@ public class ApplicationController extends Controller {
          * les formulaires de publication et de commentaire
          * et les publications concernant ce membre
          */
-        return ok(accueil.render(
-                membre,
-                formFactory.form(Publication.class),
-                formFactory.form(Commentaire.class),
-                Publication.publicationsLues(membre)
-        ));
+        return ok(accueil.render(membre));
     }
 
     /**
@@ -74,21 +71,12 @@ public class ApplicationController extends Controller {
         Membre membre= Membre.byEmail(session("membre"));
 
         /**
-         * On recupere la liste de toutes les publications qui ne sont pas encore lues par ce membre
-         */
-        List<Publication> publications=Publication.publicationsNonLues(membre);
-
-        /**
          * On envoie sur la page
          * le mebre
          * le formulaire de commentaire
          * et les publications non lues
          */
-        return ok(rechargePub.render(
-                membre,
-                formFactory.form(Commentaire.class),
-                publications
-        ));
+        return ok(rechargePub.render(membre));
     }
 
     /**
@@ -140,12 +128,16 @@ public class ApplicationController extends Controller {
                 /**
                  * On crée l'image
                  */
-                Image image=new Image();
                 Membre membre=Membre.byEmail(session("membre"));
-                image.membre=membre;
-                image.setProfil(membre.getProfil());
-                image.chemin=path+"/public/images/profil/"+nom;
-                image.nom=nom;
+                Image i= Ebean.find(Image.class).where().eq("profil",true).eq("membre.id",membre.getId()).findUnique();
+                if(i!=null){
+                    i.setProfil(false);
+                    i.update();
+                }
+                Image image=new Image();
+                image.setMembre(membre);
+                image.setChemin(path+"/public/images/profil/"+nom);
+                image.setNom(nom);
                 image.save();
                 /**
                  * On envie l'image dans le repertoire

@@ -2,8 +2,10 @@ package models;
 
 import java.util.*;
 import javax.persistence.*;
+import javax.persistence.Query;
+import javax.xml.transform.Result;
 
-import com.avaje.ebean.Model;
+import com.avaje.ebean.*;
 import play.data.validation.*;
 import org.mindrot.jbcrypt.BCrypt;
 import repository.MembreRepository;
@@ -13,9 +15,6 @@ import repository.MembreRepository;
  * Creation de l'Entité Membre
  */
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-@DiscriminatorColumn(name="type")
-@DiscriminatorValue("membre")
 public class Membre extends Model {
 
     /**
@@ -67,6 +66,9 @@ public class Membre extends Model {
      */
     protected Date dateCreation;
 
+    @Constraints.Required
+    private String type;
+
     /**
      * Relation d'héritage entre Membe et Particulier
      */
@@ -78,14 +80,6 @@ public class Membre extends Model {
      */
     @OneToOne(mappedBy = "membre")
     private Entreprise entreprise;
-
-
-    /**
-     * Relation entre Membre et Profil
-     * Un membre est associé à un seul Profil
-     */
-    @OneToOne
-    protected Profil profil;
 
 
     /**
@@ -143,6 +137,19 @@ public class Membre extends Model {
      */
     @OneToMany(mappedBy = "membre")
     private List<Publication> publications;
+    /**
+     * Concernant le profil: relation entre membre et compétence
+     * Un membre a plusieurs compétences, plusieurs membres peuvent partager une même compétence
+     */
+    @ManyToMany
+    private List<Competence> competences;
+
+    /**
+     * Concernant toujours le profil: relation entre membre et expériences
+     * Un membre peut avoir plusieurs expériences, plusieurs membre peuvent avoir vécus les mêmes expériences
+     */
+    @OneToMany(mappedBy = "membre")
+    private List<Experience> experiences;
 
     /**
      * Relation entre Membre et Commentaire
@@ -246,6 +253,7 @@ public class Membre extends Model {
      */
     public Membre() {
         dateCreation = new Date(); //date systeme
+        type="membre";
     }
 
     public Long getId() {
@@ -336,14 +344,6 @@ public class Membre extends Model {
         this.entreprise = entreprise;
     }
 
-    public Profil getProfil() {
-        return profil;
-    }
-
-    public void setProfil(Profil profil) {
-        this.profil = profil;
-    }
-
     public List<Message> getMessagesEpediteurs() {
         return messagesEpediteurs;
     }
@@ -432,6 +432,34 @@ public class Membre extends Model {
         this.vueCommentaires = vueCommentaires;
     }
 
+    public List<Competence> getCompetences() {
+        return competences;
+    }
+
+    public void addCompetence(Competence competence) {
+        this.getCompetences().add(competence);
+    }
+
+    public void setCompetences(List<Competence> competences) {
+        this.competences = competences;
+    }
+
+    public List<Experience> getExperiences() {
+        return experiences;
+    }
+
+    public void setExperiences(List<Experience> experiences) {
+        this.experiences = experiences;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     /**
      * finder permettant d'accedant aux donnees de l'entite
      */
@@ -450,7 +478,337 @@ public class Membre extends Model {
         this.save();
     }
 
+    public List<Membre> suggessionAmis(){
+        String sql
+                = "SELECT DISTINCT id " +
+                "FROM membre m " +
+                "WHERE m.id<>:id " +
+                "AND (((m.id IN " +
+                        "(SELECT a.membre_source_id " +
+                        "FROM amitie a " +
+                        "WHERE a.membre_cible_id IN " +
+                            "(SELECT m1.id FROM membre m1 " +
+                            "WHERE m1.id IN" +
+                                "(SELECT a1.membre_cible_id FROM amitie a1 WHERE a1.membre_source_id=:id) " +
+                            "OR m1.id IN " +
+                                "(SELECT a1.membre_source_id FROM amitie a1 WHERE a1.membre_cible_id=:id)" +
+                            ")" +
+                        ")" +
+                    "OR m.id IN "+
+                        "(SELECT a.membre_cible_id " +
+                        "FROM amitie a " +
+                        "WHERE a.membre_source_id IN " +
+                            "(SELECT m1.id FROM membre m1 " +
+                            "WHERE m1.id IN" +
+                                "(SELECT a1.membre_cible_id FROM amitie a1 WHERE a1.membre_source_id=:id) " +
+                            "OR m1.id IN " +
+                                "(SELECT a1.membre_source_id FROM amitie a1 WHERE a1.membre_cible_id=:id)" +
+                            ")" +
+                        ")" +
+                    ")" +
+                "AND (m.id NOT IN" +
+                        "(SELECT a1.membre_cible_id FROM amitie a1 WHERE a1.membre_source_id=:id) " +
+                    "AND m.id NOT IN " +
+                        "(SELECT a1.membre_source_id FROM amitie a1 WHERE a1.membre_cible_id=:id)" +
+                    ")" +
+                ") " +
+                "OR (m.id IN " +
+                        "(SELECT p.membre_id " +
+                        "FROM particulier p " +
+                        "WHERE p.id IN " +
+                            "(SELECT f.particulier_id " +
+                            "FROM formation f " +
+                            "WHERE f.id IN " +
+                                "(SELECT f1.id " +
+                                "FROM formation f1 " +
+                                "WHERE f1.etablissement IN " +
+                                    "(SELECT f2.etablissement " +
+                                    "FROM formation f2 " +
+                                    "WHERE f2.id IN " +
+                                        "(SELECT f3.id " +
+                                        "FROM formation f3 " +
+                                        "WHERE f3.particulier_id IN " +
+                                            "(SELECT p.id " +
+                                            "FROM particulier p " +
+                                            "WHERE p.membre_id=:id" +
+                                            ")" +
+                                        ")" +
+                                    ")" +
+                                ")" +
+                            ")" +
+                        ") " +
+                    "AND (m.id NOT IN" +
+                            "(SELECT a1.membre_cible_id FROM amitie a1 WHERE a1.membre_source_id=:id) " +
+                        "AND m.id NOT IN " +
+                            "(SELECT a1.membre_source_id FROM amitie a1 WHERE a1.membre_cible_id=:id)" +
+                        ")" +
+                    ") " +
+                "OR (m.id IN " +
+                        "(SELECT e.membre_id " +
+                        "FROM experience e " +
+                        "WHERE LOWER(e.entreprise) IN " +
+                            "(SELECT LOWER(e1.entreprise) " +
+                            "FROM experience e1 " +
+                            "WHERE e1.id IN " +
+                                "(SELECT e2.id FROM experience e2 WHERE e2.membre_id=:id)" +
+                            ") " +
+                            "OR LOWER(e.lieu) IN " +
+                                "(SELECT LOWER(e1.lieu) " +
+                                "FROM experience e1 " +
+                                "WHERE e1.id IN " +
+                                    "(SELECT e2.id FROM experience e2 WHERE e2.membre_id=:id)" +
+                                ")" +
+                        ") " +
+                    "AND (m.id NOT IN" +
+                            "(SELECT a1.membre_cible_id FROM amitie a1 WHERE a1.membre_source_id=:id) " +
+                        "AND m.id NOT IN " +
+                            "(SELECT a1.membre_source_id FROM amitie a1 WHERE a1.membre_cible_id=:id)" +
+                        ") " +
+                    ") " +
+                ")" +
+                " ORDER BY RAND() LIMIT 10"
+        ;
+
+        RawSql rawSql = RawSqlBuilder.parse(sql)
+                .create();
+        List<Membre> membres = Ebean.find(Membre.class)
+                .setRawSql(rawSql)
+                .setParameter("id", id)
+                .findList();
+
+        return membres;
+    }
+
+    public String getStatus(){
+        String status="pas de titre professionnel";
+        if(this.getParticulier()!=null){
+            Experience exp=Ebean.find(Experience.class).where().eq("membre.id",id).eq("etat",true).findUnique();
+            if(exp!=null){
+                status=exp.getTitre()+" chez "+exp.getEntreprise();
+            }
+            else{
+                String sql="SELECT type, etablissement FROM formation f WHERE f.particulier_id=:pID AND f.annee_fin =(SELECT MAX(f1.annee_fin) AS annee_fin FROM formation f1 WHERE f1.particulier_id=:pID)";
+                RawSql rawSql = RawSqlBuilder.parse(sql)
+                        .create();
+                List<Formation> formations = Ebean.find(Formation.class)
+                        .setRawSql(rawSql)
+                        .setParameter("pID", particulier.getId())
+                        .findList();
+                for(Formation f:formations){
+                    status=f.getType()+" "+f.getEtablissement();
+                }
+
+            }
+
+        }
+        else{
+            if(this.getEntreprise().getDomaine()!=null){
+                status="Entreprise "+this.getEntreprise().getDomaine();
+            }
+        }
+        return status;
+    }
+
+    public String getNomProfil(){
+        String nomProfil="";
+        if(this.particulier==null){
+            nomProfil=this.getEntreprise().getRaisonSocial();
+        }else{
+            nomProfil=this.getParticulier().getPrenom()+" "+this.getParticulier().getNom();
+        }
+        return nomProfil;
+    }
+
+    public Image getImageProfil(){
+        if(this.getImages().size()!=0){
+            for(Image profil:this.getImages()){
+                if(profil.getProfil()==true){
+                    return profil;
+                }
+            }
+        }
+        return null;
+    }
+
+    public List<Membre> demandes(){
+        String sql="SELECT id FROM membre m WHERE m.id IN (SELECT a.membre_source_id FROM amitie a WHERE a.membre_cible_id=:id AND a.accepte=false) ORDER BY RAND() LIMIT 10";
+        RawSql rawSql = RawSqlBuilder.parse(sql)
+                .create();
+        List<Membre> membres = Ebean.find(Membre.class)
+                .setRawSql(rawSql)
+                .setParameter("id", id)
+                .findList();
+        return membres;
+    }
+
+    public void envoyerDemande(Long id){
+        Membre membre=Ebean.find(Membre.class).where().eq("id",id).findUnique();
+        Amitie demande= new Amitie(this,membre);
+        demande.save();
+    }
+
+    public void accepterDemande(Long id){
+        Amitie demande= Ebean.find(Amitie.class).where().eq("membreCible.id",this.id).eq("membreSource.id",id).findUnique() ;
+        demande.setAccepte(true);
+        demande.update();
+    }
+
+    public void refuserDemande(Long id){
+
+        Amitie demande= Ebean.find(Amitie.class).where().eq("mebreSource.id",this.id).eq("mebreSource.id",id).findUnique() ;
+        demande.delete();
+    }
+
+    public List<Publication> publicationsNonLues(){
+        List<Publication> publications= new ArrayList<Publication>();
+        List<Long> idAmis= new ArrayList<Long>();
+
+        for(Amitie macible:this.getAmities()){
+            if(macible.isAccepte()){
+                idAmis.add(macible.getMembreCible().getId());
+            }
+        }
+
+        for(Amitie masource:this.getDemandeAmities()){
+            if(masource.isAccepte()){
+                idAmis.add(masource.getMembreSource().getId());
+            }
+
+        }
+        publications= Ebean.find(Publication.class)
+                .where()
+                .or(Expr.eq("membre.id",this.id), Expr.in("membre.id",idAmis))
+                .eq("vuePublications.membre.id",this.id)
+                .eq("vuePublications.vue",0)
+                .orderBy("id desc")
+                .findList();
+        for(Publication pub:publications){
+            VuePublication vp=Ebean.find(VuePublication.class)
+                    .where().eq("publication.id",pub.getId())
+                    .eq("membre.id",this.id)
+                    .findUnique();
+            vp.setVue(-1);
+            vp.update();
+            VueCommentaire.commentaireNonLues(pub,this);
+        }
+        return publications;
+    }
+
+    public List<Publication> publicationsLues(){
+        List<Publication> publications= new ArrayList<Publication>();
+        List<Long> idAmis= new ArrayList<Long>();
+
+        for(Amitie macible:this.getAmities()){
+            if(macible.isAccepte()){
+                idAmis.add(macible.getMembreCible().getId());
+            }
+        }
+
+        for(Amitie masource:this.getDemandeAmities()){
+            if(masource.isAccepte()){
+                idAmis.add(masource.getMembreSource().getId());
+            }
+
+        }
+
+        publications= Ebean.find(Publication.class)
+                .where()
+                .or(Expr.eq("membre.id",this.id), Expr.in("membre.id",idAmis))
+                .orderBy("id desc")
+                .findList();
+        for(Publication pub:publications){
+            VueCommentaire.commentaireNonLues(pub,this);
+        }
+        return publications;
+    }
+
+    public List<Commentaire> commentairesNonLues(){
+        List<Commentaire> commentaires= new ArrayList<Commentaire>();
+        List<Long> idAmis= new ArrayList<Long>();
+
+        for(Amitie macible: this.getAmities()){
+            if(macible.isAccepte()){
+                idAmis.add(macible.getMembreCible().getId());
+            }
+        }
+
+        for(Amitie masource:this.getDemandeAmities()){
+            if(masource.isAccepte()){
+                idAmis.add(masource.getMembreSource().getId());
+            }
+
+        }
+        commentaires= Ebean.find(Commentaire.class)
+                .where()
+                .or(Expr.eq("publication.membre.id",this.id), Expr.in("publication.membre.id",idAmis))
+                .eq("vueCommentaires.membre.id",this.id)
+                .eq("vueCommentaires.vue",0)
+                .orderBy("id desc")
+                .findList();
+        for(Commentaire commentaire:commentaires){
+            VueCommentaire vp=Ebean.find(VueCommentaire.class)
+                    .where().eq("commentaire.id",commentaire.id)
+                    .eq("membre.id",this.getId())
+                    .findUnique();
+            vp.setVue(-1);
+            vp.update();
+        }
+        return commentaires;
+    }
+
+    public List<Publication> publicationNonVueReelle(){
+        return Ebean.find(Publication.class)
+                .where()
+                .eq("membre.id",this.id)
+                .eq("vuePublications.membre.id",this.id)
+                .eq("vuePublications.vue",-1)
+                .orderBy("id desc")
+                .findList();
+    }
     public static List<Membre> listMembres(){
         return Membre.find.all();
+    }
+
+    public List<Publication> publicationNonLueReelle(){
+        return Ebean.find(Publication.class)
+                .where()
+                .eq("vuePublications.membre.id",this.id)
+                .eq("vuePublications.vue",-1)
+                .orderBy("id desc")
+                .findList();
+    }
+
+    public List<Commentaire> commentaireNonLueReelle(){
+        return Ebean.find(Commentaire.class)
+                .where()
+                .eq("vueCommentaires.membre.id",this.id)
+                .or(Expr.eq("vueCommentaires.vue",-1),Expr.eq("vueCommentaires.vue",0))
+                .orderBy("id desc")
+                .findList();
+    }
+
+    public List<Membre> demandesEtDemandeAccepter(){
+        String sql="SELECT id " +
+                    "FROM membre m " +
+                    "WHERE m.id IN " +
+                        "(SELECT a.membre_source_id " +
+                        "FROM amitie a " +
+                        "WHERE a.membre_cible_id=:id " +
+                        "AND a.accepte=false" +
+                        ")"+
+                    " OR m.id IN" +
+                        "(SELECT a1.membre_cible_id " +
+                        "FROM amitie a1 " +
+                        "WHERE a1.membre_source_id=:id " +
+                        "AND a1.accepte=true" +
+                        ")"
+                ;
+        RawSql rawSql = RawSqlBuilder.parse(sql)
+                .create();
+        List<Membre> membres = Ebean.find(Membre.class)
+                .setRawSql(rawSql)
+                .setParameter("id", id)
+                .findList();
+        return membres;
     }
 }

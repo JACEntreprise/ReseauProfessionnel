@@ -34,12 +34,24 @@
     }
     .content-form-content {
         padding: 30px;
+        position: relative;
+        .supprimer-bloc {
+            position: absolute;
+            right: 5px;
+            top: 2px;
+        }
         >form{
             width:90%;
             margin:auto;
             .form-group{
                 margin-bottom:35px !important;
+                position: relative;
+                .error{
+                    position:absolute;
+                    right:-20px;
+                }
                 >.col-sm-6{
+                    padding: 0!important;
                     &:first-child{
                         padding-left:0 !important;
                     }
@@ -103,7 +115,7 @@
 .icon-competence{
     background:$couleur-competence !important;
     &:hover{
-       background:$couleur-experience !important;
+       background:$couleur-competence !important;
     }
 }
 .icon-langue{
@@ -116,5 +128,27 @@
     background:$couleur-loisir !important;
     &:hover{
        background:$couleur-loisir !important;
+    }
+}
+
+.contenu-formation {
+    padding: 5px 10px;
+    .item-profil {
+        margin-bottom: 15px;
+        &:hover{
+            span,
+            a{
+                background :#d4d4d4;
+            }
+        }
+        .element-item {
+            margin-right: 10px;
+        }
+    }
+    .item{
+        margin-bottom: 15px;
+        .element-item {
+            margin-right: 10px;
+        }
     }
 }

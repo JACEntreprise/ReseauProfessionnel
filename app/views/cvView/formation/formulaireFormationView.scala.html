@@ -1,17 +1,18 @@
-@helper.form(routes.AuthController.inscriptionParticulier(), 'class -> "form-horizontal",'role->"form",'name->"formulaireFormation") {
+<span class="close supprimer-bloc hidden" aria-label="close">&times;</span>
+@helper.form(routes.ProfilController.validerFormation(), 'class -> "form-horizontal formulaire-formation",'role->"form",'name->"formulaireFormation") {
     <div class="form-group">
         <div class="col-sm-12">
-            <input type="text" class="form-control" name="type" placeholder="type de formation" id=""type>
+            <input type="text" class="form-control" name="type" placeholder="type de formation" id="type" required>
         </div>
     </div>
     <div class="form-group">
         <div class="col-sm-12">
-            <input type="text" class="form-control" name="diplome" placeholder="diplome obtenu" id="diplome">
+            <input type="text" class="form-control" name="diplome" placeholder="diplome obtenu" id="diplome" required>
         </div>
     </div>
     <div class="form-group">
         <div class="col-sm-12">
-            <input type="text" class="form-control" name="etablissement" placeholder="etablissement" id="etablissement">
+            <input type="text" class="form-control" name="etablissement" placeholder="etablissement" id="etablissement" required>
         </div>
     </div>
     <div class="form-group">
@@ -42,6 +43,9 @@
                 </select>
             </div>
         </div>
+        <span class="error error-duree-formation hidden">
+            <span data-toggle="tooltip" data-placement="right" title="duree formation incorrecte"><span class="error-form badge">e</span></span>
+        </span>
     </div>
     <input type="submit" class="btn btn-primary" value="Enregistrer">
 }

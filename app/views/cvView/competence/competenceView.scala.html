@@ -1,0 +1,22 @@
+@(membre: Membre)
+@layout(membre){
+
+}{
+<div id="profil-user" class="col-sm-8">
+    <div class="entete-info petit-bloc">
+        @cvView.competence.listeCompetence(membre)
+    </div>
+    <div id="modifier"></div>
+    <div class="content-form-content petit-bloc">
+        @cvView.competence.formulaireCompetenceView()
+    </div>
+
+</div>
+<div id="sidebar-content" class="col-sm-4">
+    @cvView.listeProfil()
+</div>
+}{
+
+}{
+    <script src='@routes.Assets.versioned("javascripts/cvScript/competence.js")' type="text/javascript"></script>
+}

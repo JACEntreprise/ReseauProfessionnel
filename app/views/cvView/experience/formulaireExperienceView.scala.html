@@ -1,17 +1,18 @@
-@helper.form(routes.AuthController.inscriptionParticulier(), 'class -> "form-horizontal",'role->"form",'name->"formulaireFormation") {
+<span class="close supprimer-bloc hidden" aria-label="close">&times;</span>
+@helper.form(routes.ProfilController.validerExperience(), 'class -> "form-horizontal formulaire-experience",'role->"form",'name->"formulaireExperience") {
     <div class="form-group">
         <div class="col-sm-12">
-            <input type="text" class="form-control" name="entreprise" placeholder="Entreprise" id="entreprise">
+            <input type="text" class="form-control" name="entreprise" placeholder="Entreprise" id="entreprise" required>
         </div>
     </div>
     <div class="form-group">
         <div class="col-sm-12">
-            <input type="text" class="form-control" name="lieu" placeholder="Lieu" id="lieu">
+            <input type="text" class="form-control" name="lieu" placeholder="Lieu" id="lieu" required>
         </div>
     </div>
     <div class="form-group">
         <div class="col-sm-12">
-            <input type="text" class="form-control" name="titre" placeholder="titre de l'experience" id="titre">
+            <input type="text" class="form-control" name="titre" placeholder="titre de l'experience" id="titre" required>
         </div>
     </div>
     <div class="form-group">
@@ -19,9 +20,18 @@
         <div class="col-sm-5">
             <select name="moiDebut" id="moiDebut" class="form-control">
                 <option value="moi">moi</option>
-                @for(i<-1960 to 2080){
-                    <option value="@i">@i</option>
-                }
+                <option value="Janvier">Janvier</option>
+                <option value="Fevrier">Fevrier</option>
+                <option value="Mars">Mars</option>
+                <option value="Avril">Avril</option>
+                <option value="Mai">Mai</option>
+                <option value="Juin">Juin</option>
+                <option value="Juillet">Juillet</option>
+                <option value="Aout">Aout</option>
+                <option value="Septembre">Septembre</option>
+                <option value="Octobre">Octobre</option>
+                <option value="Novembre">Novembre</option>
+                <option value="Decembre">Decembre</option>
             </select>
         </div>
         <div class="col-sm-5">
@@ -38,9 +48,18 @@
         <div class="col-sm-5">
             <select name="moiDebut" id="moiFin" class="form-control">
                 <option value="moi">moi</option>
-                @for(i<-1960 to 2080){
-                    <option value="@i">@i</option>
-                }
+                <option value="Janvier">Janvier</option>
+                <option value="Fevrier">Fevrier</option>
+                <option value="Mars">Mars</option>
+                <option value="Avril">Avril</option>
+                <option value="Mai">Mai</option>
+                <option value="Juin">Juin</option>
+                <option value="Juillet">Juillet</option>
+                <option value="Aout">Aout</option>
+                <option value="Septembre">Septembre</option>
+                <option value="Octobre">Octobre</option>
+                <option value="Novembre">Novembre</option>
+                <option value="Decembre">Decembre</option>
             </select>
         </div>
         <div class="col-sm-5">
@@ -50,6 +69,14 @@
                     <option value="@i">@i</option>
                 }
             </select>
+        </div>
+        <span class="error error-duree-experience hidden">
+            <span data-toggle="tooltip" data-placement="right" title="duree experience incorrecte"><span class="error-form badge">e</span></span>
+        </span>
+    </div>
+    <div class="form-group">
+        <div class="checkbox">
+            <label><input type="checkbox" value="false" name="etat" id="etat">Ceci est mon travail actuel</label>
         </div>
     </div>
     <input type="submit" class="btn btn-primary" value="Enregistrer">

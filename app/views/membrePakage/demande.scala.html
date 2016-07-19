@@ -1,0 +1,23 @@
+@(membre :Membre)
+<h5 class="titre-suggestion">Demandes</h5>
+@for(suggession <- membre.demandes()){
+    <div class="libele-sidebar libele-suggession petit-bloc">
+        <div class="contenu-libele-sidebar">
+            <div class="element-libele-sidebar icon-element">
+                @if(suggession.getImageProfil()==null){
+                    <span class="glyphicon glyphicon-user icon-libele-sidebar icon-gris"></span>
+                }else{
+                    <span><img src='@routes.Assets.versioned("images/profil/")@suggession.getImageProfil().getNom()' alt="" class="image-profile-suggestion img-thumbnail"></span>
+                }
+            </div>
+            <div class="element-libele-sidebar texte-element">
+                    <span class="content-libele-sidebar">
+                        <span class="titre-element">@suggession.getNomProfil()</span><br>
+                        <span class="rien">@suggession.getStatus()</span><br>
+                    </span>
+            </div>
+            <span class="relation"><a href="@routes.MembreController.accepterDemande(suggession.getId())" class="amitie-action-ac-refus">Accepter</a></span>
+            <span class="relation"><a href="@routes.MembreController.refuserDemande(suggession.getId())" class="amitie-action-ac-refus">Refuser</a></span>
+        </div>
+    </div>
+}

@@ -18,6 +18,8 @@ GET     /accueil                                    controllers.ApplicationContr
 
 #route pour recharger automatiquement les publications non lues
 GET     /rechargePub                                controllers.ApplicationController.rechargePub()
+GET     /liste-pub                                  controllers.PublicationController.listePub()
+GET     /rechargeTout                               controllers.MembreController.rechargeTout()
 
 #route pour completer le profil
 GET     /profilComplet                              controllers.ApplicationController.completeProfil()
@@ -29,9 +31,14 @@ POST    /upload                                     controllers.ApplicationContr
 
 #route pour partager une nouvelle
 POST    /nouvelle                                   controllers.PublicationController.nouvelle()
+POST    /image-partage                              controllers.PublicationController.partagePhoto()
+POST    /image-partage                              controllers.PublicationController.publier()
+GET     /formulaire-publication                     controllers.PublicationController.formulairePublication()
 
 #route pour valider un commentaire sur une publication
-POST    /commentaire/publication/:id                controllers.PublicationController.commentaire(id:Long)
+POST    /commentaire/publication/:id                controllers.PublicationController.ajouterCommentaire(id:Long)
+GET     /publication/:id                            controllers.PublicationController.unePublication(id:Long)
+GET     /pub/:id                                    controllers.PublicationController.laPub(id:Long)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file                               controllers.Assets.versioned(path="/public", file: Asset)
@@ -51,5 +58,42 @@ GET     /article/voir                               controllers.ArticleControlle
 #profil d'un membre
 GET    /formation                                   controllers.ProfilController.formation()
 GET    /ajouter-formulaire-formation                controllers.ProfilController.ajouterFormulaireFormation()
+GET    /modifier-formulaire-formation/:id           controllers.ProfilController.modifierFormation(id:Long)
+GET    /liste-formation                             controllers.ProfilController.listeFormation()
+POST   /valider-formation                           controllers.ProfilController.validerFormation()
+POST   /valider-modifier-formation/:id              controllers.ProfilController.validerModifierFormation(id :Long)
+
 GET    /experience                                  controllers.ProfilController.experience()
 GET    /ajouter-formulaire-experience               controllers.ProfilController.ajouterFormulaireExperience()
+GET    /modifier-formulaire-experience/:id          controllers.ProfilController.modifierExperience(id:Long)
+GET    /liste-experience                            controllers.ProfilController.listeExperience()
+POST   /valider-experience                          controllers.ProfilController.validerExperience()
+POST   /valider-modifier-experience/:id             controllers.ProfilController.validerModifierExperience(id :Long)
+
+GET    /competence                                  controllers.ProfilController.competence()
+GET    /ajouter-formulaire-competence               controllers.ProfilController.ajouterFormulaireCompetence()
+GET    /modifier-formulaire-competence/:id          controllers.ProfilController.modifierCompetence(id:Long)
+GET    /liste-competence                            controllers.ProfilController.listeCompetence()
+POST   /valider-competence                          controllers.ProfilController.validerCompetence()
+POST   /valider-modifier-competence/:id             controllers.ProfilController.validerModifierCompetence(id :Long)
+
+GET    /langue                                      controllers.ProfilController.langue()
+GET    /ajouter-formulaire-langue                   controllers.ProfilController.ajouterFormulaireLangue()
+GET    /modifier-formulaire-langue/:id              controllers.ProfilController.modifierLangue(id:Long)
+GET    /liste-langue                                controllers.ProfilController.listeLangue()
+POST   /valider-langue                              controllers.ProfilController.validerLangue()
+POST   /valider-modifier-langue/:id                 controllers.ProfilController.validerModifierLangue(id :Long)
+
+GET    /loisir                                      controllers.ProfilController.loisir()
+GET    /ajouter-formulaire-loisir                   controllers.ProfilController.ajouterFormulaireLoisir()
+GET    /modifier-formulaire-loisir/:id              controllers.ProfilController.modifierLoisir(id:Long)
+GET    /liste-loisir                                controllers.ProfilController.listeLoisir()
+POST   /valider-loisir                              controllers.ProfilController.validerLoisir()
+POST   /valider-modifier-loisir/:id                 controllers.ProfilController.validerModifierLoisir(id :Long)
+
+GET    /profil                                      controllers.ProfilController.monProfil()
+GET    /suggession                                  controllers.ProfilController.suggessions()
+
+GET    /accepter/:id                                controllers.MembreController.accepterDemande(id :Long)
+GET    /envoyer/:id                                 controllers.MembreController.envoyerDemande(id :Long)
+GET    /refuser/:id                                 controllers.MembreController.refuserDemande(id :Long)

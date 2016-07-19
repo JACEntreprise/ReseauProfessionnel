@@ -1,9 +1,12 @@
 package models;
 
+import com.avaje.ebean.Ebean;
+import com.avaje.ebean.Expr;
 import com.avaje.ebean.Model;
 import play.data.validation.Constraints;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,6 +24,7 @@ public class Commentaire extends Model {
      * Le contenu du commentaire
      */
     @Constraints.Required
+    @Lob
     public String contenu;
 
     /**
@@ -45,6 +49,12 @@ public class Commentaire extends Model {
     public List<VueCommentaire> vueCommentaires;
 
     public Commentaire() {
+    }
+
+    public Commentaire(String contenu, Publication publication, Membre membre) {
+        this.contenu = contenu;
+        this.publication = publication;
+        this.membre = membre;
     }
 
     public Long getId() {
@@ -85,6 +95,19 @@ public class Commentaire extends Model {
 
     public void setVueCommentaires(List<VueCommentaire> vueCommentaires) {
         this.vueCommentaires = vueCommentaires;
+    }
+
+
+    public static void creerNewCommentaire(String contenu, Publication publication, Membre membre){
+        Commentaire commentaire= new Commentaire(contenu,publication,membre);
+        commentaire.save();
+        List<Membre> membres=Membre.find.all();
+        for(Membre m:membres) {
+            VueCommentaire.creerNewVueCommentaire(m,commentaire);
+        }
+        VueCommentaire vc= Ebean.find(VueCommentaire.class).where().eq("membre.id",membre.getId()).eq("commentaire.id",commentaire.getId()).findUnique();
+        vc.setVue(1);
+        vc.update();
     }
 
     public static Model.Finder<Long, Commentaire> find = new Model.Finder<Long,Commentaire>(Commentaire.class);

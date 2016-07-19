@@ -9,8 +9,8 @@ public class FormulaireExperience {
     private String titre;
     private String moiDebut;
     private String moiFin;
-    private String anneDebut;
-    private String anneFin;
+    private Long anneeDebut;
+    private Long anneeFin;
     private Boolean etat;
 
     public FormulaireExperience() {
@@ -56,20 +56,20 @@ public class FormulaireExperience {
         this.moiFin = moiFin;
     }
 
-    public String getAnneDebut() {
-        return anneDebut;
+    public Long getAnneeDebut() {
+        return anneeDebut;
     }
 
-    public void setAnneDebut(String anneDebut) {
-        this.anneDebut = anneDebut;
+    public void setAnneeDebut(Long anneeDebut) {
+        this.anneeDebut = anneeDebut;
     }
 
-    public String getAnneFin() {
-        return anneFin;
+    public Long getAnneeFin() {
+        return anneeFin;
     }
 
-    public void setAnneFin(String anneFin) {
-        this.anneFin = anneFin;
+    public void setAnneeFin(Long anneeFin) {
+        this.anneeFin = anneeFin;
     }
 
     public Boolean getEtat() {

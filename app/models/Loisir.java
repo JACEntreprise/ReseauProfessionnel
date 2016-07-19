@@ -4,6 +4,7 @@ import com.avaje.ebean.Model;
 import play.data.validation.Constraints;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * Entite Loisir
@@ -15,20 +16,20 @@ public class Loisir extends Model {
      * Indentifiant de Loisir
      */
     @Id
-    public long id;
+    private long id;
 
     /**
      * le libelle du loisir
      */
     @Constraints.Required
-    public String libele;
+    private String libele;
 
     /**
-     * Relation entre Loisir et Profil
-     * plusieurs loisirs sont associes a un profil
+     * Relation entre Loisir et Personnes
+     * plusieurs loisirs sont associes a plusieurs personnes
      */
-    @ManyToOne
-    public Profil profil;
+    @ManyToMany(mappedBy = "loisirs")
+    private List<Particulier> particuliers;
 
     /**
      * Constructeur par defaut
@@ -52,12 +53,32 @@ public class Loisir extends Model {
         this.libele = libele;
     }
 
-    public Profil getProfil() {
-        return profil;
+    public List<Particulier> getParticuliers() {
+        return particuliers;
     }
 
-    public void setProfil(Profil profil) {
-        this.profil = profil;
+    public void setParticuliers(List<Particulier> particuliers) {
+        this.particuliers = particuliers;
+    }
+
+    public Loisir(String libele) {
+        this.libele = libele;
+    }
+
+    public static void ajouterNewLoisir(String libele, Particulier p){
+        Loisir loisir= new Loisir(libele);
+        loisir.getParticuliers().add(p);
+        loisir.save();
+    }
+
+    public static void modifierLoisir(Long id, String libele){
+        Loisir loisir= Loisir.getLoisir(id);
+        loisir.setLibele(libele);
+        loisir.update();
+    }
+
+    public static Loisir getLoisir(Long id){
+        return Loisir.find.byId(id);
     }
 
     /**

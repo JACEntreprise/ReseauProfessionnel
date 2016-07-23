@@ -1,0 +1,27 @@
+@(membre :Membre)
+
+<div class="entete-content">
+    <div class="titre-content">
+        <span class="glyphicon glyphicon-education icon-label icon-langue"></span>
+        <span>Langue</span>
+    </div>
+    <div class="bouton-plus">
+        <button class="btn btn-primary bouton-entete bouton-entete-langue icon-langue" title="Ajouter une autre langue"><span class="glyphicon glyphicon-plus"></span>Ajouter</button>
+    </div>
+
+</div>
+<div class="contenu-formation">
+    @if(membre.getParticulier().getLangues().size==0){
+        <p class="rien">Aucune langue</p>
+    }else{
+        @for(langue <- membre.getParticulier().getLangues()){
+            <div class="item-formation item-profil col-sm-12">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+                <span class="element-item">@langue.getLibele()</span>
+                <a href="@routes.ProfilController.modifierLangue(langue.getId())" class="pencil-modifier-langue hidden">
+                    <span class="glyphicon glyphicon-pencil" title="Modifier"></span>
+                </a>
+            </div>
+        }
+    }
+</div>

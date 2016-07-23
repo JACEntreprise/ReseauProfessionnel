@@ -17,38 +17,34 @@ public class Image extends Model {
      * id de l'entité
      */
     @Id
-    public Long id;
+    private Long id;
 
     /**
      * nom de l'image
      */
     @Constraints.Required
-    public String nom;
+    private String nom;
 
     /**
      * chemin vers l'image
      */
     @Constraints.Required
-    public String chemin;
+    private String chemin;
 
-    /**
-     * Relation entre Image et Profil
-     * image profile actuelle
-     */
-    @OneToOne
-    public Profil profil;
+    private Boolean profil;
 
     /**
      * Relation entre Membe et Image
      * Un membre peut avoir plusieurs photo de profil
      */
     @ManyToOne
-    public Membre membre;
+    private Membre membre;
 
     /**
      * Constructeur par defaut
      */
     public Image() {
+        this.profil=true;
     }
 
     public Long getId() {
@@ -75,11 +71,11 @@ public class Image extends Model {
         this.chemin = chemin;
     }
 
-    public Profil getProfil() {
+    public Boolean getProfil() {
         return profil;
     }
 
-    public void setProfil(Profil profil) {
+    public void setProfil(Boolean profil) {
         this.profil = profil;
     }
 

@@ -5,6 +5,7 @@ import play.data.Form;
 import play.data.FormFactory;
 import play.mvc.Controller;
 import play.mvc.Result;
+import play.routing.JavaScriptReverseRouter;
 import repository.MembreRepository;
 
 import javax.inject.Inject;
@@ -85,9 +86,6 @@ public class AuthController extends Controller {
         membre.setMotDePasse(repository.hash(registerFormParticulier.get().getMotDePasse()));
         membre.setEmail(registerFormParticulier.get().getEmail());
         membre.setSalt(repository.getSalt());
-        Profil profil=new Profil();
-        profil.save();
-        membre.setProfil(profil);
         /**
          * On enregistre ce membre dans la base
          */
@@ -96,12 +94,12 @@ public class AuthController extends Controller {
          * On crée un particulier avec ce membre et les données du formulaire(prenom,nom)
          */
         Particulier particulier =new Particulier();
-        particulier.prenom=registerFormParticulier.get().getPrenom();
-        particulier.nom=registerFormParticulier.get().getNom();
+        particulier.setPrenom(registerFormParticulier.get().getPrenom());
+        particulier.setNom(registerFormParticulier.get().getNom());
         /**
          * On associe le membre au particulier crée précédemment
          */
-        particulier.membre=membre;
+        particulier.setMembre(membre);
         /**
          * On enrégistre le particulier dans la base de données
          */
@@ -141,9 +139,6 @@ public class AuthController extends Controller {
         membre.setMotDePasse(repository.hash(registerFormEntreprise.get().getMotDePasse()));
         membre.setEmail(registerFormEntreprise.get().getEmail());
         membre.setSalt(repository.getSalt());
-        Profil profil=new Profil();
-        profil.save();
-        membre.setProfil(profil);
         /**
          * On enregistre ce membre dans la base
          */
@@ -152,11 +147,11 @@ public class AuthController extends Controller {
          * On crée un particulier avec ce membre et les données du formulaire(prenom,nom)
          */
         Entreprise entreprise =new Entreprise();
-        entreprise.raisonSocial=registerFormEntreprise.get().getRaisonSocial();
+        entreprise.setRaisonSocial(registerFormEntreprise.get().getRaisonSocial());
         /**
          * On associe le membre à l'entreprise créee précédemment
          */
-        entreprise.membre=membre;
+        entreprise.setMembre(membre);
         /**
          * On enrégistre le particulier dans la base de données
          */
@@ -168,5 +163,6 @@ public class AuthController extends Controller {
         session("membre", registerFormEntreprise.get().getEmail());
         return redirect(controllers.routes.ApplicationController.accueil());
     }
+
 
 }

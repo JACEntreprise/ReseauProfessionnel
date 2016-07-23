@@ -1,0 +1,27 @@
+@(membre :Membre)
+
+<div class="entete-content">
+    <div class="titre-content">
+        <span class="glyphicon glyphicon-education icon-label icon-competence"></span>
+        <span>Competence</span>
+    </div>
+    <div class="bouton-plus">
+        <button class="btn btn-primary bouton-entete bouton-entete-competence icon-competence" title="Ajouter une autre competence"><span class="glyphicon glyphicon-plus"></span>Ajouter</button>
+    </div>
+
+</div>
+<div class="contenu-formation">
+    @if(membre.getCompetences().size==0){
+        <p class="rien">Aucune competence</p>
+    }else{
+        @for(competence <- membre.getCompetences()){
+            <div class="item-formation item-profil col-sm-12">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+                <span class="element-item">@competence.getDescription()</span>
+                <a href="@routes.ProfilController.modifierCompetence(competence.getId())" class="pencil-modifier-competence hidden">
+                    <span class="glyphicon glyphicon-pencil" title="Modifier"></span>
+                </a>
+            </div>
+        }
+    }
+</div>

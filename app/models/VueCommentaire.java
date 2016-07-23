@@ -1,10 +1,12 @@
 package models;
 
+import com.avaje.ebean.Ebean;
 import com.avaje.ebean.Model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import java.util.List;
 
 /**
  * Entité Amitié
@@ -31,11 +33,16 @@ public class VueCommentaire extends Model {
     /**
      * Attribut qui permet de connaitre les amis acceptés
      */
-    public boolean vue;
+    public int vue;
+
+    /**
+     * Attribut qui permet de connaitre les amis acceptés
+     */
+    public int jaime;
 
 
     public VueCommentaire() {
-        this.vue=false;
+        this.vue=0;
     }
 
     public long getId() {
@@ -62,13 +69,46 @@ public class VueCommentaire extends Model {
         this.commentaire = commentaire;
     }
 
-    public boolean isVue() {
+    public int getVue() {
         return vue;
     }
 
-    public void setVue(boolean vue) {
+    public void setVue(int vue) {
         this.vue = vue;
     }
 
-    public static Finder<Long, VueCommentaire> find = new Finder<Long, VueCommentaire>(VueCommentaire.class);
+    public int getJaime() {
+        return jaime;
+    }
+
+    public void setJaime(int jaime) {
+        this.jaime = jaime;
+    }
+
+    public VueCommentaire(Membre membre, Commentaire commentaire) {
+        this.membre = membre;
+        this.commentaire = commentaire;
+        this.vue=0;
+        this.jaime=0;
+    }
+
+    public static void creerNewVueCommentaire(Membre m, Commentaire commentaire){
+        VueCommentaire vc= new VueCommentaire(m,commentaire);
+        vc.save();
+    }
+
+    public static void commentaireNonLues(Publication publication, Membre membre){
+        List<VueCommentaire> vueCommentaires= Ebean.find(VueCommentaire.class)
+                .where()
+                .eq("commentaire.publication.id",publication.getId())
+                .eq("membre.id",membre.getId())
+                .eq("vue",0)
+                .findList();
+        for(VueCommentaire vueCommentaire:vueCommentaires){
+            vueCommentaire.setVue(-1);
+            vueCommentaire.update();
+        }
+    }
+
+    public static Finder<Long, VueCommentaire> find= new Finder<Long, VueCommentaire>(VueCommentaire.class);
 }

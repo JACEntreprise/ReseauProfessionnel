@@ -1,0 +1,152 @@
+@(membre:Membre)
+@layout(membre){
+
+}{
+    <div class="contenu-ajout-post petit-bloc">
+        <div class="ajout-post col-sm-3">
+            <span class="glyphicon glyphicon-user icon-post"></span>
+            Profil
+        </div>
+        <div class="ajout-post col-sm-3">
+            <span class="glyphicon glyphicon-camera icon-post"></span>
+            Mes photos
+        </div>
+        <div class="ajout-post col-sm-3">
+            <span class="glyphicon glyphicon-user icon-post"></span>
+            Mon Reseau
+        </div>
+        <div class="ajout-post col-sm-3 ajout-nouvelle">
+            <span class="glyphicon glyphicon-edit icon-post"></span>
+            Mes publications
+        </div>
+    </div>
+    <div class="contenu-center">
+        <div id="profil-user" class="col-sm-8">
+            <div class="entete-info petit-bloc">
+                <div class="entete-content">
+                    <div class="titre-content">
+                        <span class="glyphicon glyphicon-education icon-label icon-formation"></span>
+                        <span>Formation</span>
+                    </div>
+                </div>
+
+                <div class="contenu-formation">
+                    @if(membre.getParticulier().getFormations().size==0){
+                        <p class="rien">Aucune formation</p>
+                    }else{
+                        @for(formation <- membre.getParticulier().getFormations()){
+                            <div class="item col-sm-12">
+                                <span class="element-item">@formation.getAnneeDebut() - @formation.getAnneeFin()</span>
+                                <span class="element-item">@formation.getType()  @formation.getEtablissement()</span>
+                                <a href="@routes.ProfilController.modifierFormation(formation.getId())" class="pencil-modifier-formation hidden">
+                                    <span class="glyphicon glyphicon-pencil" title="Modifier"></span>
+                                </a>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+            <div class="entete-info petit-bloc">
+                <div class="entete-content">
+                    <div class="titre-content">
+                        <span class="glyphicon glyphicon-education icon-label icon-experience"></span>
+                        <span>Experience</span>
+                    </div>
+                </div>
+                <div class="contenu-formation">
+                    @if(membre.getExperiences().size==0){
+                        <p class="rien">Aucune experience</p>
+                    }else{
+                        @for(experience <- membre.getExperiences()){
+                            <div class="item col-sm-12">
+                                <span class="element-item">@experience.getMoiDebut() @experience.getAnneeDebut() - @experience.getMoiFin() @experience.getAnneeFin()</span>
+                                <span class="element-item">@experience.getTitre() chez @experience.getEntreprise()</span>
+                                <a href="@routes.ProfilController.modifierExperience(experience.getId())" class="pencil-modifier-experience hidden">
+                                    <span class="glyphicon glyphicon-pencil" title="Modifier"></span>
+                                </a>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+
+            <div class="entete-info petit-bloc">
+                <div class="entete-content">
+                    <div class="titre-content">
+                        <span class="glyphicon glyphicon-education icon-label icon-competence"></span>
+                        <span>Competence</span>
+                    </div>
+                </div>
+                <div class="contenu-formation">
+                    @if(membre.getCompetences().size==0){
+                        <p class="rien">Aucune competence</p>
+                    }else{
+                        @for(competence <- membre.getCompetences()){
+                            <div class="item col-sm-12">
+                                <span class="element-item">@competence.getDescription()</span>
+                                <a href="@routes.ProfilController.modifierCompetence(competence.getId())" class="pencil-modifier-competence hidden">
+                                    <span class="glyphicon glyphicon-pencil" title="Modifier"></span>
+                                </a>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+
+            <div class="entete-info petit-bloc">
+                <div class="entete-content">
+                    <div class="titre-content">
+                        <span class="glyphicon glyphicon-education icon-label icon-langue"></span>
+                        <span>Langue</span>
+                    </div>
+                </div>
+                <div class="contenu-formation">
+                    @if(membre.getParticulier().getLangues().size==0){
+                    <p class="rien">Aucune langue</p>
+                    }else{
+                        @for(langue <- membre.getParticulier().getLangues()){
+                            <div class="item col-sm-12">
+                                <span class="element-item">@langue.getLibele()</span>
+                                <a href="@routes.ProfilController.modifierLangue(langue.getId())" class="pencil-modifier-langue hidden">
+                                    <span class="glyphicon glyphicon-pencil" title="Modifier"></span>
+                                </a>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+
+            <div class="entete-info petit-bloc">
+                <div class="entete-content">
+                    <div class="titre-content">
+                        <span class="glyphicon glyphicon-education icon-label icon-loisir"></span>
+                        <span>Loisir</span>
+                    </div>
+                </div>
+                <div class="contenu-formation">
+                    @if(membre.getParticulier().getLoisirs().size==0){
+                    <p class="rien">Aucun loisir</p>
+                    }else{
+                        @for(loisir <- membre.getParticulier().getLoisirs()){
+                            <div class="item-formation item-profil col-sm-12">
+                                <span class="element-item">@loisir.getLibele()</span>
+                                <a href="@routes.ProfilController.modifierLoisir(loisir.getId())" class="pencil-modifier-loisir hidden">
+                                    <span class="glyphicon glyphicon-pencil" title="Modifier"></span>
+                                </a>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div id="sidebar-content" class="col-sm-4">
+            @cvView.listeProfil()
+        </div>
+
+    </div>
+}{
+
+}{
+    <script src='@routes.Assets.versioned("javascripts/hello.js")' type="text/javascript"></script>
+}

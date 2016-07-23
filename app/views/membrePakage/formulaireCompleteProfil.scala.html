@@ -1,99 +1,163 @@
 @(membre:Membre)
 @if(membre.getEntreprise()==null){
-    <div class="form-complete-profil">
-        <form action="" method="post" class="form-complet" role="form">
-            <div class="form-group">
-                <label for="jour" class="col-sm-12 control-label">Date de naissance :</label>
-                <div class="col-sm-4">
-                    <select name="jour" id="jour" class="form-control">
-                        <option value="jour">jour</option>
-                        @for(i<-1 to 31){
-                            <option value="@i">@i</option>
-                        }
-                    </select>
-                </div>
-                <div class="col-sm-4">
-                    <select name="moi" id="moi" class="form-control">
-                        <option value="moi">moi</option>
-                        @for(i<-1 to 12){
-                            <option value="@i">@i</option>
-                        }
-                    </select>
-                </div>
-                <div class="col-sm-4">
-                    <select name="annee" id="annee" class="form-control">
-                        <option value="annee">annee</option>
-                        @for(i<-1960 to 2015){
-                            <option value="@i">@i</option>
-                        }
-                    </select>
-                </div>
+<div class="form-complete-profil">
+    <form action="@routes.ApplicationController.validerDonneeProfil()" method="post" class="form-complet" role="form" id="form-complete-profil">
+        <div class="form-group">
+            <label for="jour" class="col-sm-12 control-label">Date de naissance :</label>
+            <div class="col-sm-4">
+                <select name="jour" id="jour" class="form-control">
+                    <option value="jour">jour</option>
+                    @for(i<-1 to 31){
+                    @if(i<10){
+                    <option value="@i">0@i</option>
+                    }else{
+                    <option value="@i">@i</option>
+                    }
+                    }
+                </select>
             </div>
-            <div class="form-group">
-                <div class="col-sm-12">
-                    <input type="text" id="lieuDeNaissance" class="form-control" name="lieuDeNaissance" placeholder="Veuillez renseigner votre lieu de naissance" value="@membre.getParticulier().lieuDeNaissance" required>
-                </div>
+            <div class="col-sm-4">
+                <select name="moi" id="moi" class="form-control">
+                    <option value="moi">moi</option>
+                    @for(i<-1 to 12){
+                    @if(i<10){
+                    <option value="@i">0@i</option>
+                    }else{
+                    <option value="@i">@i</option>
+                    }
+                    }
+                </select>
             </div>
+            <div class="col-sm-4 col-date">
+                <select name="annee" id="annee" class="form-control">
+                    <option value="annee">annee</option>
+                    @for(i<-1960 to 2015){
+                    <option value="@i">@i</option>
+                    }
+                </select>
+            </div>
+                <span class="error error-date hidden">
+                    <a href="#" data-toggle="tooltip" data-placement="right" title="date invalide"><span class="error-form badge">e</span></a>
+                </span>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-12">
+                <input type="text" id="lieuDeNaissance" class="form-control" name="lieuDeNaissance" placeholder="Veuillez renseigner votre lieu de naissance">
+            </div>
+                <span class="error error-lieu hidden">
+                    <a href="#" data-toggle="tooltip" data-placement="right" title="Ce champ est requis"><span class="error-form badge">e</span></a>
+                </span>
+        </div>
 
-            <div class="form-group">
-                <div class="col-sm-12">
-                    <input type="text" id="telephone" class="form-control" name="telephone" placeholder="Entrer votre numero de telephone" value="@membre.getTelephone()" required>
-                </div>
+        <div class="form-group">
+            <div class="col-sm-12">
+                <input type="text" id="telephone" class="form-control" name="telephone" placeholder="Entrer votre numero de telephone">
             </div>
+                <span class="error error-tel hidden">
+                    <a href="#" data-toggle="tooltip" data-placement="right" title="numero incorrecte"><span class="error-form badge">e</span></a>
+                </span>
+        </div>
 
-            <div class="form-group">
-                <div class="col-sm-12">
-                    <input type="text" id="adresse" class="form-control" name="adresse" placeholder="Veuillez saisir votre adresse" value="@membre.getAdresse()">
-                </div>
+        <div class="form-group">
+            <div class="col-sm-12">
+                <input type="text" id="adresse" class="form-control" name="adresse" placeholder="Veuillez saisir votre adresse">
             </div>
+        </div>
 
-            <div class="form-group">
-                <div class="col-sm-12">
-                    <input type="url" id="siteweb" class="form-control" name="siteweb" placeholder="Entrer l'url de votre site web" value="@membre.getSiteweb()">
-                </div>
+        <div class="form-group">
+            <div class="col-sm-12">
+                <input type="url" id="siteweb" class="form-control" name="siteweb" placeholder="Entrer l'url de votre site web">
             </div>
-        </form>
+                <span class="error error-site hidden">
+                    <a href="#" data-toggle="tooltip" data-placement="right" title="adresse invalide"><span class="error-form badge">e</span></a>
+                </span>
+        </div>
+        <button class="btn btn-primary right" type="submit">Continuer</button>
+    </form>
+</div>
+<div class="boutton-action">
 
-    </div>
-    <div class="boutton-action">
-        <button class="btn btn-primary right continuer">Ignorer</button>
-        <button class="btn btn-primary right ignorer-formulaire">Continuer</button>
-    </div>
+</div>
 }else{
-    <div class="form-complete-profil">
-        <form action="" method="post" class="form-horizontal form-complet" role="form">
-            <div class="form-group">
-                <div class="col-sm-12">
-                    <input type="text" id="domaine" class="form-control" name="domaine" placeholder="Entrer votre nom de domaine" required>
-                </div>
+<div class="form-complete-profil">
+    <form action="@routes.ApplicationController.validerDonneeProfil()" method="post" class="form-horizontal form-complet" role="form" id="form-complete-profil-entreprise">
+        <label for="jour" class="col-sm-12 control-label">Date de creation :</label>
+        <div class="form-group">
+            <div class="col-sm-4">
+                <select name="jour" id="jour" class="form-control">
+                    <option value="jour">jour</option>
+                    @for(i<-1 to 31){
+                    @if(i<10){
+                    <option value="@i">0@i</option>
+                    }else{
+                    <option value="@i">@i</option>
+                    }
+                    }
+                </select>
             </div>
-            <div class="form-group">
-                <div class="col-sm-12">
-                    <input type="text" id="dateCreation" class="form-control" name="dateCreation" placeholder="date de creation de votre entreprise">
-                </div>
+            <div class="col-sm-4">
+                <select name="moi" id="moi" class="form-control">
+                    <option value="moi">moi</option>
+                    @for(i<-1 to 12){
+                    @if(i<10){
+                    <option value="@i">0@i</option>
+                    }else{
+                    <option value="@i">@i</option>
+                    }
+                    }
+                </select>
             </div>
+            <div class="col-sm-4 col-date">
+                <select name="annee" id="annee" class="form-control">
+                    <option value="annee">annee</option>
+                    @for(i<-1960 to 2015){
+                    <option value="@i">@i</option>
+                    }
+                </select>
+            </div>
+                <span class="error error-date hidden">
+                    <a href="#" data-toggle="tooltip" data-placement="right" title="date invalide"><span class="error-form badge">e</span></a>
+                </span>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-12">
+                <input type="text" id="domaine" class="form-control" name="domaine" placeholder="Entrer votre nom de domaine" class="domaine-lieu">
+            </div>
+                <span class="error error-domaine hidden">
+                    <a href="#" data-toggle="tooltip" data-placement="right" title="domaine obligatoire"><span class="error-form badge">e</span></a>
+                </span>
+        </div>
 
-            <div class="form-group">
-                <div class="col-sm-12">
-                    <input type="text" id="telephone" class="form-control" name="telephone" placeholder="Entrer votre numero de telephone">
-                </div>
+        <div class="form-group">
+            <div class="col-sm-12">
+                <input type="text" id="telephone" class="form-control" name="telephone" placeholder="Entrer votre numero de telephone">
             </div>
+                <span class="error error-tel hidden">
+                    <a href="#" data-toggle="tooltip" data-placement="right" title="numero incorrecte"><span class="error-form badge">e</span></a>
+                </span>
+        </div>
 
-            <div class="form-group">
-                <div class="col-sm-12">
-                    <input type="text" id="adresse" class="form-control" name="adresse" placeholder="Veuillez saisir votre adresse">
-                </div>
+        <div class="form-group">
+            <div class="col-sm-12">
+                <input type="text" id="adresse" class="form-control" name="adresse" placeholder="Veuillez saisir votre adresse">
             </div>
+                <span class="error error-adresse hidden">
+                    <a href="#" data-toggle="tooltip" data-placement="right" title="adresse invalide"><span class="error-form badge">e</span></a>
+                </span>
+        </div>
 
-            <div class="form-group">
-                <div class="col-sm-12">
-                    <input type="url" id="siteweb" class="form-control" name="siteweb" placeholder="Entrer l'url de votre site web">
-                </div>
+        <div class="form-group">
+            <div class="col-sm-12">
+                <input type="url" id="siteweb" class="form-control" name="siteweb" placeholder="Entrer l'url de votre site web">
             </div>
-        </form>
-    </div>
-    <div class="boutton-action">
-        <button class="btn btn-primary right terminer">Ignorer</button>
-        <button class="btn btn-primary right ignorer-image">Continuer</button>
-    </div>
+            <span class="error error-site hidden">
+                <a href="#" data-toggle="tooltip" data-placement="right" title="site web obligatoire"><span class="error-form badge">e</span></a>
+            </span>
+        </div>
+        <button class="btn btn-primary right" type="submit">Continuer</button>
+    </form>
+</div>
+<div class="boutton-action">
+
+</div>
 }

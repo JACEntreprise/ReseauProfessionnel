@@ -20,5 +20,83 @@ $("document").ready(function(){
             }
         }
     });
+
+    $(".contenu-personnelle").on("submit","#form-complete-profil",function(){
+        var verif=true;
+        if($("#jour").val()!="jour" && $("#moi").val()!="moi" && $("#annee").val()!="annee"){
+            $('.error-date').addClass("hidden");
+        }
+        else{
+             $('.error-date').removeClass("hidden");
+             verif=false;
+        }
+        if(/^ {0,}$/i.test($("#lieuDeNaissance").val())){
+            $('.error-lieu').removeClass("hidden");
+            verif=false;
+        }
+        else{
+            $('.error-lieu').addClass("hidden");
+        }
+        if(/^[0-9]{5,}$/i.test($("#telephone").val())){
+            $('.error-tel').addClass("hidden");
+        }
+        else{
+            $('.error-tel').removeClass("hidden");
+            verif=false;
+        }
+
+        if(/^ {0,}$/i.test($("#siteweb").val())){
+            $('.error-site').removeClass("hidden");
+            verif=false;
+
+        }
+        else{
+            $('.error-site').addClass("hidden");
+        }
+        return verif;
+    });
+
+    $(".contenu-personnelle").on("submit","#form-complete-profil-entreprise",function(){
+        var verif=true;
+        if($("#jour").val()!="jour" && $("#moi").val()!="moi" && $("#annee").val()!="annee"){
+            $('.error-date').addClass("hidden");
+        }
+        else{
+             $('.error-date').removeClass("hidden");
+             verif=false;
+        }
+        if(/^ {0,}$/i.test($("#domaine").val())){
+            $('.error-domaine').removeClass("hidden");
+            verif=false;
+        }
+        else{
+            $('.error-domaine').addClass("hidden");
+        }
+        if(/^[0-9]{5,}$/i.test($("#telephone").val())){
+            $('.error-tel').addClass("hidden");
+        }
+        else{
+            $('.error-tel').removeClass("hidden");
+            verif=false;
+        }
+
+        if(/^[0-9]{5,}$/i.test($("#adresse").val())){
+            $('.error-adresse').addClass("hidden");
+        }
+        else{
+            $('.error-adresse').removeClass("hidden");
+            verif=false;
+        }
+
+        if(/^ {0,}$/i.test($("#siteweb").val())){
+            $('.error-site').removeClass("hidden");
+            verif=false;
+
+        }
+        else{
+            $('.error-site').addClass("hidden");
+        }
+        return verif;
+    });
     $('[data-toggle="tooltip"]').tooltip();
 })

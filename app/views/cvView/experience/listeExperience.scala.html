@@ -1,0 +1,27 @@
+@(membre :Membre)
+
+<div class="entete-content">
+    <div class="titre-content">
+        <span class="glyphicon glyphicon-education icon-label icon-experience"></span>
+        <span>Experience</span>
+    </div>
+    <div class="bouton-plus">
+        <button class="btn btn-primary bouton-entete bouton-entete-experience icon-experience" title="Ajouter une autre experience"><span class="glyphicon glyphicon-plus"></span>Ajouter</button>
+    </div>
+
+</div>
+<div class="contenu-formation">
+    @if(membre.getExperiences().size==0){
+        <p class="rien">Aucune experience</p>
+    }else{
+        @for(experience <- membre.getExperiences()){
+            <div class="item-formation item-profil">
+                <span class="element-item">@experience.getMoiDebut() @experience.getAnneeDebut() - @experience.getMoiFin() @experience.getAnneeFin()</span>
+                <span class="element-item">@experience.getTitre() chez @experience.getEntreprise()</span>
+                <a href="@routes.ProfilController.modifierExperience(experience.getId())" class="pencil-modifier-experience hidden">
+                    <span class="glyphicon glyphicon-pencil" title="Modifier"></span>
+                </a>
+            </div>
+        }
+    }
+</div>

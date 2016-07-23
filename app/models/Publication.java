@@ -10,6 +10,7 @@ import javax.persistence.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -52,6 +53,11 @@ public class Publication extends Model{
     private String urlImage;
 
     /**
+     * L'image associée à la publication
+     */
+    private String nomImage;
+
+    /**
      * Relation entre publication et Commentaire
      * Une privateation est associée à plusieurs commentaires
      */
@@ -81,6 +87,22 @@ public class Publication extends Model{
         String nvd = dt.format(datePublication);
         try {
             datePublication = dt.parse(nvd);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Publication(String titre, String contenu, String urlImage,String nomImage, Membre membre) {
+        this.titre = titre;
+        this.contenu = contenu;
+        this.urlImage = urlImage;
+        this.membre = membre;
+        this.nomImage = nomImage;
+        this.datePublication = new Date();
+        SimpleDateFormat dt = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+        String nvd = dt.format(this.datePublication);
+        try {
+            this.datePublication = dt.parse(nvd);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -150,6 +172,14 @@ public class Publication extends Model{
         this.vuePublications = vuePublications;
     }
 
+    public String getNomImage() {
+        return nomImage;
+    }
+
+    public void setNomImage(String nomImage) {
+        this.nomImage = nomImage;
+    }
+
     /**
      * Publications non lues par un membre
      * @param m
@@ -160,14 +190,14 @@ public class Publication extends Model{
         List<Long> idAmis= new ArrayList<Long>();
 
         for(Amitie macible:m.getAmities()){
-            if(macible.accepte==true){
-                idAmis.add(macible.membreCible.id);
+            if(macible.isAccepte()){
+                idAmis.add(macible.getMembreCible().getId());
             }
         }
 
         for(Amitie masource:m.getDemandeAmities()){
-            if(masource.accepte==true){
-                idAmis.add(masource.membreSource.id);
+            if(masource.isAccepte()){
+                idAmis.add(masource.getMembreSource().getId());
             }
 
         }
@@ -175,7 +205,7 @@ public class Publication extends Model{
                 .where()
                 .or(Expr.eq("membre.id",m.id), Expr.in("membre.id",idAmis))
                 .eq("vuePublications.membre.id",m.id)
-                .eq("vuePublications.vue",false)
+                .eq("vuePublications.vue",0)
                 .orderBy("id desc")
                 .findList();
         for(Publication pub:publications){
@@ -183,7 +213,7 @@ public class Publication extends Model{
                     .where().eq("publication.id",pub.id)
                     .eq("membre.id",m.id)
                     .findUnique();
-            vp.vue=true;
+            vp.setVue(-1);
             vp.update();
         }
         return publications;
@@ -199,14 +229,14 @@ public class Publication extends Model{
         List<Long> idAmis= new ArrayList<Long>();
 
         for(Amitie macible:m.getAmities()){
-            if(macible.accepte==true){
-                idAmis.add(macible.membreCible.id);
+            if(macible.isAccepte()){
+                idAmis.add(macible.getMembreCible().getId());
             }
         }
 
         for(Amitie masource:m.getDemandeAmities()){
-            if(masource.accepte==true){
-                idAmis.add(masource.membreSource.id);
+            if(masource.isAccepte()){
+                idAmis.add(masource.getMembreSource().getId());
             }
 
         }
@@ -221,19 +251,17 @@ public class Publication extends Model{
 
     /**
      * creer une nouvelle publication
-     * @param publication
+     * @param
      */
-    public static void creerNewPublication(Publication publication){
+    public static void creerNewPublication(String titre, String contenu, String urlImage,String nomImage, Membre membre){
+        Publication publication= new Publication(titre,contenu,urlImage,nomImage,membre);
         publication.save();
         List<Membre> membres=Membre.find.all();
         for(Membre m:membres){
             VuePublication.CreerNewVuePulication(m,publication);
         }
-        VuePublication vp=Ebean.find(VuePublication.class)
-                .where().eq("publication.id",publication.id)
-                .eq("membre.id",publication.membre.id)
-                .findUnique();
-        vp.vue=true;
+        VuePublication vp= Ebean.find(VuePublication.class).where().eq("membre.id",membre.getId()).eq("publication.id",publication.getId()).findUnique();
+        vp.setVue(1);
         vp.update();
     }
 
@@ -246,6 +274,57 @@ public class Publication extends Model{
         this.titre = publication.getTitre();
         this.urlImage = publication.getUrlImage();
     }
+
+    public String getDatePub(){
+        String pubDate="";
+        Date now=new Date();
+        Long dureeEnSeconde=(now.getTime()-this.datePublication.getTime())/1000/60/60/24;
+        if(dureeEnSeconde/360>=1){
+            pubDate="publié il y a "+ dureeEnSeconde/360 + " an(s)";
+        }
+        else{
+            if(dureeEnSeconde/30>=1){
+                pubDate="publié il y a "+ dureeEnSeconde/30 + " moi(s)";
+            }
+            else{
+                if(dureeEnSeconde>=2){
+                    pubDate="publié il y a "+ dureeEnSeconde + " jours";
+                }
+                else{
+                    if(dureeEnSeconde==1){
+                        pubDate="publié hier";
+                    }
+                    else{
+                        pubDate="publié aujourd'hui";
+                    }
+                }
+            }
+        }
+        return pubDate;
+    }
+
+    public static Publication getPublication(Long id){
+        return Publication.find.byId(id);
+    }
+
+    public List<Commentaire> listeCommentaires(){
+         List<Commentaire> commentaires=Ebean.find(Commentaire.class)
+                .where()
+                .eq("publication.id",id)
+                .orderBy("id desc")
+                .setMaxRows(5)
+                .findList();
+        Collections.reverse(commentaires);
+        return commentaires;
+    }
+
+    public String getContenuPub(){
+        if(this.getContenu().length()>400){
+            return this.getContenu().substring(0,399);
+        }
+        return this.getContenu();
+    }
+
 
     /**
      * finder permettant d'accedant aux donnees de l'entite

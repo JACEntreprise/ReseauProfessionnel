@@ -1,0 +1,12 @@
+@(competence: Competence)
+<div class="content-form-content petit-bloc">
+    <span class="close supprimer-bloc hidden" aria-label="close">&times;</span>
+    @helper.form(routes.ProfilController.validerModifierCompetence(competence.getId()), 'class -> "form-horizontal formulaire-modifier-competence",'role->"form",'name->"formulaireCompetence") {
+        <div class="form-group">
+            <div class="col-sm-12">
+                <input type="text" class="form-control" name="description" placeholder="Competence" id="description" value="@competence.getDescription()" required>
+            </div>
+        </div>
+        <input type="submit" class="btn btn-primary" value="Mettre à jour">
+    }
+</div>

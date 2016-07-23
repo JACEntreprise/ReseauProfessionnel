@@ -1,8 +1,7 @@
-@(formNouvelle: Form[Publication])
-@helper.form(routes.PublicationController.nouvelle(), 'class -> "form-horizontal form-pub-new",'role->"form") {
+@helper.form(routes.PublicationController.nouvelle(), 'class -> "form-horizontal form-pub-new form-pub-new-partage",'role->"form") {
     <div class="form-group">
         <div class="col-sm-12">
-            <textarea class="form-control" name="contenu" value='@formNouvelle("contenu").value' required></textarea>
+            <textarea class="form-control" id="contenu" name="contenu" rows="5" required></textarea>
         </div>
     </div>
     <input type="submit" class="btn btn-primary" value="Publier">

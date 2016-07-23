@@ -12,8 +12,6 @@ import java.util.List;
 /**
  * Created by julio on 19/06/2016.
  */
-@Entity
-@DiscriminatorValue("admin")
 public class Administrateur extends Membre{
     @Id
     private Long id;
@@ -24,13 +22,13 @@ public class Administrateur extends Membre{
     @Constraints.Required
     private String nom;
 
-
     //le finder de la classe
     public static Model.Finder<Long,Administrateur> find = new Model.Finder<>(Administrateur.class);
 
     //constructeur par défaut
     public Administrateur(){
         dateCreation = new Date();//la date systme
+        super.setType("admin");
     }
 
     public Long getId() {
@@ -82,7 +80,6 @@ public class Administrateur extends Membre{
         MembreRepository repository = MembreRepository.instance;
         motDePasse = repository.hash(motDePasse);
         salt = repository.getSalt();
-
         this.save();
 
     }

@@ -6,9 +6,10 @@ $("document").ready(function(){
             data: "ok",
             dataType: 'html',
             success: function(data){
-                $(".contenu-center-gauche").prepend(data);
+                $(".content-tout-pub").prepend(data);
             }
         });
     }
-    //ssetInterval(rechargerDiv, 20000);
+    setInterval(rechargerDiv, 20000);
+
 })

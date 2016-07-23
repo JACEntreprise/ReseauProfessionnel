@@ -1,12 +1,15 @@
-@(membre:Membre)(formPublication: Form[Publication])(formCommentaire: Form[Commentaire])(publications:List[Publication])
+@(membre:Membre)
 @layout(membre){
 
 }{
     <div id="pub-recharge">
-        @publication.liste(membre)(formPublication)(formCommentaire)(publications)
+        @publication.liste(membre)
     </div>
 }{
 
 }{
-
+    <script src='@routes.Assets.versioned("javascripts/hello.js")' type="text/javascript"></script>
+    <script src='@routes.Assets.versioned("javascripts/amitie.js")' type="text/javascript"></script>
+    <script src='@routes.Assets.versioned("javascripts/publication/commentaire.js")' type="text/javascript"></script>
+    <script src='@routes.Assets.versioned("javascripts/publication/pub.js")' type="text/javascript"></script>
 }

@@ -12,6 +12,8 @@ import java.util.List;
 public class FormulaireInscriptionParticulier extends FormulaireInscription {
     private String nom;
     private String prenom;
+    private String dateDeNaissance;
+    private String lieuDeNaissance;
 
     public FormulaireInscriptionParticulier() {
     }
@@ -48,5 +50,21 @@ public class FormulaireInscriptionParticulier extends FormulaireInscription {
 
     public void setPrenom(String prenom) {
         this.prenom = prenom;
+    }
+
+    public String getDateDeNaissance() {
+        return dateDeNaissance;
+    }
+
+    public void setDateDeNaissance(String dateDeNaissance) {
+        this.dateDeNaissance = dateDeNaissance;
+    }
+
+    public String getLieuDeNaissance() {
+        return lieuDeNaissance;
+    }
+
+    public void setLieuDeNaissance(String lieuDeNaissance) {
+        this.lieuDeNaissance = lieuDeNaissance;
     }
 }

@@ -134,8 +134,10 @@ body{
                 .image-profile {
                     border-radius: 50%;
                     float: left;
-                    height: 80px !important;
-                    width: 80px !important;
+                    height: 90px !important;
+                    width: 90px !important;
+                    padding:1px;
+                    margin-right:10px;
                 }
                 .nom-profil-edit {
                     float: left;
@@ -209,11 +211,11 @@ body{
                 border-radius: 50%;
                 box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
                 float: left;
-                height: 60px;
+                height: 80px;
                 margin-right: 10px;
-                line-height:60px;
+                line-height:80px;
                 text-align: center;
-                width: 60px;
+                width: 80px;
                 .icon-poste {
                     background: $couleur-entete-haut;
                     border-radius: 50%;
@@ -222,8 +224,9 @@ body{
                 }
                 .image-profile-pub {
                     border-radius: 50%;
-                    height: 60px;
-                    width: 60px;
+                    height: 80px;
+                    width: 80px;
+                    padding:2px;
                 }
             }
             .contenu-center-gauche {
@@ -246,6 +249,8 @@ body{
                             border: 1px solid #d4d4d4;
                             margin-top: -10px;
                             padding: 10px;
+                            float:left;
+                            width:100%;
                             .list-comment{
                                 padding-bottom:10px;
                                 li {
@@ -255,6 +260,25 @@ body{
                                 }
                             }
                         }
+                        .content-titre-pub {
+                            border-bottom: 1px solid #d4d4d4;
+                            margin-bottom: 10px;
+                            padding-bottom: 5px;
+                            .dropdown-menu {
+                                left:auto !important;
+                                right:0 !important;
+                            }
+                        }
+                        .glyphicon.glyphicon-thumbs-up {
+                            margin-left: 5px;
+                            margin-right: 5px;
+                        }
+                        .icon-list-gris {
+                            color: #d4d4d4;
+                            font-size: 0.8em;
+                            margin-right: 10px !important;
+                        }
+
                     }
                 }
             }
@@ -271,6 +295,7 @@ body{
 .nom {
     color: #286090;
     font-weight: bold;
+    margin-right: 5px;
 }
 
 #change-photo-profil{
@@ -296,9 +321,9 @@ body{
         .photo-telecharger{
             border-left:1px solid $couleur-entete-haut;
             .bouton-upload-file {
-                bottom: 15px;
+                bottom: 21px;
                 position: absolute;
-                right: 99px;
+                right: 104px;
                 z-index: 2;
             }
         }
@@ -327,6 +352,12 @@ body{
 
 .content-complete-profil{
     padding:5px;
+    position:relative;
+    .btn.btn-primary.right {
+        border: 0 none;
+        bottom: 12px;
+        position: absolute;
+    }
     .bonjour-membre{
         text-align:center;
         padding:10px;
@@ -350,7 +381,17 @@ body{
         width: 55%;
         .form-group {
             margin-bottom: 40px !important;
-            overflow:hidden;
+            float:left;
+            width:100%;
+            position:relative;
+            .error {
+                position: absolute;
+                right: -13px;
+                top: 5px;
+            }
+            .error-date{
+                top:45px;
+            }
             select{
                 margin-top:15px;
             }
@@ -360,19 +401,19 @@ body{
                     padding-right:15px !important;
                 }
             }
+            .col-date{
+                padding-right:15px !important;
+            }
         }
     }
     .boutton-action{
-        border-top:1px solid #d4d4d4;
-        padding-right: 5%;
-        padding-top: 15px;
-        padding-bottom: 15px;
+        border-top: 1px solid #d4d4d4;
+        float: left;
+        padding-bottom: 25px;
+        padding-right: 33%;
+        padding-top: 25px;
         text-align: right;
-        .btn.btn-primary.right {
-            margin-right: 25px;
-            padding-left: 25px;
-            padding-right: 25px;
-        }
+        width: 100%;
     }
 }
 .profil-photo {
@@ -380,11 +421,169 @@ body{
     border-radius: 50%;
     color: $couleur-entete-haut;
     font-size: 1.5em;
-    padding: 20px;
+    padding: 30px;
 }
 .petit-bloc{
      background: #fff none repeat scroll 0 0;
      margin: 10px 0;
-     overflow: hidden;
+     float:left;
+     width:100% !important;
      border: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.dropdown-toggle {
+    background: rgba(0, 0, 0, 0) none repeat scroll 0 0 !important;
+    color: #d4d4d4 !important;
+}
+.menu-gerer {
+    border: 4px solid $couleur-entete-haut !important;
+    width: 310px;
+    .icon-gerer {
+        color: #fff;
+        margin-right: 8px !important;
+        padding: 5px;
+    }
+    > li {
+        float: left;
+        margin-bottom: 10px;
+        width: 100%;
+        a{
+            float:left;
+            width:100%;
+            padding-top:8px !important;
+            padding-bottom:8px !important;
+        }
+    }
+}
+.left{
+    float:left;
+}
+.right{
+    float:right;
+}
+
+.text-image-profil {
+    position: relative;
+    .partie-status {
+        font-size: 0.7em;
+    }
+    .profile-photo-change {
+        position: absolute;
+        right: -35px;
+        top: 9px;
+    }
+}
+.photo-img-pro {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.icon-gris{
+    background :#d4d4d4;
+}
+.libele-suggession{
+    margin-bottom:3px !important;
+    .contenu-libele-sidebar {
+        padding: 5px 10px !important;
+        .relation {
+            font-size: 0.8em;
+        }
+    }
+}
+.titre-suggestion{
+    border-bottom: 1px solid #d4d4d4;
+    color: #082246;
+    font-weight: bold;
+    padding-bottom: 6px;
+}
+
+.image-profile-suggestion {
+    border-radius: 0 !important;
+    float: left;
+    height: 60px !important;
+    margin-right: 5px;
+    width: 60px;
+}
+
+.suggession-amis{
+    margin-bottom: 20px;
+    float: left;
+    width:100%;
+}
+
+.content-tout-pub {
+    float: left;
+    width: 100%;
+}
+
+.form-image {
+    position: relative;
+    .label-image-pub {
+        font-size: 1.3em;
+        position: absolute;
+        right: 31px;
+        top: 8px;
+        color: $couleur-entete;
+    }
+    .contenu-pub-image{
+        margin: 15px;
+        .pub-image-show {
+            width: 100%;
+        }
+    }
+}
+
+.content-img-pub {
+    margin-bottom: 15px;
+    .content-img-pub-image {
+        width: 100%;
+    }
+}
+
+.label-image-pub-charger{
+    width:100%;
+    background: $couleur-entete;
+    height: 300px;
+    line-height: 300px;
+    text-align:center;
+    color:#fff;
+}
+.ajout-pub-boutons {
+    float: left;
+    margin-bottom: 30px;
+    .btn.btn-primary.right {
+        margin-left: 28px;
+    }
+}
+.img-pub-charge{
+    width:100%;
+    height:300px;
+    padding:1px;
+    float: left;
+}
+
+.jaime {
+    margin-right: 15px;
+}
+.heure {
+    color: #d4d4d4;
+}
+.element-entete-rouge {
+    position: relative;
+    .rouge {
+        background: red none repeat scroll 0 0;
+        border-radius: 2px;
+        color: #fff;
+        height: 15px;
+        line-height: 15px;
+        padding: 0 2px;
+        position: absolute;
+        left: 24px;
+        top: -14px;
+    }
+}
+a{
+    &:hover{
+        text-decoration :none !important;
+    }
 }

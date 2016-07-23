@@ -1,0 +1,12 @@
+@(langue: Langue)
+<div class="content-form-content petit-bloc">
+    <span class="close supprimer-bloc hidden" aria-label="close">&times;</span>
+    @helper.form(routes.ProfilController.validerModifierLangue(langue.getId()), 'class -> "form-horizontal formulaire-modifier-langue",'role->"form",'name->"formulaireLangue") {
+        <div class="form-group">
+            <div class="col-sm-12">
+                <input type="text" class="form-control" name="libele" placeholder="Langue" id="libele" value="@langue.getLibele()" required>
+            </div>
+        </div>
+        <input type="submit" class="btn btn-primary" value="Mettre à jour">
+    }
+</div>

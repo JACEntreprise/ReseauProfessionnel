@@ -1,10 +1,10 @@
-@(membre:Membre)(formPublication: Form[Publication])(formCommentaire: Form[Commentaire])(publications:List[Publication])
+@(membre:Membre)
 <div class="contenu-ajout-post petit-bloc">
-    <div class="ajout-post col-sm-4">
+    <div class="ajout-post col-sm-4 ajout-partage-photo">
         <span class="glyphicon glyphicon-picture icon-post"></span>
         Ajouter une photo
     </div>
-    <div class="ajout-post col-sm-4">
+    <div class="ajout-post col-sm-4" for="image">
         <span class="glyphicon glyphicon-edit icon-post"></span>
         Ajouter une publication
     </div>
@@ -13,19 +13,28 @@
         Partager une nouvelle
     </div>
 </div>
-<div class="form-nouvelle form-pub petit-bloc">
-    @formulaire.formulaireNouvelle(formPublication)
-</div>
 <div class="contenu-center">
     <div class="contenu-center-gauche col-sm-8">
-        @publication.publication(membre)(formCommentaire)(publications)
+        <div class="form-nouvelle form-pub petit-bloc">
+            @formulaire.formulaireNouvelle()
+        </div>
+        <div class="form-image form-pub petit-bloc">
+            @formulaire.formulairePartagePhoto()
+        </div>
+        <div class="content-tout-pub">
+            @publication.publication(membre)
+        </div>
     </div>
-    <div class="contenu-center-droite col-sm-4"></div>
+    <div class="contenu-center-droite col-sm-4">
+        @if(membre.suggessionAmis().length!=0){
+            <div class="suggession-amis sugges">
+                @membrePakage.suggession(membre)
+            </div>
+        }
+        @if(membre.demandes().length!=0){
+            <div class="suggession-amis demand">
+                @membrePakage.demande(membre)
+            </div>
+        }
+    </div>
 </div>
-<script>
-    $(".form-nouvelle").hide();
-    $(".ajout-nouvelle").click(function(){
-        $(".form-nouvelle").toggle();
-    });
-</script>
-<script src='@routes.Assets.versioned("javascripts/publication/commentaire.js")' type="text/javascript"></script>

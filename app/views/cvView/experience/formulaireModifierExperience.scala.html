@@ -1,0 +1,191 @@
+@(experience: Experience)
+<div class="content-form-content petit-bloc">
+    <span class="close supprimer-bloc hidden" aria-label="close">&times;</span>
+    @helper.form(routes.ProfilController.validerModifierExperience(experience.getId()), 'class -> "form-horizontal formulaire-modifier-experience",'role->"form",'name->"formulaireFormation") {
+        <div class="form-group">
+            <div class="col-sm-12">
+                <input type="text" class="form-control" name="entreprise" placeholder="Entreprise" id="entreprise" value="@experience.getEntreprise()" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-12">
+                <input type="text" class="form-control" name="lieu" placeholder="Lieu" id="lieu" value="@experience.getLieu()" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-12">
+                <input type="text" class="form-control" name="titre" placeholder="titre de l'experience" id="titre" value="@experience.getTitre()" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="moiDebut" class="col-sm-2">Debut</label>
+            <div class="col-sm-5">
+                <select name="moiDebut" id="moiDebut" class="form-control">
+                    <option value="moi">moi</option>
+                    @if(experience.getMoiDebut()=="Janvier"){
+                        <option value="Janvier" selected>Janvier</option>
+                    }else{
+                        <option value="Janvier">Janvier</option>
+                    }
+                    @if(experience.getMoiDebut()=="Fevrier"){
+                        <option value="Fevrier" selected>Fevrier</option>
+                    }else{
+                        <option value="Fevrier">Fevrier</option>
+                    }
+                    @if(experience.getMoiDebut()=="Mars"){
+                        <option value="Mars" selected>Mars</option>
+                    }else{
+                        <option value="Mars">Mars</option>
+                    }
+                    @if(experience.getMoiDebut()=="Avril"){
+                        <option value="Avril" selected>Avril</option>
+                    }else{
+                        <option value="Avril">Avril</option>
+                    }
+                    @if(experience.getMoiDebut()=="Mai"){
+                        <option value="Mai" selected>Mai</option>
+                    }else{
+                        <option value="Mai">Mai</option>
+                    }
+                    @if(experience.getMoiDebut()=="Juin"){
+                        <option value="Juin" selected>Juin</option>
+                    }else{
+                        <option value="Juin">Juin</option>
+                    }
+                    @if(experience.getMoiDebut()=="Juillet"){
+                        <option value="Juillet" selected>Juillet</option>
+                    }else{
+                        <option value="Juillet">Juillet</option>
+                    }
+                    @if(experience.getMoiDebut()=="Aout"){
+                        <option value="Aout" selected>Aout</option>
+                    }else{
+                        <option value="Aout">Aout</option>
+                    }
+                    @if(experience.getMoiDebut()=="Septembre"){
+                        <option value="Septembre" selected>Septembre</option>
+                    }else{
+                        <option value="Septembre">Septembre</option>
+                    }
+                    @if(experience.getMoiDebut()=="Octobre"){
+                        <option value="Octobre" selected>Octobre</option>
+                    }else{
+                        <option value="Octobre">Octobre</option>
+                    }
+                    @if(experience.getMoiDebut()=="Novembre"){
+                        <option value="Novembre" selected>Novembre</option>
+                    }else{
+                        <option value="Novembre">Novembre</option>
+                    }
+                    @if(experience.getMoiDebut()=="Decembre"){
+                        <option value="Decembre" selected>Decembre</option>
+                    }else{
+                        <option value="Decembre">Decembre</option>
+                    }
+                </select>
+            </div>
+            <div class="col-sm-5">
+                <select name="anneeDebut" id="anneeDebut" class="form-control">
+                    <option value="annee">annee</option>
+                    @for(i<-1960 to 2080){
+                        @if(i==experience.getAnneeDebut){
+                            <option value="@i" selected>@i</option>
+                        }else{
+                            <option value="@i">@i</option>
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="moiFin" class="col-sm-2">Fin</label>
+            <div class="col-sm-5">
+                <select name="moiDebut" id="moiFin" class="form-control">
+                    <option value="moi">moi</option>
+                    @if(experience.getMoiFin()=="Janvier"){
+                        <option value="Janvier" selected>Janvier</option>
+                    }else{
+                        <option value="Janvier">Janvier</option>
+                    }
+                    @if(experience.getMoiFin()=="Fevrier"){
+                        <option value="Fevrier" selected>Fevrier</option>
+                    }else{
+                        <option value="Fevrier">Fevrier</option>
+                    }
+                    @if(experience.getMoiFin()=="Mars"){
+                        <option value="Mars" selected>Mars</option>
+                    }else{
+                        <option value="Mars">Mars</option>
+                    }
+                    @if(experience.getMoiFin()=="Avril"){
+                        <option value="Avril" selected>Avril</option>
+                    }else{
+                        <option value="Avril">Avril</option>
+                    }
+                    @if(experience.getMoiFin()=="Mai"){
+                        <option value="Mai" selected>Mai</option>
+                    }else{
+                        <option value="Mai">Mai</option>
+                    }
+                    @if(experience.getMoiFin()=="Juin"){
+                        <option value="Juin" selected>Juin</option>
+                    }else{
+                        <option value="Juin">Juin</option>
+                    }
+                    @if(experience.getMoiFin()=="Juillet"){
+                        <option value="Juillet" selected>Juillet</option>
+                    }else{
+                        <option value="Juillet">Juillet</option>
+                    }
+                    @if(experience.getMoiFin()=="Aout"){
+                        <option value="Aout" selected>Aout</option>
+                    }else{
+                        <option value="Aout">Aout</option>
+                    }
+                    @if(experience.getMoiFin()=="Septembre"){
+                        <option value="Septembre" selected>Septembre</option>
+                    }else{
+                        <option value="Septembre">Septembre</option>
+                    }
+                    @if(experience.getMoiFin()=="Octobre"){
+                        <option value="Octobre" selected>Octobre</option>
+                    }else{
+                        <option value="Octobre">Octobre</option>
+                    }
+                    @if(experience.getMoiFin()=="Novembre"){
+                        <option value="Novembre" selected>Novembre</option>
+                    }else{
+                        <option value="Novembre">Novembre</option>
+                    }
+                    @if(experience.getMoiFin()=="Decembre"){
+                        <option value="Decembre" selected>Decembre</option>
+                    }else{
+                        <option value="Decembre">Decembre</option>
+                    }
+
+                </select>
+            </div>
+            <div class="col-sm-5">
+                <select name="anneeFin" id="anneeFin" class="form-control">
+                    <option value="annee">annee</option>
+                    @for(i<-1960 to 2080){
+                        @if(i==experience.getAnneeFin){
+                            <option value="@i" selected>@i</option>
+                        }else{
+                            <option value="@i">@i</option>
+                        }
+                    }
+                </select>
+            </div>
+            <span class="error error-duree-experience hidden">
+                <span data-toggle="tooltip" data-placement="right" title="duree incorrecte"><span class="error-form badge">e</span></span>
+            </span>
+        </div>
+        <div class="form-group">
+            <div class="checkbox">
+                <label><input type="checkbox" name="etat" id="etat" value="@experience.getEtat()">Ceci est mon travail actuel</label>
+            </div>
+        </div>
+        <input type="submit" class="btn btn-primary" value="Mettre à jour">
+    }
+</div>

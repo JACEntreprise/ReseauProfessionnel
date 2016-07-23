@@ -1,0 +1,15 @@
+@helper.form(routes.PublicationController.partagePhoto(), 'enctype -> "multipart/form-data", 'class -> "form-horizontal form-pub-new form-pub-photo-partage",'role->"form") {
+    <div class="form-group">
+        <label class="label-image-pub click" for="urlImage">
+            <span class="glyphicon glyphicon-picture change"></span>
+        </label>
+        <input name="urlImage" id="urlImage" class="ajax_file_image hidden" type="file" required>
+        <div class="contenu-pub-image">
+            <img src="" alt="" class="image-user-pub hidden pub-image-show"/>
+        </div>
+        <div class="col-sm-12">
+            <textarea class="form-control" id="contenu" name="contenu" rows="5" placeholder="Dites quelque chose à propos de l'image" required></textarea>
+        </div>
+    </div>
+    <input type="submit" class="btn btn-primary" value="Publier">
+}

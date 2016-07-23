@@ -1,0 +1,27 @@
+@(membre :Membre)
+
+<div class="entete-content">
+    <div class="titre-content">
+        <span class="glyphicon glyphicon-education icon-label icon-loisir"></span>
+        <span>Loisir</span>
+    </div>
+    <div class="bouton-plus">
+        <button class="btn btn-primary bouton-entete bouton-entete-loisir icon-loisir" title="Ajouter une autre loisir"><span class="glyphicon glyphicon-plus"></span>Ajouter</button>
+    </div>
+
+</div>
+<div class="contenu-formation">
+    @if(membre.getParticulier().getLoisirs().size==0){
+        <p class="rien">Aucun loisir</p>
+    }else{
+        @for(loisir <- membre.getParticulier().getLoisirs()){
+            <div class="item-formation item-profil col-sm-12">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+                <span class="element-item">@loisir.getLibele()</span>
+                <a href="@routes.ProfilController.modifierLoisir(loisir.getId())" class="pencil-modifier-loisir hidden">
+                    <span class="glyphicon glyphicon-pencil" title="Modifier"></span>
+                </a>
+            </div>
+        }
+    }
+</div>

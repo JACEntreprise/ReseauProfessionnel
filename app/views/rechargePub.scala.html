@@ -1,2 +1,114 @@
-@(membre:Membre)(formCommentaire: Form[Commentaire])(publications:List[Publication])
-@publication.publication(membre)(formCommentaire)(publications)
+@(membre:Membre)
+@for(publication <- membre.publicationsNonLues()) {
+    <div id="pub-@publication.getId()">
+
+        <div class="pub-element">
+            <div class="titre-icon click" data-toggle="tooltip" data-placement="bottom" title="@publication.getMembre().getNomProfil()">
+                @if(publication.getMembre().getImageProfil()==null){
+                <span class="glyphicon glyphicon-user icon-poste"></span>
+                }else{
+                <span><img src='@routes.Assets.versioned("images/profil/")@publication.getMembre().getImageProfil().getNom()' alt="" class="image-profile-pub"></span>
+                }
+            </div>
+            <div class="content-comment-pub">
+                <div class="petit-bloc bloc-content">
+                    <div class="content-titre-pub">
+                        <span><a href="#">@publication.getMembre.getNomProfil()</a></span>
+                        <span>@publication.getDatePub()</span>
+                            <span class="dropdown right">
+                                <span  class="dropdown-toggle click" data-toggle="dropdown"><span class="glyphicon glyphicon-menu-down"></span></span>
+                                <ul class="dropdown-menu">
+                                    @if(membre.getId()==publication.getMembre().getId()){
+                                        <li><a href="#"><span class="glyphicon glyphicon-remove icon-list-gris"></span>Supprimer</a></li>
+                                        <li><a href="#"><span class="glyphicon glyphicon-pencil icon-list-gris"></span>Modifier</a></li>
+                                    }
+                                    <li><a href="#"><span class="glyphicon glyphicon-thumbs-down icon-list-gris"></span>Je n'aime pas</a></li>
+                                </ul>
+                            </span>
+
+                    </div>
+                    @if(publication.getUrlImage()!=null){
+                    <div class="content-img-pub">
+                        <img src='@routes.Assets.versioned("images/publication/")@publication.getNomImage()' class="content-img-pub-image">
+                    </div>
+                    }
+                    <div class="content-contenu-pub">
+                        <div class="contenu-pub">
+                            @publication.getContenuPub()
+                            @if(publication.getContenu().length()>400){
+                            ... <a href="#" class="lire-suite-pub" data-target="@routes.PublicationController.laPub(publication.getId())">lire la suite</a>
+                            }
+                        </div>
+                        <p>
+                            <span class="jaime left">3<a href="#"><span class="glyphicon glyphicon-thumbs-up"></span>j'aime</a></span>
+                                <span class="nombre-commentaire right">
+                                    @if(publication.getCommentaires().size()!=0){
+                                        @publication.getCommentaires().size()
+                                        @if(publication.getCommentaires().size()>1){
+                                            commentaires
+                                        }else{
+                                            commentaire
+                                        }
+                                    }else{
+                                        aucun commentaire
+                                    }
+                                </span>
+                        </p>
+                    </div>
+                </div>
+                <div class="commentaire-pub">
+                    <div class="list-comment">
+                        <ul>
+                            @for(commentaire <- publication.listeCommentaires()) {
+                            <li>
+                                <div class="col-sm-2 no-padding-left">
+                                    @if(commentaire.getMembre().getImages().size==0){
+                                    <span class="glyphicon glyphicon-user icon-label"></span>
+                                    }else{
+                                    @for(i<-commentaire.getMembre().getImages()){
+                                    @if(i.getProfil()==true){
+                                    <span><img src='@routes.Assets.versioned("images/profil/")@i.getNom()' alt="" class="image-profile-comment"></span>
+                                    }
+                                    }
+                                    }
+                                </div>
+                                <div class="col-sm-10 no-padding-left no-padding-right">
+                                    <div><span class="nom">@commentaire.getMembre().getNomProfil</span>@commentaire.getContenu()</div>
+                                    <div class="aime-heure">
+                                        <span class="jaime left">3<a href="#"><span class="glyphicon glyphicon-thumbs-up"></span>j'aime</a></span>
+                                        <span class="heure">5h</span>
+                                    </div>
+                                </div>
+                            </li>
+                            }
+                        </ul>
+                    </div>
+                    <div class="form-comment">
+                        @helper.form(routes.PublicationController.ajouterCommentaire(publication.getId()), 'class -> "form-horizontal form-pub-new form-pub-new-pub",'role->"form") {
+                        <div class="form-group">
+                            <label for="contenu" class="col-sm-2">
+                                @if(membre.getImages().size==0){
+                                <span class="glyphicon glyphicon-user icon-label"></span>
+                                }else{
+                                @for(i<-membre.getImages()){
+                                @if(i.getProfil()==true){
+
+                                <span><img src='@routes.Assets.versioned("images/profil/")@i.getNom()' alt="" class="image-profile-comment"></span>
+                                }
+                                }
+                                }
+                            </label>
+                            <div class="col-sm-10">
+                                <input type="text" id="contenu" class="form-control" placeholder="Ajouter un commentaire" name="contenu" required/>
+                            </div>
+                        </div>
+                        <input type="hidden" class="element-cache" value="@publication.getId()">
+                        }
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+}

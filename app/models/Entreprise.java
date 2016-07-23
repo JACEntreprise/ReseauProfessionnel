@@ -5,6 +5,8 @@ import play.data.format.Formats;
 import play.data.validation.Constraints;
 
 import javax.persistence.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
@@ -85,6 +87,17 @@ public class Entreprise extends Model{
 
     public void setMembre(Membre membre) {
         this.membre = membre;
+    }
+
+    public static void completeProfil(Membre m,String adresse, String telephone, String siteweb, String domaine,String dateCreation) throws ParseException {
+        m.setAdresse(adresse);
+        m.setEtat(-1);
+        m.setTelephone(telephone);
+        m.setSiteweb(siteweb);
+        SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy");
+        m.getEntreprise().setDomaine(domaine);
+        m.getEntreprise().setDateCreation(f.parse(dateCreation));
+        m.update();
     }
 
     /**

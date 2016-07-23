@@ -1,9 +1,11 @@
 package models;
 
+import com.avaje.ebean.Ebean;
 import com.avaje.ebean.Model;
 import play.data.validation.Constraints;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * Entite Competence
@@ -14,20 +16,21 @@ public class Competence extends Model {
      * Identifiant de competence
      */
     @Id
-    public long id;
+    private long id;
 
     /**
      * La description de la competence
      */
     @Constraints.Required
-    public String description;
+    private String description;
 
     /**
-     * Relation entre Competence et Profil
-     * Plusieurs competences sont associées à un profil
+     * Relation entre Competence et membre
+     * Plusieurs compétences peuvent être partager par un groupes de membre
      */
-    @ManyToOne
-    public Profil profil;
+
+    @ManyToMany(mappedBy = "competences")
+    private List<Membre> membres;
 
     public Competence() {
     }
@@ -48,12 +51,32 @@ public class Competence extends Model {
         this.description = description;
     }
 
-    public Profil getProfil() {
-        return profil;
+    public List<Membre> getMembres() {
+        return membres;
     }
 
-    public void setProfil(Profil profil) {
-        this.profil = profil;
+    public void setMembres(List<Membre> membres) {
+        this.membres = membres;
+    }
+
+    public Competence(String description) {
+        this.description = description;
+    }
+
+    public static void ajouterNewCompetence(String description, Membre m){
+        Competence competence= new Competence(description);
+        competence.getMembres().add(m);
+        competence.save();
+    }
+
+    public static void modifierCompetence(Long id, String descrption){
+        Competence competence= Competence.getCompetence(id);
+        competence.setDescription(descrption);
+        competence.update();
+    }
+
+    public static Competence getCompetence(Long id){
+        return Competence.find.byId(id);
     }
 
     /**

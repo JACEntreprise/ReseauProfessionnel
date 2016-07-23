@@ -1,7 +1,10 @@
 package controllers;
 
+import com.avaje.ebean.Ebean;
 import controllers.action.Secured;
+import controllers.membre.*;
 import models.*;
+import play.data.Form;
 import play.data.FormFactory;
 import play.libs.Json;
 import play.mvc.Controller;
@@ -10,10 +13,13 @@ import play.mvc.Result;
 import play.mvc.Security;
 import repository.MembreRepository;
 import views.html.*;
+import views.html.cvView.formation.ajouterFormulaireFormulaire;
+import play.Routes;
 
 import javax.inject.Inject;
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
@@ -51,12 +57,7 @@ public class ApplicationController extends Controller {
          * les formulaires de publication et de commentaire
          * et les publications concernant ce membre
          */
-        return ok(accueil.render(
-                membre,
-                formFactory.form(Publication.class),
-                formFactory.form(Commentaire.class),
-                Publication.publicationsLues(membre)
-        ));
+        return ok(accueil.render(membre));
     }
 
     /**
@@ -70,21 +71,12 @@ public class ApplicationController extends Controller {
         Membre membre= Membre.byEmail(session("membre"));
 
         /**
-         * On recupere la liste de toutes les publications qui ne sont pas encore lues par ce membre
-         */
-        List<Publication> publications=Publication.publicationsNonLues(membre);
-
-        /**
          * On envoie sur la page
          * le mebre
          * le formulaire de commentaire
          * et les publications non lues
          */
-        return ok(rechargePub.render(
-                membre,
-                formFactory.form(Commentaire.class),
-                publications
-        ));
+        return ok(rechargePub.render(membre));
     }
 
     /**
@@ -136,12 +128,16 @@ public class ApplicationController extends Controller {
                 /**
                  * On crée l'image
                  */
-                Image image=new Image();
                 Membre membre=Membre.byEmail(session("membre"));
-                image.membre=membre;
-                image.setProfil(membre.getProfil());
-                image.chemin=path+"/public/images/profil/"+nom;
-                image.nom=nom;
+                Image i= Ebean.find(Image.class).where().eq("profil",true).eq("membre.id",membre.getId()).findUnique();
+                if(i!=null){
+                    i.setProfil(false);
+                    i.update();
+                }
+                Image image=new Image();
+                image.setMembre(membre);
+                image.setChemin(path+"/public/images/profil/"+nom);
+                image.setNom(nom);
                 image.save();
                 /**
                  * On envie l'image dans le repertoire
@@ -173,8 +169,18 @@ public class ApplicationController extends Controller {
      * et le redirigé vers la page pour changer sa photo de profil
      * @return
      */
-    public Result validerDonneeProfil(){
+    public Result validerDonneeProfil() throws ParseException {
         Membre m= Membre.byEmail(session("membre"));
-        return ok("ok");
+        if(m.getEntreprise()==null){
+            final Form<FormulaireParticulier> form =formFactory.form(FormulaireParticulier.class).bindFromRequest();
+            String dateDeNaissance=form.get().getJour()+"/"+form.get().getMoi()+"/"+form.get().getAnnee();
+            Particulier.completeProfil(m,form.get().getAdresse(),form.get().getTelephone(),form.get().getSiteweb(),form.get().getLieuDeNaissance(),dateDeNaissance);
+        }else{
+            final Form<FormulaireEntreprise> form =formFactory.form(FormulaireEntreprise.class).bindFromRequest();
+            String dateCreation=form.get().getJour()+"/"+form.get().getMoi()+"/"+form.get().getAnnee();
+            Entreprise.completeProfil(m,form.get().getAdresse(),form.get().getTelephone(),form.get().getSiteweb(),form.get().getDomaine(),dateCreation);
+        }
+        return redirect(controllers.routes.ApplicationController.accueil());
     }
+
 }

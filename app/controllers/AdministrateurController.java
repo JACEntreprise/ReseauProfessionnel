@@ -1,6 +1,5 @@
 package controllers;
 
-import com.avaje.ebean.Model;
 import controllers.action.SecuredAdmin;
 import models.Administrateur;
 import models.Membre;
@@ -57,6 +56,7 @@ public class AdministrateurController extends Controller {
          * si les données sont valides, on crée la session
          * ensuite on le redirige vers sa page personnelle
          */
+        session().clear();
         session("administrateur", loginForm.get().getEmail());
         return redirect(routes.AdministrateurController.admin());
     }
@@ -80,6 +80,7 @@ public class AdministrateurController extends Controller {
     public static void defaultAdmin(){
         List<Administrateur> listAdmins;
         listAdmins = Administrateur.listAdministrateurs();
+
         if(listAdmins.size() == 0){//il n'existe pas d'administrateur, on ajoute l'admin par défaut
             Administrateur admin = new Administrateur();
             admin.setPrenom("Admin");

@@ -1,0 +1,21 @@
+@(listArticles : List[Article])
+<table class="table .table-striped" id="list-article">
+    <thead>
+    <tr>
+        <th>Titre</th><th>Date de publication</th><th>Etat</th><th class="table_bouton">supprimer</th><th class="table_bouton">modifier</th><th class="table_bouton">afficher</th>
+    </tr>
+
+    </thead>
+    <tbody>
+    @for(article <- listArticles){
+    <tr>
+        <td>@article.getTitre()</td>
+        <td>@article.getDatePublication()</td>
+        <td>@article.isPublie()</td>
+        <td class="table_bouton"><span class="glyphicon glyphicon-trash"></span></td>
+        <td class="table_bouton"><span class="glyphicon glyphicon-pencil"></span></td>
+        <td class="table_bouton"><span class="glyphicon glyphicon-eye-open"></span></td>
+    </tr>
+    }
+    </tbody>
+</table>

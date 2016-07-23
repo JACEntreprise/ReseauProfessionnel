@@ -1,7 +1,7 @@
-@(listArticles : List[Article])(listDomaines :List[Domaine])(membre :Administrateur)
+@(listArticles : List[Article])(listDomaines :List[Domaine])(membre :Membre)
 @administrateur.layout_admin(membre){
 <div id="article_menu" class="admin_item">
-    <h3 class="titre"><a href="#">Gestion des articles</a></h3>
+    <h3 class="titre"><a href="#"><span class="glyphicon glyphicon-list-alt"></span>Gestion des articles</a></h3>
     <ul class="liste">
         <li class="liste_item first"><span class="glyphicon glyphicon-hand-right"></span><a href="@routes.ArticleController.lister()">Liste des articles</a></li>
         <li class="liste_item"><span class="glyphicon glyphicon-hand-right"></span><a href="@routes.ArticleController.ajouterform()">Ajouter un article</a></li>
@@ -22,7 +22,7 @@
         <form class="form-horizontal form-complet">
             <div class="form-group champ">
                 <label class="domaineLabel">Domaine:</label>
-                <select name="type" class="domaineField form-control">
+                <select id="domaine" name="type" class="domaineField form-control">
                     <option value="tous" selected>Tous</option>
                     @for(domaine <- listDomaines){
                     <option>@domaine.getLibelle()</option>
@@ -90,7 +90,7 @@
         <table class="table .table-striped" id="list-article">
             <thead>
                 <tr>
-                    <th>Titre</th><th>Date de publication</th><th>Etat</th><th>supprimer</th><th>modifier</th>
+                    <th>Titre</th><th>Date de publication</th><th>Etat</th><th class="table_bouton">actions</th>
                 </tr>
 
             </thead>
@@ -100,8 +100,15 @@
                         <td>@article.getTitre()</td>
                         <td>@article.getDatePublication()</td>
                         <td>@article.isPublie()</td>
-                        <td><span class="glyphicon glyphicon-pencil"></span></td>
-                        <td><span class="glyphicon glyphicon-pencil"></span></td>
+                        <td class="table_bouton">
+                            <a href="@routes.ArticleController.supprimer(article.getId())">
+                                <button class="supprimer"><span class="glyphicon glyphicon-trash"></span>supprimer</button>
+                            </a>
+                            <button class="modifier"><span class="glyphicon glyphicon-pencil"></span>modifier</button>
+                            <a href="@routes.ArticleController.voir(article.getId())">
+                                <button class="afficher"><span class="glyphicon glyphicon-eye-open"></span>afficher</button>
+                            </a>
+                        </td>
                     </tr>
                 }
             </tbody>
@@ -116,11 +123,32 @@
 }{
     <script type="text/javascript">
         $(document).ready(function() {
+
+            /*******************************************
+             *envoi du filtre sur la liste avec ajax
+             *******************************************
+            $("#domaine").ischecked(function(){
+                var DATA = "ok";
+                $.ajax({
+                    type: "GET",
+                    url: "@routes.ArticleController.lister",
+                    data: DATA,
+                    dataType: 'html',
+                    success: function(data){
+                        $("#listeArticle").html(data);
+                    }
+                });
+            });
+            */
+
+            /***************************************
+             *gestion du tableau avec dataTable
+             ***************************************/
             $('#list-article').DataTable({
                 "language": {
                     "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json"
                 }
             });
-        } );
+        });
     </script>
 }

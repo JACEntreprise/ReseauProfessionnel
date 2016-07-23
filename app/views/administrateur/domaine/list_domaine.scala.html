@@ -1,0 +1,67 @@
+@(listDomaines : List[Domaine])(form : Form[Domaine])(membre : Membre)
+@administrateur.layout_admin(membre){
+
+}{
+@*
+*Contenu de la page qui liste les domaines
+*@
+<div id="admin_domaine">
+
+    @*Gestion de l'ajout d'un nouveau domaine*@
+    @helper.form(routes.DomaineController.ajouter(), 'class -> "form-inline",'role->"form",'name->"formulaireAjoutDomaine"){
+        <div class="form-group ajout_domaine">
+            <input type="text" name="libelle" class="form-control" placeholder="Ajouter un nouveau domaine">
+        </div>
+        <button type="submit" class="btn btn-primary bouton_ajout_domaine">Ajouter</button>
+    }
+
+
+    @*liste des domaines*@
+
+    <div id="listeDomaine" class="liste">
+        <table class="table .table-striped" id="list-domaine">
+            <thead>
+            <tr>
+                <th>Numéro</th><th>Libellé du domiane</th><th class="table_bouton">actions</th>
+            </tr>
+
+            </thead>
+            <tbody>
+            @for(domaine <- listDomaines){
+            <tr>
+                <td>@domaine.getId()</td>
+                <td>@domaine.getLibelle</td>
+                <td class="table_bouton">
+                    <button class="supprimer"><span class="glyphicon glyphicon-trash"></span>supprimer</button>
+                    <button class="modifier"><span class="glyphicon glyphicon-pencil"></span>modifier</button>
+                </td>
+            </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+
+
+</div>
+
+}{
+
+}{
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#list-domaine').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json"
+                }
+            });
+
+
+            $('.table > tbody > tr').click(function() {
+                // row was clicked
+            });
+        } );
+
+
+
+    </script>
+}

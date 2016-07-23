@@ -96,5 +96,4 @@ public class Administrateur extends Membre{
 
         return admin;
     }
-
 }

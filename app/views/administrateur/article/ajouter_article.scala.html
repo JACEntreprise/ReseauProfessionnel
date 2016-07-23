@@ -1,7 +1,7 @@
 @(form : Form[Article])(membre : Membre)(listDomaines : List[Domaine])
 @administrateur.layout_admin(membre){
     <div id="article_menu" class="admin_item">
-        <h3 class="titre"><a href="#">Gestion des articles</a></h3>
+        <h3 class="titre"><a href="#"><span class="glyphicon glyphicon-list-alt"></span>Gestion des articles</a></h3>
         <ul class="liste">
             <li class="liste_item first"><span class="glyphicon glyphicon-hand-right"></span><a href="@routes.ArticleController.lister()">Liste des articles</a></li>
             <li class="liste_item"><span class="glyphicon glyphicon-hand-right"></span><a href="@routes.ArticleController.ajouterform()">Ajouter un article</a></li>
@@ -50,15 +50,24 @@
             @* les domaines associés à l'article *@
             <div class="imageDomaine">
                 <div class="form-group">
-                    <label for="domaine" class="col-sm-12"><span class="glyphicon glyphicon glyphicon-certificate"></span>Domaines associés à l'article</label>
+                    <label for="domaines" class="col-sm-12"><span class="glyphicon glyphicon-certificate"></span>Domaines associés à l'article</label>
                     <div class="col-sm-12">
-                        <select multiple class="form-control" id="domaine">
+                        <select name="domaines" class="form-control" id="domaines" multiple="multiple">
                             @for(domaine <- listDomaines){
-                            <option>domaine.getLibelle()</option>
+                            <option><span class=" 	glyphicon glyphicon-triangle-right"></span>@domaine.getLibelle()</option>
                             }
                         </select>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        @* champ qui permet de dire si l'article est publié ou pas *@
+        <div class="form-group etat_article col-sm-12">
+            <label for="etat_article"><span class="glyphicon glyphicon glyphicon-certificate"></span>Etat de l'article</label>
+            <div class="radio" id="etat_article">
+                <label class="col-sm-12"><input type="radio" name="publie">Publié</label>
+                <label class="col-sm-12"><input type="radio" name="publie" checked="checked">Non publié</label>
             </div>
         </div>
 

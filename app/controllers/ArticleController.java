@@ -2,7 +2,6 @@ package controllers;
 
 import com.google.inject.Inject;
 import controllers.action.SecuredAdmin;
-import models.Administrateur;
 import models.Article;
 import models.Domaine;
 import models.Membre;
@@ -12,11 +11,11 @@ import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
 import play.mvc.Security;
-import views.html.administrateur.*;
+import views.html.administrateur.article.*;
 
 import java.io.File;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -33,15 +32,16 @@ public class ArticleController extends Controller {
      */
     public Result lister(){
         //on recupère le membre connecté
-        String email = session("administrateur");
-        Administrateur admin = Administrateur.byEmail(email);
+        Membre admin = AdministrateurController.adminConnecte();
 
         //la liste de tous les domaines
         List<Domaine> listDomaines;
         listDomaines = Domaine.listeDomaine();
 
         List<Article> listArticles = Article.listArticles();
-        return ok(list_admin.render(listArticles,listDomaines,admin));
+        return ok(list_article.render(listArticles,listDomaines,admin));
+
+        //gestion des requetes ajax
     }
 
     /**
@@ -53,7 +53,7 @@ public class ArticleController extends Controller {
         Membre membre = AdministrateurController.adminConnecte();
         //la liste de tous les domaines
         List<Domaine> listDomaines = Domaine.listeDomaine();
-        return ok(ajouter_admin.render(formFactory.form(Article.class),membre,listDomaines));
+        return ok(ajouter_article.render(formFactory.form(Article.class),membre,listDomaines));
     }
 
     /**
@@ -67,6 +67,18 @@ public class ArticleController extends Controller {
         Article article = new Article();
         article.setTitre(articleForm.get().getTitre());
         article.setContenu(articleForm.get().getContenu());
+        article.setPublie(articleForm.get().isPublie());
+
+        //le domaine
+        List<Domaine> domaines = articleForm.get().getDomaines();
+        List<Domaine> nvDomaines = new ArrayList<>();
+        for(int i=0;i<domaines.size();i++){
+            Domaine d = domaines.get(i);
+            d = d.byLibelle(d.getLibelle());
+            nvDomaines.add(d);
+        }
+        article.setDomaines(nvDomaines);
+        article.setMembre(AdministrateurController.adminConnecte());
 
         //upload de l'image
         Http.MultipartFormData body = request().body().asMultipartFormData();
@@ -102,15 +114,17 @@ public class ArticleController extends Controller {
      * action qui permet de supprimer un article
      * @return
      */
-    public Result supprimer(){
-        return ok("test");
+    public Result supprimer(Long id){
+        Article article = Article.getArticle(id);
+        article.supprimer();
+        return redirect(routes.ArticleController.lister());
     }
 
     /**
      * action qui permet de modifier un article
      * @return
      */
-    public Result modifier(){
+    public Result modifier(Long id){
         return ok("test");
     }
 
@@ -118,8 +132,11 @@ public class ArticleController extends Controller {
      * action qui permet de visualiser un article
      * @return
      */
-    public Result voir(){
-        return ok("test");
+    public Result voir(Long id){
+        Article article = Article.getArticle(id);
+        //membre connecté
+        Membre membre = AdministrateurController.adminConnecte();
+        return ok(voir.render(article,membre));
     }
 
 

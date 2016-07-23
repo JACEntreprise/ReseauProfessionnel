@@ -77,7 +77,7 @@ public class Publication extends Model{
      */
     public Publication() {
         datePublication = new Date();
-        SimpleDateFormat dt = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+        SimpleDateFormat dt = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         String nvd = dt.format(datePublication);
         try {
             datePublication = dt.parse(nvd);

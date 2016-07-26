@@ -49,11 +49,27 @@ GET     /notification/pub/:id/commentaires          controllers.PublicationContr
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file                               controllers.Assets.versioned(path="/public", file: Asset)
 
-# Administration de l'application
+########### Administration de l'application ###############
+
 GET     /admin                                      controllers.AdministrateurController.admin()
 GET     /login                                      controllers.AdministrateurController.login()
 POST    /authentification                           controllers.AdministrateurController.authenticate()
 
+<<<<<<< HEAD
+##routes pour la gestion des articles
+GET     /article                                            controllers.ArticleController.lister()
+GET     /article/ajouterform                                controllers.ArticleController.ajouterform()
+POST    /article/ajouter                                    controllers.ArticleController.ajouter()
+GET     /article/supprimer/:id                              controllers.ArticleController.supprimer(id:Long)
+POST    /article/modifier/:id                               controllers.ArticleController.modifier(id:Long)
+GET     /article/voir/:id                                   controllers.ArticleController.voir(id:Long)
+
+##routes pour la gestion des domaine
+GET     /domaine                                            controllers.DomaineController.lister()
+POST    /domaine/ajouter                                    controllers.DomaineController.ajouter()
+GET     /domaine/supprimer                                  controllers.DomaineController.supprimer()
+POST    /domaine/modifier                                   controllers.DomaineController.modifier()
+=======
 GET     /article                                    controllers.ArticleController.lister()
 GET     /article/ajouterform                        controllers.ArticleController.ajouterform()
 POST    /article/ajouter                            controllers.ArticleController.ajouter()

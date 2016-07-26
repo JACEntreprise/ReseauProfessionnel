@@ -826,6 +826,7 @@ public class Membre extends Model {
      * @return
      */
     public static List<Membre> listMembres(){
+
         return Membre.find.all();
     }
 

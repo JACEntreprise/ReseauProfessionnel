@@ -11,7 +11,7 @@ import java.util.List;
 @Entity
 @DiscriminatorValue("article")
 public class Article extends Publication {
-    @ManyToMany(mappedBy = "articles", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "articles")
     private List<Domaine> domaines;
 
     private boolean publie;
@@ -77,13 +77,15 @@ public class Article extends Publication {
     public void modifier(Article article){
         super.modifier(article);
         this.domaines = article.getDomaines();
+        this.update();
     }
 
     /**
      * supprimer un article
      */
     public void supprimer(){
-        etat = true;
+        this.etat = true;
+        this.update();
     }
 
     /**

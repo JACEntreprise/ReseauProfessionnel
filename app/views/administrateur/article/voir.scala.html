@@ -1,0 +1,57 @@
+@(article : Article)(membre : Membre)
+@administrateur.layout_admin(membre){
+    <div id="article_menu" class="admin_item">
+        <h3 class="titre"><a href="#"><span class="glyphicon glyphicon-list-alt"></span>Gestion des articles</a></h3>
+        <ul class="liste">
+            <li class="liste_item first"><span class="glyphicon glyphicon-hand-right"></span><a href="@routes.ArticleController.lister()">Liste des articles</a></li>
+            <li class="liste_item"><span class="glyphicon glyphicon-hand-right"></span><a href="@routes.ArticleController.ajouterform()">Ajouter un article</a></li>
+            <li class="liste_item"><span class="glyphicon glyphicon-hand-right"></span><a href="#">Liste des articles publiés</a></li>
+            <li class="liste_item"><span class="glyphicon glyphicon-hand-right"></span><a href="#">Liste des articles non publiés</a></li>
+            <li class="liste_item last"><span class="glyphicon glyphicon-hand-right"></span><a href="#">Liste des articles supprimés</a></li>
+        </ul>
+    </div>
+}{
+
+    @*
+    *information sur l'article
+    *@
+    <div id="info_article" class="col-sm-12">
+
+        @* boutons supprimer et modifier *@
+        <div class="boutons">
+            <ul>
+                <li><a href="" class="modifier">Modifier</a></li>
+                <li><a href="@routes.ArticleController.supprimer(article.getId())" class="supprimer">Supprimer</a></li>
+            </ul>
+        </div>
+
+        @* titre de l'article *@
+        <div class="titre">
+            <h2>@article.getTitre()</h2>
+        </div>
+
+        @* image de l'article *@
+        <div class="image">
+            <img src="/assets/images/articles/@article.getUrlImage()">
+        </div>
+
+        @* contenu de l'article *@
+        <div class="contenu">
+            @article.getContenu()
+        </div>
+
+        @* domaines concernés par l'article *@
+        <div class="domaine">
+            <ul>
+                @for(domaine <- article.getDomaines()){
+                    <li>@domaine.getLibelle()</li>
+                }
+            </ul>
+        </div>
+    </div>
+}{
+}{
+    <script type="text/javascript">
+        CKEDITOR.replace( 'contenu',{height: 200});
+    </script>
+}

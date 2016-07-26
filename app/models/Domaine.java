@@ -113,4 +113,14 @@ public class Domaine extends Model {
         domaine = Ebean.find(Domaine.class).where().eq("id",id).findUnique();
         return domaine;
     }
+
+    /**
+     * trouver le domaine correspondant à un libellé donné
+     */
+    public static Domaine byLibelle(String libelle){
+        Domaine domaine;
+        domaine = Ebean.find(Domaine.class).where().eq("libelle",libelle).findUnique();
+
+        return domaine;
+    }
 }

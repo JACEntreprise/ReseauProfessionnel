@@ -1,0 +1,14 @@
+@(membre:Membre)(pub:Publication)
+@layout(membre){
+
+}{
+<div id="la-pub">
+    @publication.afficherLaPublication(membre)(pub)
+</div>
+}{
+
+}{
+    <script src='@routes.Assets.versioned("javascripts/amitie.js")' type="text/javascript"></script>
+    <script src='@routes.Assets.versioned("javascripts/publication/commentaire.js")' type="text/javascript"></script>
+    <script src='@routes.Assets.versioned("javascripts/publication/pub.js")' type="text/javascript"></script>
+}

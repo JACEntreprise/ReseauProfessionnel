@@ -1,32 +1,4 @@
 @(membre :Membre)
-<span class="dropdown">
-    <a class="dropdown-toggle click element-entete-rouge" data-toggle="dropdown" href="#">
-        <span class="glyphicon glyphicon-globe"></span>
-        @if(membre.commentaireNonLueReelle().size()>0){
-            <span class="rouge">@membre.commentaireNonLueReelle().size()</span>
-        }
-    </a>
-    <ul class="dropdown-menu">
-        @for(commentaire <- membre.commentaireNonLueReelle()){
-            <li>
-                <div class="libele-sidebar libele-suggession petit-bloc">
-                    <div class="contenu-libele-sidebar">
-                        <div class="element-libele-sidebar icon-element">
-                            @if(commentaire.getMembre().getImageProfil()==null){
-                                <span class="glyphicon glyphicon-user icon-libele-sidebar icon-gris"></span>
-                            }else{
-                                <span><img src='@routes.Assets.versioned("images/profil/")@commentaire.getMembre().getImageProfil().getNom()' alt="" class="image-profile-suggestion img-thumbnail"></span>
-                            }
-                        </div>
-                        <div class="element-libele-sidebar texte-element">
-                            <span class="content-libele-sidebar">
-                                <span class="titre-element">@commentaire.getMembre().getNomProfil() a commenté la publication de @commentaire.getPublication().getMembre().getNomProfil()</span>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </li>
-
-        }
-    </ul>
-</span>
+@if(membre.commentaireNonLueReelle().size()>0){
+    <span class="rouge">@membre.commentaireNonLueReelle().size()</span>
+}

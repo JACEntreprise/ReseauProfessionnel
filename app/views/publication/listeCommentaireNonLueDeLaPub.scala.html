@@ -1,0 +1,11 @@
+@(vueCommentaires: List[VueCommentaire])
+@if(vueCommentaires.size()>0){
+    <span class="click content-cotenu-notification commentaire-non-lu-pub-notification" data-target="@routes.PublicationController.afficherLaPublication(vueCommentaires.get(0).getCommentaire().getPublication().getId())">
+        @vueCommentaires.size()
+        @if(vueCommentaires.size()==1){
+            nouvel commentaire
+        }else{
+            nouveaux commentaires
+        }
+    </span>
+}

@@ -1,0 +1,40 @@
+@(membre :Membre)
+@for(amitie <- membre.demandesEtDemandeAccepter()){
+    <div class="content-notification click">
+        <a href="#" class="lien-notification"></a>
+        <div class="contenu-libele-sidebar">
+            <div class="image-profil-notification">
+                @if(amitie.isAccepte()){
+                    @if(amitie.getMembreCible().getImageProfil()==null){
+                        <span class="glyphicon glyphicon-user icon-libele-sidebar icon-gris"></span>
+                    }else{
+                        <span><img src='@routes.Assets.versioned("images/profil/")@amitie.getMembreCible().getImageProfil().getNom()' alt="" class="image-profile-new"></span>
+                    }
+                }else{
+                    @if(amitie.getMembreSource().getImageProfil()==null){
+                        <span class="glyphicon glyphicon-user icon-libele-sidebar icon-gris"></span>
+                    }else{
+                        <span><img src='@routes.Assets.versioned("images/profil/")@amitie.getMembreSource().getImageProfil().getNom()' alt="" class="image-profile-new"></span>
+                    }
+                }
+            </div>
+            <div class="element-libele-notification">
+                <span class="content-libele-notification">
+                    @if(amitie.isAccepte()){
+                        <span class="titre-element">@amitie.getMembreCible().getNomProfil()</span><br>
+                        <span class="rien titre-pro-notification">@amitie.getMembreCible().getStatus()</span><br>
+                        <span class="titre-pro-notification">
+                            a accepté votre demande
+                        </span>
+                    }else{
+                        <span class="titre-element">@amitie.getMembreSource().getNomProfil()</span><br>
+                        <span class="rien titre-pro-notification">@amitie.getMembreSource().getStatus()</span><br>
+                        <span class="titre-pro-notification">
+                            veut avoir des relations avec vous
+                        </span>
+                    }
+                </span>
+            </div>
+       </div>
+    </div>
+}

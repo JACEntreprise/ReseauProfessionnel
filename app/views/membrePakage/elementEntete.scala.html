@@ -1,4 +1,34 @@
 @(membre :Membre)
-@element_icon.icon_message(membre)
-@element_icon.icon_comment(membre)
-@element_icon.icon_user(membre)
+<span class="click element-entete-rouge">
+    <span class="glyphicon glyphicon-comment"></span>
+    @element_icon.icon_message(membre)
+</span>
+<span class="element-entete-rouge" data-target="@routes.MembreController.contentIconComment()">
+    <span class="click glyphicon glyphicon-globe"></span>
+    <span class="compte-comment-notification">
+        @element_icon.icon_comment(membre)
+    </span>
+    <div class="content-comment-new hidden content-icon">
+        <div class="reload">
+            <span class="glyphicon glyphicon-eject"></span>
+            <div class="not-pro-text">Notifications</div>
+            <img src='@routes.Assets.versioned("images/loading.gif")' alt="" class="hidden loading">
+        </div>
+        <div class="content-new-comment content-icon-new hidden"></div>
+    </div>
+</span>
+<span class="element-entete-rouge" data-target="@routes.MembreController.contentIconUser()">
+    <span class="click glyphicon glyphicon-user"></span>
+    <span class="compte-comment-user">
+        @element_icon.icon_user(membre)
+    </span>
+    <div class="content-user-new hidden content-icon">
+        <div class="reload">
+            <span class="glyphicon glyphicon-eject"></span>
+            <div class="not-pro-text">Notifications</div>
+            <img src='@routes.Assets.versioned("images/loading.gif")' alt="" class="hidden loading">
+        </div>
+        <div class="content-new-user content-icon-new hidden"></div>
+    </div>
+</span>
+

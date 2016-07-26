@@ -478,6 +478,10 @@ public class Membre extends Model {
         this.save();
     }
 
+    /**
+     * Obtenir une liste de suggessions d'amis
+     * @return
+     */
     public List<Membre> suggessionAmis(){
         String sql
                 = "SELECT DISTINCT id " +
@@ -579,6 +583,10 @@ public class Membre extends Model {
         return membres;
     }
 
+    /**
+     * recuper le status de ce membre
+     * @return
+     */
     public String getStatus(){
         String status="pas de titre professionnel";
         if(this.getParticulier()!=null){
@@ -609,6 +617,10 @@ public class Membre extends Model {
         return status;
     }
 
+    /**
+     * recuperer le nom de profil
+     * @return
+     */
     public String getNomProfil(){
         String nomProfil="";
         if(this.particulier==null){
@@ -630,6 +642,10 @@ public class Membre extends Model {
         return null;
     }
 
+    /**
+     * Recuperer tous les membres qui ont demandé d'etre mon ami et que je n'ai pas encore accepté
+     * @return
+     */
     public List<Membre> demandes(){
         String sql="SELECT id FROM membre m WHERE m.id IN (SELECT a.membre_source_id FROM amitie a WHERE a.membre_cible_id=:id AND a.accepte=false) ORDER BY RAND() LIMIT 10";
         RawSql rawSql = RawSqlBuilder.parse(sql)
@@ -641,24 +657,40 @@ public class Membre extends Model {
         return membres;
     }
 
+    /**
+     * envoyer une demande d'ami
+     * @param id
+     */
     public void envoyerDemande(Long id){
         Membre membre=Ebean.find(Membre.class).where().eq("id",id).findUnique();
         Amitie demande= new Amitie(this,membre);
         demande.save();
     }
 
+    /**
+     * Accepter une demande d'ami
+     * @param id
+     */
     public void accepterDemande(Long id){
         Amitie demande= Ebean.find(Amitie.class).where().eq("membreCible.id",this.id).eq("membreSource.id",id).findUnique() ;
         demande.setAccepte(true);
         demande.update();
     }
 
+    /**
+     * Refuser une demande d'ami
+     * @param id
+     */
     public void refuserDemande(Long id){
 
         Amitie demande= Ebean.find(Amitie.class).where().eq("mebreSource.id",this.id).eq("mebreSource.id",id).findUnique() ;
         demande.delete();
     }
 
+    /**
+     * Recuperons les publications de ces amis qui ne sont ps encore lus
+     * @return
+     */
     public List<Publication> publicationsNonLues(){
         List<Publication> publications= new ArrayList<Publication>();
         List<Long> idAmis= new ArrayList<Long>();
@@ -694,6 +726,11 @@ public class Membre extends Model {
         return publications;
     }
 
+    /**
+     * Rrecuperons toutes les publications de ces amis
+     * et les marquées toutes lues
+     * @return
+     */
     public List<Publication> publicationsLues(){
         List<Publication> publications= new ArrayList<Publication>();
         List<Long> idAmis= new ArrayList<Long>();
@@ -722,10 +759,17 @@ public class Membre extends Model {
         return publications;
     }
 
+    /**
+     * Recuperer tous les commentaires de mes amis que je n'ai pas encore vu
+     * @return
+     */
     public List<Commentaire> commentairesNonLues(){
         List<Commentaire> commentaires= new ArrayList<Commentaire>();
         List<Long> idAmis= new ArrayList<Long>();
 
+        /**
+         * Recuperons mes amis
+         */
         for(Amitie macible: this.getAmities()){
             if(macible.isAccepte()){
                 idAmis.add(macible.getMembreCible().getId());
@@ -738,6 +782,9 @@ public class Membre extends Model {
             }
 
         }
+        /**
+         * Je recupere les commentaires non vus par ce membre
+         */
         commentaires= Ebean.find(Commentaire.class)
                 .where()
                 .or(Expr.eq("publication.membre.id",this.id), Expr.in("publication.membre.id",idAmis))
@@ -745,6 +792,10 @@ public class Membre extends Model {
                 .eq("vueCommentaires.vue",0)
                 .orderBy("id desc")
                 .findList();
+        /**
+         * On change la vue pour montrer que ce membre a vu ces commentaires
+         * mais il ne l'est pas encore lus
+         */
         for(Commentaire commentaire:commentaires){
             VueCommentaire vp=Ebean.find(VueCommentaire.class)
                     .where().eq("commentaire.id",commentaire.id)
@@ -756,6 +807,10 @@ public class Membre extends Model {
         return commentaires;
     }
 
+    /**
+     *Recuperer mes
+     * @return
+     */
     public List<Publication> publicationNonVueReelle(){
         return Ebean.find(Publication.class)
                 .where()
@@ -765,10 +820,20 @@ public class Membre extends Model {
                 .orderBy("id desc")
                 .findList();
     }
+
+    /**
+     * Recuperons toutes les membres
+     * @return
+     */
     public static List<Membre> listMembres(){
         return Membre.find.all();
     }
 
+    /**
+     * Recuprons les publications qui ont été vu par ce membre et
+     * qui ne sont pas encore lues
+     * @return
+     */
     public List<Publication> publicationNonLueReelle(){
         return Ebean.find(Publication.class)
                 .where()
@@ -778,6 +843,10 @@ public class Membre extends Model {
                 .findList();
     }
 
+    /**
+     * Recupererons les commentaires qui ne sont pas encore lus par ce membre
+     * @return
+     */
     public List<Commentaire> commentaireNonLueReelle(){
         return Ebean.find(Commentaire.class)
                 .where()
@@ -787,28 +856,16 @@ public class Membre extends Model {
                 .findList();
     }
 
-    public List<Membre> demandesEtDemandeAccepter(){
-        String sql="SELECT id " +
-                    "FROM membre m " +
-                    "WHERE m.id IN " +
-                        "(SELECT a.membre_source_id " +
-                        "FROM amitie a " +
-                        "WHERE a.membre_cible_id=:id " +
-                        "AND a.accepte=false" +
-                        ")"+
-                    " OR m.id IN" +
-                        "(SELECT a1.membre_cible_id " +
-                        "FROM amitie a1 " +
-                        "WHERE a1.membre_source_id=:id " +
-                        "AND a1.accepte=true" +
-                        ")"
-                ;
-        RawSql rawSql = RawSqlBuilder.parse(sql)
-                .create();
-        List<Membre> membres = Ebean.find(Membre.class)
-                .setRawSql(rawSql)
-                .setParameter("id", id)
+    /**
+     * Recuperer les membres qui ont demandé d'etre mon amie
+     * et ceux qui ont accepté de l'etre
+     * @return
+     */
+    public List<Amitie> demandesEtDemandeAccepter(){
+        List<Amitie> amities = Ebean.find(Amitie.class)
+                .where()
+                .or(Expr.and(Expr.eq("membreSource.id",id),Expr.eq("accepte",true)),Expr.and(Expr.eq("membreCible.id",id),Expr.eq("accepte",false)))
                 .findList();
-        return membres;
+        return amities;
     }
 }

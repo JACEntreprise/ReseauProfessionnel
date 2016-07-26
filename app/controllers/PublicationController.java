@@ -16,9 +16,7 @@ import java.util.Date;
 import java.util.List;
 
 import views.html.formulaire.formulairePublication;
-import views.html.publication.publication;
-import views.html.publication.unePublication;
-import views.html.publication.laPub;
+import views.html.publication.*;
 
 
 /**
@@ -171,6 +169,13 @@ public class PublicationController extends Controller {
         commentaire.save();
         return redirect(controllers.routes.ApplicationController.accueil());
     }
+
+    /**
+     * Action pour ajouter un nouvel commentaire
+     * et le rediriger vers la page d'afficahage des publications
+     * @param id
+     * @return
+     */
     public Result ajouterCommentaire(Long id){
          /*
             Récupérartion des données du formulaire dans commentaire
@@ -180,29 +185,116 @@ public class PublicationController extends Controller {
         return redirect(controllers.routes.PublicationController.unePublication(id));
     }
 
+    /**
+     * Action pour ajouter un nouvel commentaire
+     * et le rediriger vers la page d'afficahage d'une publication
+     * @param id
+     * @return
+     */
+    public Result ajouterCommentaireLaPub(Long id){
+         /*
+            Récupérartion des données du formulaire dans commentaire
+         */
+        final Form<Commentaire> formCommentaire =formFactory.form(Commentaire.class).bindFromRequest();
+        Commentaire.creerNewCommentaire(formCommentaire.get().getContenu(),Publication.getPublication(id),Membre.byEmail(session("membre")));
+        return redirect(controllers.routes.PublicationController.afficherLaPublication(id));
+    }
+
+    /**
+     * Action pour recuperer les publications non lues
+     * @return
+     */
     public Result publicationNonLue(){
         Membre membre=Membre.byEmail(session("membre"));
 
         return redirect(controllers.routes.ApplicationController.accueil());
     }
 
+    /**
+     * Envoyer le formulaire de publication
+     * @return
+     */
     public Result formulairePublication(){
         Membre membre=Membre.byEmail(session("membre"));
         return ok(formulairePublication.render(membre));
     }
 
+    /**
+     * Action pour recuperer une publication
+     * @param id
+     * @return
+     */
     public Result unePublication(Long id){
         Membre membre=Membre.byEmail(session("membre"));
         return ok(unePublication.render(membre,Publication.getPublication(id)));
     }
+
+    /**
+     * Action pour recuperer une publication rechargement automatique
+     * @param id
+     * @return
+     */
     public Result laPub(Long id){
         Membre membre=Membre.byEmail(session("membre"));
         return ok(laPub.render(Publication.getPublication(id)));
     }
 
+    /**
+     * Action pour lister toutes les publications
+     * @return
+     */
     public Result listePub(){
         Membre membre=Membre.byEmail(session("membre"));
         return ok(publication.render(membre));
     }
 
+    /**
+     * afficher une publication
+     * @param id
+     * @return
+     */
+    public Result afficherUnePublication(Long id){
+        Membre membre=Membre.byEmail(session("membre"));
+        Publication pub=Publication.getPublication(id);
+        if(pub==null){
+            return redirect(controllers.routes.ApplicationController.accueil());
+        }
+        pub.lueToutesLesCommentairesNonLueDeLaPub(membre);
+        return ok(afficherUnePublication.render(membre,pub));
+    }
+
+    /**
+     * Afficher une publication recharge automatique
+     * @param id
+     * @return
+     */
+    public Result afficherLaPublication(Long id){
+        Membre membre=Membre.byEmail(session("membre"));
+        Publication pub=Publication.getPublication(id);
+        pub.lueToutesLesCommentairesNonLueDeLaPub(membre);
+        return ok(afficherLaPublication.render(membre,pub));
+    }
+
+    /**
+     * Acton pour charger automatiquement la liste des commentaires d'une publication non lus
+     * @param id
+     * @return
+     */
+    public Result listeCommentaireNonLueDeLaPub(Long id){
+        Membre membre=Membre.byEmail(session("membre"));
+        Publication pub=Publication.getPublication(id);
+        return ok(listeCommentaireNonLueDeLaPub.render(pub.listeCommentairesNonDeLaPub(membre)));
+    }
+
+    /**
+     *
+     * @param id
+     * @return
+     */
+    public Result notificationsCommentaires(Long id){
+        Membre membre=Membre.byEmail(session("membre"));
+        Publication pub=Publication.getPublication(id);
+
+        return redirect(controllers.routes.PublicationController.afficherLaPublication(id));
+    }
 }

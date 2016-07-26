@@ -1,0 +1,129 @@
+@(membre:Membre)(pub:Publication)
+<div class="col-sm-12">
+    <div class="petit-bloc content-la-pub">
+        <div class="img-la-pub">
+            @if(pub.getUrlImage()!=null){
+                <img src='@routes.Assets.versioned("images/publication/")@pub.getNomImage()' class="content-img-la-pub-image">
+            }else{
+                <div class="la-pub-img content-img-la-pub-image"></div>
+            }
+            <div class="profile-img-la-pub">
+                <div class="img-profile-la-pub label-la-pub">
+                    @if(pub.getMembre().getImageProfil()==null){
+                        <span class="glyphicon glyphicon-user icon-img-la-pub"></span>
+                    }else{
+                        <span><img src='@routes.Assets.versioned("images/profil/")@pub.getMembre().getImageProfil().getNom()' alt="" class="icon-img-la-pub"></span>
+                    }
+                </div>
+                <div class="text-profile-la-pub label-la-pub">
+                    <span class="nom-profile-la-pub">@pub.getMembre().getNomProfil()</span><br>
+                    <span class="status-profile-la-pub rien">@pub.getMembre().getStatus()</span>
+                </div>
+            </div>
+        </div>
+        <div class="context-la-pub">
+            @if(pub.getTitre()!=null){
+                <h4>@pub.getTitre()</h4>
+            }
+            <p>@pub.getContenu()</p>
+        </div>
+        <div class="middle-la-pub">
+            <div class="img-profile-la-pub label-la-pub">
+                @if(pub.getMembre().getImageProfil()==null){
+                    <span class="glyphicon glyphicon-user icon-img-la-pub"></span>
+                }else{
+                    <span><img src='@routes.Assets.versioned("images/profil/")@pub.getMembre().getImageProfil().getNom()' alt="" class="icon-img-la-pub"></span>
+                }
+            </div>
+            <div class="text-profile-la-pub label-la-pub">
+                <span class="nom-profile-la-pub">@pub.getMembre().getNomProfil()</span><br>
+                <span class="status-profile-la-pub rien">@pub.getMembre().getStatus()</span><br>
+                <span class="btn btn-default">Avoir des relations</span>
+            </div>
+            <div class="date-profile-la-pub label-la-pub">
+                <span class="jour-profile-la-pub">@publication.dureePub(pub)</span>
+            </div>
+            <div class="comment-jaime-la-pub">
+                <div class="jaime-la-pub-left left">
+                    <a href="#">j'aime</a>
+                </div>
+                <div class="comment-la-pub-right right">
+                    <span class="compte-jaimes-la-pub-right click">5 <span class="glyphicon glyphicon-thumbs-up"></span></span>
+                    <span class="compte-comment-la-pub-right">
+                        @if(pub.getCommentaires().size()!=0){
+                            @pub.getCommentaires().size()
+                            @if(pub.getCommentaires().size()>1){
+                                commentaires
+                            }else{
+                                commentaire
+                            }
+                        }else{
+                            aucun commentaire
+                        }
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="list-comment-la-pub">
+            <ul>
+                @for(commentaire <- pub.listeCommentaires()) {
+                    <li>
+                        <div class="img-nor-la-pub">
+                            @if(commentaire.getMembre().getImageProfil()==null){
+                                <span class="glyphicon glyphicon-user img-comment-la-pub"></span>
+                            }else{
+                                <span><img src='@routes.Assets.versioned("images/profil/")@commentaire.getMembre().getImageProfil().getNom()' alt="" class="img-comment-la-pub"></span>
+                            }
+                        </div>
+                        <div class="text-nor-la-pub">
+                            @commentaire.getContenu()
+                        </div>
+                    </li>
+                }
+            </ul>
+            <div class="form-comment-la-pub">
+                @helper.form(routes.PublicationController.ajouterCommentaireLaPub(pub.getId()), 'class -> "form-pub-new-pub") {
+                    <div class="reload">
+                        <img src='@routes.Assets.versioned("images/loading.gif")' alt="" class="loading hidden">
+                    </div>
+                    <div class="form-la-pub">
+                        <label for="contenu" class="img-nor-la-pub">
+                            @if(membre.getImageProfil()==null){
+                                <span class="glyphicon glyphicon-user img-comment-la-pub"></span>
+                            }else{
+                                <span><img src='@routes.Assets.versioned("images/profil/")@membre.getImageProfil().getNom()' alt="" class="img-comment-la-pub"></span>
+                            }
+                        </label>
+                        <textarea class="text-nor-la-pub" id="contenu" name="contenu" rows="1" max-rows="10" placeholder="Ajouter un commentaire" required></textarea>
+                    </div>
+
+                    <input type="hidden" class="element-cache" value="@pub.getId()">
+                    <div class="button-submit-reset right">
+                        <button class="btn btn-default reset-annuler" type="reset">Annuler</button>
+                        <button class="btn btn-primary" type="submit">Commenter</button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<script src='@routes.Assets.versioned("javascripts/textarea.js")' type="text/javascript"></script>
+<script type="text/javascript">
+    $("document").ready(function(){
+        function rechargerNotification() {
+            $.ajax({
+                type: "GET",
+                url: "@routes.PublicationController.listeCommentaireNonLueDeLaPub(pub.getId())",
+                data: "ok",
+                dataType: 'html',
+                success: function(data){
+                    $("#contenu-notification").empty();
+                    $("#contenu-notification").append(data);
+                }
+            });
+        }
+        setInterval(rechargerNotification, 20000);
+
+    })
+</script>
+

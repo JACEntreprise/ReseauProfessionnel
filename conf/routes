@@ -19,7 +19,8 @@ GET     /accueil                                    controllers.ApplicationContr
 #route pour recharger automatiquement les publications non lues
 GET     /rechargePub                                controllers.ApplicationController.rechargePub()
 GET     /liste-pub                                  controllers.PublicationController.listePub()
-GET     /rechargeTout                               controllers.MembreController.rechargeTout()
+GET     /recharge-icon-comment                      controllers.MembreController.rechargeIconComment()
+GET     /recharge-icon-user                         controllers.MembreController.rechargeIconUser()
 
 #route pour completer le profil
 GET     /profilComplet                              controllers.ApplicationController.completeProfil()
@@ -37,8 +38,13 @@ GET     /formulaire-publication                     controllers.PublicationContr
 
 #route pour valider un commentaire sur une publication
 POST    /commentaire/publication/:id                controllers.PublicationController.ajouterCommentaire(id:Long)
+POST    /commentaire/pub/:id                        controllers.PublicationController.ajouterCommentaireLaPub(id:Long)
 GET     /publication/:id                            controllers.PublicationController.unePublication(id:Long)
 GET     /pub/:id                                    controllers.PublicationController.laPub(id:Long)
+GET     /publication/numero/:id                     controllers.PublicationController.afficherUnePublication(id:Long)
+GET     /pub/numero/:id                             controllers.PublicationController.afficherLaPublication(id:Long)
+GET     /pub/numero/:id/commentaire-non-lu          controllers.PublicationController.listeCommentaireNonLueDeLaPub(id:Long)
+GET     /notification/pub/:id/commentaires          controllers.PublicationController.notificationsCommentaires(id:Long)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file                               controllers.Assets.versioned(path="/public", file: Asset)
@@ -97,3 +103,7 @@ GET    /suggession                                  controllers.ProfilController
 GET    /accepter/:id                                controllers.MembreController.accepterDemande(id :Long)
 GET    /envoyer/:id                                 controllers.MembreController.envoyerDemande(id :Long)
 GET    /refuser/:id                                 controllers.MembreController.refuserDemande(id :Long)
+
+
+GET    /content-icon-comment                        controllers.MembreController.contentIconComment()
+GET    /content-icon-user                           controllers.MembreController.contentIconUser()

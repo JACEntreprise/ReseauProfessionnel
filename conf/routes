@@ -55,7 +55,6 @@ GET     /admin                                      controllers.AdministrateurCo
 GET     /login                                      controllers.AdministrateurController.login()
 POST    /authentification                           controllers.AdministrateurController.authenticate()
 
-<<<<<<< HEAD
 ##routes pour la gestion des articles
 GET     /article                                            controllers.ArticleController.lister()
 GET     /article/ajouterform                                controllers.ArticleController.ajouterform()
@@ -69,13 +68,6 @@ GET     /domaine                                            controllers.DomaineC
 POST    /domaine/ajouter                                    controllers.DomaineController.ajouter()
 GET     /domaine/supprimer                                  controllers.DomaineController.supprimer()
 POST    /domaine/modifier                                   controllers.DomaineController.modifier()
-=======
-GET     /article                                    controllers.ArticleController.lister()
-GET     /article/ajouterform                        controllers.ArticleController.ajouterform()
-POST    /article/ajouter                            controllers.ArticleController.ajouter()
-GET     /article/supprimer                          controllers.ArticleController.supprimer()
-POST    /article/modifier                           controllers.ArticleController.modifier()
-GET     /article/voir                               controllers.ArticleController.voir()
 
 #profil d'un membre
 GET    /formation                                   controllers.ProfilController.formation()

@@ -76,6 +76,12 @@ public class Membre extends Model {
     private Particulier particulier;
 
     /**
+     * Relation d'héritage entre Membe et Administrateur
+     */
+    @OneToOne(mappedBy = "membre", cascade = CascadeType.ALL)
+    private Administrateur administrateur;
+
+    /**
      * Relation d'héritage entre Membe et Entreprise
      */
     @OneToOne(mappedBy = "membre")
@@ -334,6 +340,14 @@ public class Membre extends Model {
 
     public void setParticulier(Particulier particulier) {
         this.particulier = particulier;
+    }
+
+    public Administrateur getAdministrateur() {
+        return administrateur;
+    }
+
+    public void setAdministrateur(Administrateur administrateur) {
+        this.administrateur = administrateur;
     }
 
     public Entreprise getEntreprise() {

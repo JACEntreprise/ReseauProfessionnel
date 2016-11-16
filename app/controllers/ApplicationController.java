@@ -13,7 +13,6 @@ import play.mvc.Result;
 import play.mvc.Security;
 import repository.MembreRepository;
 import views.html.*;
-import views.html.cvView.formation.ajouterFormulaireFormulaire;
 import play.Routes;
 
 import javax.inject.Inject;

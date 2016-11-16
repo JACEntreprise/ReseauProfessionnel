@@ -13,8 +13,8 @@ public class FormulaireConnexionAdmin extends FormulaireConnexion {
     }
 
     public String validate(){
-        Membre membre = Administrateur.byEmail(this.email);
-        if(membre != null){
+        Administrateur admin = Administrateur.byEmail(this.email);
+        if(admin != null){
             if(Membre.authenticate(email,motDePasse)==null){
                 return "Email ou mot de passe incorrect";
             }

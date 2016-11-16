@@ -3,6 +3,15 @@
 
 # --- !Ups
 
+create table administrateur (
+  id                            bigint auto_increment not null,
+  prenom                        varchar(255),
+  nom                           varchar(255),
+  membre_id                     bigint,
+  constraint uq_administrateur_membre_id unique (membre_id),
+  constraint pk_administrateur primary key (id)
+);
+
 create table amitie (
   id                            bigint auto_increment not null,
   membre_source_id              bigint,
@@ -192,6 +201,8 @@ create table vue_publication (
   constraint pk_vue_publication primary key (id)
 );
 
+alter table administrateur add constraint fk_administrateur_membre_id foreign key (membre_id) references membre (id) on delete restrict on update restrict;
+
 alter table amitie add constraint fk_amitie_membre_source_id foreign key (membre_source_id) references membre (id) on delete restrict on update restrict;
 create index ix_amitie_membre_source_id on amitie (membre_source_id);
 
@@ -274,6 +285,8 @@ create index ix_vue_publication_publication_id on vue_publication (publication_i
 
 # --- !Downs
 
+alter table administrateur drop foreign key fk_administrateur_membre_id;
+
 alter table amitie drop foreign key fk_amitie_membre_source_id;
 drop index ix_amitie_membre_source_id on amitie;
 
@@ -352,6 +365,8 @@ drop index ix_vue_publication_membre_id on vue_publication;
 
 alter table vue_publication drop foreign key fk_vue_publication_publication_id;
 drop index ix_vue_publication_publication_id on vue_publication;
+
+drop table if exists administrateur;
 
 drop table if exists amitie;
 

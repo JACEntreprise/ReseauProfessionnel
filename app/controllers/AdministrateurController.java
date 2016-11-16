@@ -8,11 +8,10 @@ import play.data.FormFactory;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
-import views.html.administrateur.*;
 
 import javax.inject.Inject;
 import java.util.List;
-
+import views.html.administrateur.*;
 
 /**
  * Created by julio on 18/06/2016.
@@ -85,8 +84,10 @@ public class AdministrateurController extends Controller {
             Administrateur admin = new Administrateur();
             admin.setPrenom("Admin");
             admin.setNom("Admin");
-            admin.setEmail("admin@gmail.com");
-            admin.setMotDePasse("admin111");
+            Membre admin_membre = new Membre();
+            admin_membre.setEmail("admin@gmail.com");
+            admin_membre.setMotDePasse("admin111");
+            admin.setMembre(admin_membre);
 
             admin.ajouter();
         }

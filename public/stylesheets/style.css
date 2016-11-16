@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /* Welcome to Compass.
  * In this file you should write your main styles. (or centralize your imports)
  * Import this file using the following HTML or equivalent:
@@ -332,66 +333,70 @@ body {
   width: 80px;
   padding: 2px;
 }
-/* line 232, ../scss/layout/_accueil.scss */
-#contenu-page .contenu-page-personnelle .contenu-personnelle .contenu-center-gauche {
+
+/* line 236, ../scss/layout/_accueil.scss */
+.contenu-center-gauche {
   margin-bottom: 20px;
 }
-/* line 234, ../scss/layout/_accueil.scss */
-#contenu-page .contenu-page-personnelle .contenu-personnelle .contenu-center-gauche .icon-label {
+
+/* line 239, ../scss/layout/_accueil.scss */
+.icon-label {
   background-color: #d4d4d4;
   color: #fff;
   padding: 10px;
 }
-/* line 239, ../scss/layout/_accueil.scss */
-#contenu-page .contenu-page-personnelle .contenu-personnelle .contenu-center-gauche .image-profile-comment {
+
+/* line 244, ../scss/layout/_accueil.scss */
+.image-profile-comment {
   border: 1px solid #d4d4d4;
   height: 35px;
   width: 35px;
 }
-/* line 244, ../scss/layout/_accueil.scss */
-#contenu-page .contenu-page-personnelle .contenu-personnelle .contenu-center-gauche .pub-element {
+
+/* line 249, ../scss/layout/_accueil.scss */
+.pub-element {
   margin-bottom: 10px;
 }
-/* line 246, ../scss/layout/_accueil.scss */
-#contenu-page .contenu-page-personnelle .contenu-personnelle .contenu-center-gauche .pub-element .content-comment-pub {
+/* line 251, ../scss/layout/_accueil.scss */
+.pub-element .content-comment-pub {
   overflow: hidden;
 }
-/* line 248, ../scss/layout/_accueil.scss */
-#contenu-page .contenu-page-personnelle .contenu-personnelle .contenu-center-gauche .pub-element .content-comment-pub .commentaire-pub {
+/* line 253, ../scss/layout/_accueil.scss */
+.pub-element .content-comment-pub .commentaire-pub {
   border: 1px solid #d4d4d4;
   margin-top: -10px;
   padding: 10px;
   float: left;
   width: 100%;
 }
-/* line 254, ../scss/layout/_accueil.scss */
-#contenu-page .contenu-page-personnelle .contenu-personnelle .contenu-center-gauche .pub-element .content-comment-pub .commentaire-pub .list-comment {
+/* line 259, ../scss/layout/_accueil.scss */
+.pub-element .content-comment-pub .commentaire-pub .list-comment {
   padding-bottom: 10px;
 }
-/* line 256, ../scss/layout/_accueil.scss */
-#contenu-page .contenu-page-personnelle .contenu-personnelle .contenu-center-gauche .pub-element .content-comment-pub .commentaire-pub .list-comment li {
+/* line 261, ../scss/layout/_accueil.scss */
+.pub-element .content-comment-pub .commentaire-pub .list-comment li {
   overflow: hidden;
   padding: 10px 0;
   padding-bottom: 20px;
 }
-/* line 263, ../scss/layout/_accueil.scss */
-#contenu-page .contenu-page-personnelle .contenu-personnelle .contenu-center-gauche .pub-element .content-comment-pub .content-titre-pub {
+/* line 268, ../scss/layout/_accueil.scss */
+.pub-element .content-comment-pub .content-titre-pub {
   border-bottom: 1px solid #d4d4d4;
   margin-bottom: 10px;
   padding-bottom: 5px;
 }
-/* line 267, ../scss/layout/_accueil.scss */
-#contenu-page .contenu-page-personnelle .contenu-personnelle .contenu-center-gauche .pub-element .content-comment-pub .content-titre-pub .dropdown-menu {
+/* line 272, ../scss/layout/_accueil.scss */
+.pub-element .content-comment-pub .content-titre-pub .dropdown-menu {
   left: auto !important;
   right: 0 !important;
 }
-/* line 272, ../scss/layout/_accueil.scss */
-#contenu-page .contenu-page-personnelle .contenu-personnelle .contenu-center-gauche .pub-element .content-comment-pub .glyphicon.glyphicon-thumbs-up {
+/* line 277, ../scss/layout/_accueil.scss */
+.pub-element .content-comment-pub .glyphicon.glyphicon-thumbs-up {
   margin-left: 5px;
   margin-right: 5px;
 }
-/* line 276, ../scss/layout/_accueil.scss */
-#contenu-page .contenu-page-personnelle .contenu-personnelle .contenu-center-gauche .pub-element .content-comment-pub .icon-list-gris {
+/* line 281, ../scss/layout/_accueil.scss */
+.pub-element .content-comment-pub .icon-list-gris {
   color: #d4d4d4;
   font-size: 0.8em;
   margin-right: 10px !important;
@@ -574,7 +579,7 @@ body {
 
 /* line 438, ../scss/layout/_accueil.scss */
 .menu-gerer {
-  border: 4px solid #082246 !important;
+  border: 4px solid #672494 !important;
   width: 310px;
 }
 /* line 441, ../scss/layout/_accueil.scss */
@@ -764,6 +769,308 @@ body {
 /* line 586, ../scss/layout/_accueil.scss */
 a:hover {
   text-decoration: none !important;
+}
+
+/* line 591, ../scss/layout/_accueil.scss */
+.element-popup {
+  left: auto !important;
+  right: 0;
+  width: 500px;
+}
+/* line 595, ../scss/layout/_accueil.scss */
+.element-popup .content-popup {
+  position: relative;
+}
+/* line 597, ../scss/layout/_accueil.scss */
+.element-popup .content-popup .glyphicon.glyphicon-eject {
+  position: absolute;
+  right: 5px;
+  top: -10px;
+}
+
+/* line 605, ../scss/layout/_accueil.scss */
+.element-entete-rouge {
+  position: relative;
+}
+/* line 607, ../scss/layout/_accueil.scss */
+.element-entete-rouge .content-icon {
+  background: #fff none repeat scroll 0 0;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.176);
+  position: absolute;
+  right: 5px;
+  text-align: center;
+  top: 22px;
+  width: 350px;
+  border: 4px solid #672494;
+  max-height: 520px;
+}
+/* line 617, ../scss/layout/_accueil.scss */
+.element-entete-rouge .content-icon .reload {
+  position: relative;
+}
+/* line 619, ../scss/layout/_accueil.scss */
+.element-entete-rouge .content-icon .reload .loading {
+  margin-top: 40px;
+  margin-bottom: 10px;
+}
+/* line 623, ../scss/layout/_accueil.scss */
+.element-entete-rouge .content-icon .reload .glyphicon.glyphicon-eject {
+  position: absolute;
+  right: -3px;
+  top: -10px;
+  color: #672494 !important;
+}
+/* line 629, ../scss/layout/_accueil.scss */
+.element-entete-rouge .content-icon .reload .not-pro-text {
+  background: #672494 none repeat scroll 0 0;
+  color: #fff;
+  left: 0;
+  padding: 5px;
+  position: absolute;
+  right: -3px;
+  text-align: center;
+}
+/* line 639, ../scss/layout/_accueil.scss */
+.element-entete-rouge .content-icon .content-icon-new {
+  float: left;
+  padding: 5px;
+  width: 100%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  text-overflow: "ÔÇª";
+  margin-top: 40px;
+}
+/* line 648, ../scss/layout/_accueil.scss */
+.element-entete-rouge .content-icon .content-icon-new .content-notification {
+  float: left;
+  width: 100%;
+  text-align: left;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e6e6e6;
+  position: relative;
+}
+/* line 657, ../scss/layout/_accueil.scss */
+.element-entete-rouge .content-icon .content-icon-new .content-notification a:before {
+  position: absolute;
+  display: block;
+  content: "";
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+/* line 667, ../scss/layout/_accueil.scss */
+.element-entete-rouge .content-icon .content-icon-new .content-notification:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+/* line 671, ../scss/layout/_accueil.scss */
+.element-entete-rouge .content-icon .content-icon-new .content-notification .image-profile-new {
+  border: 1px solid #d4d4d4;
+  float: left;
+  height: 50px;
+  margin-right: 10px;
+  padding: 2px;
+  width: 50px;
+}
+/* line 679, ../scss/layout/_accueil.scss */
+.element-entete-rouge .content-icon .content-icon-new .content-notification .titre-pro-notification {
+  font-size: 0.8em;
+  text-align: left;
+}
+/* line 683, ../scss/layout/_accueil.scss */
+.element-entete-rouge .content-icon .content-icon-new .content-notification .membre-pub {
+  font-weight: bold;
+  color: #672494;
+}
+
+/* line 691, ../scss/layout/_accueil.scss */
+#la-pub {
+  margin-top: 30px;
+}
+/* line 693, ../scss/layout/_accueil.scss */
+#la-pub .reload {
+  float: left;
+  padding: 0 0 10px;
+  text-align: center;
+  width: 100%;
+}
+/* line 699, ../scss/layout/_accueil.scss */
+#la-pub .content-la-pub {
+  padding: 10px;
+}
+/* line 701, ../scss/layout/_accueil.scss */
+#la-pub .content-la-pub .img-la-pub {
+  background: #f5f5f5 none repeat scroll 0 0;
+  padding: 5px;
+  text-align: center;
+  width: 100%;
+  margin-bottom: 80px;
+  position: relative;
+}
+/* line 708, ../scss/layout/_accueil.scss */
+#la-pub .content-la-pub .img-la-pub .content-img-la-pub-image {
+  height: 270px;
+}
+/* line 711, ../scss/layout/_accueil.scss */
+#la-pub .content-la-pub .img-la-pub .profile-img-la-pub {
+  bottom: -70px;
+  left: 25px;
+  position: absolute;
+  text-align: left;
+}
+/* line 718, ../scss/layout/_accueil.scss */
+#la-pub .content-la-pub .context-la-pub {
+  border-bottom: 1px solid #d4d4d4;
+  margin-bottom: 10px;
+}
+/* line 721, ../scss/layout/_accueil.scss */
+#la-pub .content-la-pub .context-la-pub p {
+  font-size: 16px;
+}
+/* line 725, ../scss/layout/_accueil.scss */
+#la-pub .content-la-pub .list-comment-la-pub {
+  font-size: 15px;
+  margin: auto;
+  width: 80%;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  overflow: hidden;
+}
+/* line 732, ../scss/layout/_accueil.scss */
+#la-pub .content-la-pub .list-comment-la-pub li {
+  float: left;
+  width: 100%;
+  margin-bottom: 50px;
+}
+/* line 739, ../scss/layout/_accueil.scss */
+#la-pub .content-la-pub .button-submit-reset {
+  margin-top: 25px;
+}
+/* line 741, ../scss/layout/_accueil.scss */
+#la-pub .content-la-pub .button-submit-reset .btn {
+  margin-right: 25px;
+  border: 1px solid #672494;
+  padding: 3px 12px !important;
+  border-radius: 0px !important;
+}
+/* line 747, ../scss/layout/_accueil.scss */
+#la-pub .content-la-pub .button-submit-reset .btn-primary {
+  background: #672494;
+}
+/* line 751, ../scss/layout/_accueil.scss */
+#la-pub .content-la-pub textarea {
+  border: 1px solid #d4d4d4;
+  font-size: 16px;
+  padding: 18px 0 0 5px;
+}
+/* line 756, ../scss/layout/_accueil.scss */
+#la-pub .content-la-pub .img-nor-la-pub {
+  float: left;
+  margin-right: 20px;
+}
+/* line 759, ../scss/layout/_accueil.scss */
+#la-pub .content-la-pub .img-nor-la-pub .img-comment-la-pub {
+  border: 1px solid #d4d4d4;
+  height: 62px;
+  padding: 2px;
+  width: 62px;
+}
+/* line 766, ../scss/layout/_accueil.scss */
+#la-pub .content-la-pub .text-nor-la-pub {
+  float: left;
+  width: 85%;
+}
+/* line 770, ../scss/layout/_accueil.scss */
+#la-pub .content-la-pub .middle-la-pub {
+  border-bottom: 1px solid #d4d4d4;
+  margin-bottom: 20px;
+  padding: 20px;
+}
+/* line 774, ../scss/layout/_accueil.scss */
+#la-pub .content-la-pub .middle-la-pub .comment-jaime-la-pub {
+  padding: 10px 0;
+  font-size: 17px;
+}
+/* line 777, ../scss/layout/_accueil.scss */
+#la-pub .content-la-pub .middle-la-pub .comment-jaime-la-pub .comment-la-pub-right {
+  color: #082246;
+}
+/* line 779, ../scss/layout/_accueil.scss */
+#la-pub .content-la-pub .middle-la-pub .comment-jaime-la-pub .comment-la-pub-right .compte-jaimes-la-pub-right {
+  margin-right: 20px;
+}
+/* line 786, ../scss/layout/_accueil.scss */
+#la-pub .date-profile-la-pub {
+  border-left: 1px solid #d4d4d4;
+  margin-left: 5px;
+  padding-left: 25px;
+  text-align: center;
+}
+/* line 791, ../scss/layout/_accueil.scss */
+#la-pub .date-profile-la-pub .nombre-date-pub {
+  background: #fff none repeat scroll 0 0;
+  border: 5px solid #672494;
+  border-radius: 50%;
+  color: #672494;
+  display: block;
+  font-weight: bold;
+  text-align: center;
+  padding: 20px;
+  margin: 10px;
+}
+/* line 803, ../scss/layout/_accueil.scss */
+#la-pub .label-la-pub {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 7px;
+}
+/* line 807, ../scss/layout/_accueil.scss */
+#la-pub .label-la-pub .icon-img-la-pub {
+  background: #fff none repeat scroll 0 0;
+  border-radius: 50%;
+  height: 100px;
+  padding: 3px;
+  width: 100px;
+  border: 1px solid #f5f5f5;
+}
+/* line 815, ../scss/layout/_accueil.scss */
+#la-pub .label-la-pub .nom-profile-la-pub {
+  color: #672494;
+  font-weight: bold;
+}
+/* line 819, ../scss/layout/_accueil.scss */
+#la-pub .label-la-pub .status-profile-la-pub {
+  font-size: 0.9em;
+  font-weight: bold;
+}
+/* line 823, ../scss/layout/_accueil.scss */
+#la-pub .label-la-pub .btn.btn-default {
+  border: 1px solid #672494;
+  border-radius: 0;
+  margin-top: 5px;
+}
+
+/* line 830, ../scss/layout/_accueil.scss */
+.contenu-personnelle {
+  position: relative;
+}
+/* line 832, ../scss/layout/_accueil.scss */
+.contenu-personnelle #contenu-notification {
+  background: #672494;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.176);
+  color: #fff;
+  left: 40%;
+  position: fixed;
+  top: 150px;
+  z-index: 1000;
+}
+/* line 840, ../scss/layout/_accueil.scss */
+.contenu-personnelle #contenu-notification .content-cotenu-notification {
+  float: left;
+  padding: 5px 12px;
 }
 
 /* line 2, ../scss/layout/_profil.scss */

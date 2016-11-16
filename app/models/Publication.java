@@ -3,6 +3,7 @@ package models;
 import com.avaje.ebean.Ebean;
 import com.avaje.ebean.Expr;
 import com.avaje.ebean.Model;
+import org.jetbrains.annotations.Contract;
 import play.data.format.Formats;
 import play.data.validation.Constraints;
 
@@ -275,9 +276,29 @@ public class Publication extends Model{
         this.urlImage = publication.getUrlImage();
     }
 
+    /**
+     * Recuperons la duree de la publication
+     * @return
+     */
+    public Long datePubEnJour(){
+        Date now=new Date();
+        return (now.getTime()-this.datePublication.getTime())/1000/60/60/24;
+    }
+
+    /**
+     * Recuperer la duree de la publication
+     * @return
+     */
     public String getDatePub(){
         String pubDate="";
+        /**
+         * On recupere la date d'aujourd'hui
+         */
         Date now=new Date();
+
+        /**
+         * On recupere la duree en jour
+         */
         Long dureeEnSeconde=(now.getTime()-this.datePublication.getTime())/1000/60/60/24;
         if(dureeEnSeconde/360>=1){
             pubDate="publié il y a "+ dureeEnSeconde/360 + " an(s)";
@@ -303,10 +324,22 @@ public class Publication extends Model{
         return pubDate;
     }
 
+    /**
+     * Recuperer une publication connaissant son identifiant
+     * @param id
+     * @return
+     */
     public static Publication getPublication(Long id){
+        if(id==null || id==0){
+            return null;
+        }
         return Publication.find.byId(id);
     }
 
+    /**
+     * Recuperer les 5 derniers commentaires d'une publication
+     * @return
+     */
     public List<Commentaire> listeCommentaires(){
          List<Commentaire> commentaires=Ebean.find(Commentaire.class)
                 .where()
@@ -318,6 +351,48 @@ public class Publication extends Model{
         return commentaires;
     }
 
+    /**
+     * recuperer les commentaires d'une publication non vus par ce membre
+     * @param m
+     * @return
+     */
+    public List<VueCommentaire> listeCommentairesNonDeLaPub(Membre m){
+        List<VueCommentaire> commentaires=Ebean.find(VueCommentaire.class)
+                .where()
+                .eq("commentaire.publication.id",id)
+                .eq("membre.id",m.getId())
+                .eq("vue",0)
+                .findList();
+        return commentaires;
+    }
+
+    /**
+     * lire toutes les commentaires d'une publication que ce membre n'a pas encore lu
+     * @param m
+     */
+    public void lueToutesLesCommentairesNonLueDeLaPub(Membre m){
+        /**
+         * recuperos toutes les commentaires de la publication non vu par ce membre
+         */
+        List<VueCommentaire> commentaires=Ebean.find(VueCommentaire.class)
+                .where()
+                .eq("commentaire.publication.id",id)
+                .eq("membre.id",m.getId())
+                .or(Expr.eq("vue",-1),Expr.eq("vue",0))
+                .findList();
+        /**
+         * maintenant on les parcourt tous et on change leurs etats
+         */
+        for(VueCommentaire vc:commentaires){
+            vc.setVue(1);
+            vc.update();
+        }
+    }
+
+    /**
+     * Resumer d'une publication
+     * @return
+     */
     public String getContenuPub(){
         if(this.getContenu().length()>400){
             return this.getContenu().substring(0,399);

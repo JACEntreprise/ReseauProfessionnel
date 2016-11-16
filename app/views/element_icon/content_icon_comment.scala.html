@@ -1,0 +1,33 @@
+@(membre :Membre)
+@for(commentaire <- membre.commentaireNonLueReelle()){
+    <div class="content-notification click">
+        <a href="@routes.PublicationController.afficherUnePublication(commentaire.getPublication().getId())" class="lien-notification"></a>
+        <div class="contenu-libele-sidebar">
+            <div class="image-profil-notification">
+                @if(commentaire.getMembre().getImageProfil()==null){
+                    <span class="glyphicon glyphicon-user icon-libele-sidebar icon-gris"></span>
+                }else{
+                    <span><img src='@routes.Assets.versioned("images/profil/")@commentaire.getMembre().getImageProfil().getNom()' alt="" class="image-profile-new"></span>
+                }
+            </div>
+            <div class="element-libele-notification">
+                <span class="content-libele-notification">
+                    <span class="titre-element">@commentaire.getMembre().getNomProfil()</span><br>
+                    <span class="rien titre-pro-notification">@commentaire.getMembre().getStatus()</span><br>
+                    <span class="titre-pro-notification">
+                        a commenté
+                        @if(commentaire.getMembre().getEmail()==commentaire.getPublication().getMembre().getEmail()){
+                            sa publication
+                        }else{
+                            @if(commentaire.getPublication().getMembre().getEmail()==membre.getEmail()){
+                                votre publication
+                            }else{
+                                la publication de <span class="membre-pub">@commentaire.getPublication().getMembre().getNomProfil()</span>
+                            }
+                        }
+                    </span>
+                </span>
+            </div>
+       </div>
+    </div>
+}

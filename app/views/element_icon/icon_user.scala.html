@@ -1,14 +1,4 @@
 @(membre :Membre)
-<span class="dropdown">
-    <a class="dropdown-toggle click element-entete-rouge" data-toggle="dropdown" href="#">
-        <span class="glyphicon glyphicon-user"></span>
-        @if(membre.demandesEtDemandeAccepter().size()>0){
-            <span class="rouge">@membre.demandesEtDemandeAccepter().size()</span>
-        }
-    </a>
-    <ul class="dropdown-menu">
-        <li><a href="#"><span class="glyphicon glyphicon-remove icon-list-gris"></span>Supprimer</a></li>
-        <li><a href="#"><span class="glyphicon glyphicon-pencil icon-list-gris"></span>Modifier</a></li>
-        <li><a href="#"><span class="glyphicon glyphicon-thumbs-down icon-list-gris"></span>Je n'aime pas</a></li>
-    </ul>
-</span>
+@if(membre.demandesEtDemandeAccepter().size()>0){
+    <span class="rouge">@membre.demandesEtDemandeAccepter().size()</span>
+}

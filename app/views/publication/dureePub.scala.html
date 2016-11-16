@@ -1,0 +1,34 @@
+@(publication:Publication)
+publié
+@if(publication.datePubEnJour()/360>=1){
+    @if(publication.datePubEnJour()/360==1){
+        il ya
+        <span class="nombre-date-pub">1</span>
+        <span class="jour-date-pub">an</span>
+    }else{
+        <span class="nombre-date-pub">@publication.datePubEnJour()/360</span>
+        <span class="jour-date-pub">ans</span>
+    }
+}else{
+    @if(publication.datePubEnJour()/30>=1){
+        il ya
+        @if(publication.datePubEnJour()/30==1){
+            <span class="nombre-date-pub">1</span>
+            <span class="jour-date-pub">moi</span>
+        }else{
+            <span class="nombre-date-pub">@publication.datePubEnJour()/30</span>
+            <span class="jour-date-pub">mois</span>
+        }
+    }else{
+        @if(publication.datePubEnJour()>=2){
+            il ya
+            <span class="nombre-date-pub">@publication.datePubEnJour()<br>jours</span>
+        }else{
+            @if(publication.datePubEnJour()==1){
+                <span class="jour-date-pub">jaujourd'hui</span>
+            }else{
+
+            }
+        }
+    }
+}
